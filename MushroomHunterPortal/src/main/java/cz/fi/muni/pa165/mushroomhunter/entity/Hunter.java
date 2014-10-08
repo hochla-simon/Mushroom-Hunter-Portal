@@ -1,32 +1,32 @@
-//package cz.fi.muni.pa165.entity;
+package cz.fi.muni.pa165.mushroomhunter.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Author(
-   name = "Šimon Hochla",
-   date = "8/10/2014"
-)
+/**
+ *
+ * @author Å imon Hochla
+ */
 @Entity
-public class Person {
+public class Hunter {
 
-	@Id
-	@GeneratedValue
-	private long id = 0;
-	
-	@Column(nullable=false, unique=true)
-	private String nick;
-	
-	@Column(nullable=false)
-	private String firstName;
-	
-	@Column(nullable=false)
-	private String surname;
-	
-	@Column(nullable=true)
-	private String description;
+    @Id
+    @GeneratedValue
+    private long id = 0;
+
+    @Column(nullable = false, unique = true)
+    private String nick;
+
+    @Column(nullable = false)
+    private String firstName;
+
+    @Column(nullable = false)
+    private String surname;
+
+    @Column(nullable = true)
+    private String description;
 
     public long getId() {
         return id;
@@ -77,13 +77,19 @@ public class Person {
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (obj == null) {
             return false;
         }
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Person other = (Person) obj;
+        Hunter other = (Hunter) obj;
+        if (id != other.id) {
+            return false;
+        }
         return true;
     }
 }
