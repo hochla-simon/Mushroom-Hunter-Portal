@@ -99,14 +99,14 @@ public class Visit {
     /**
      * @return the foundMushrooms
      */
-    public Map<String,String> getFoundMushrooms() {
+    public Map<Mushroom,Integer> getFoundMushrooms() {
         return foundMushrooms;
     }
 
     /**
      * @param foundMushrooms the foundMushrooms to set
      */
-    public void setFoundMushrooms(Map<String,String> foundMushrooms) {
+    public void setFoundMushrooms(Map<Mushroom,Integer> foundMushrooms) {
         this.foundMushrooms = foundMushrooms;
     }
     

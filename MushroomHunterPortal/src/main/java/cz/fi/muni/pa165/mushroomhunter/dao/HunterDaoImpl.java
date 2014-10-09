@@ -7,46 +7,65 @@ package cz.fi.muni.pa165.mushroomhunter.dao;
 
 import cz.fi.muni.pa165.mushroomhunter.entity.Hunter;
 import java.util.List;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
  * @author Lukáš Valach
  */
-public class HunterDaoImpl implements HunterDao{
+@Stateless
+public class HunterDaoImpl implements HunterDao {
+
+    /**
+     * Entity manager
+     */
+    @PersistenceContext
+    private EntityManager em;
 
     @Override
-    public int save(Hunter hunter) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public long save(Hunter hunter) {
+        em.persist(hunter);
+        return hunter.getId();
     }
 
     @Override
-    public void update(Hunter hunter) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Hunter update(Hunter hunter) {
+        return em.merge(hunter);
     }
 
     @Override
     public void delete(Hunter hunter) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        em.remove(hunter);
     }
 
     @Override
-    public int find(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Hunter find(int id) {
+        final Query query = em.createQuery("from Hunter where id = :id");
+        query.setParameter("id", id);
+        return (Hunter) query.getSingleResult();
     }
 
     @Override
-    public void findByName(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Hunter> findByName(String firstName) {
+        final Query query = em.createQuery("from Hunter where firstName = :firstName");
+        query.setParameter("firstName", firstName);
+        return query.getResultList();
     }
 
     @Override
-    public void findBySurname(String surname) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Hunter> findBySurname(String surname) {
+        final Query query = em.createQuery("from Hunter where surname = :surname");
+        query.setParameter("surname", surname);
+        return query.getResultList();
     }
 
     @Override
     public List<Hunter> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final Query query = em.createQuery("from Hunter");
+        return query.getResultList();
     }
-    
+
 }
