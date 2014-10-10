@@ -17,11 +17,13 @@ public interface HunterDao {
 
     public void delete(Hunter hunter);
 
-    public Hunter find(int id);
+    public Hunter find(long id);
 
     public List<Hunter> findByName(String firstName);
 
     public List<Hunter> findBySurname(String surname);
+    
+    public List<Hunter> findByNick(String nick);
 
     public List<Hunter> findAll();
 }

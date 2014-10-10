@@ -42,7 +42,7 @@ public class HunterDaoImpl implements HunterDao {
     }
 
     @Override
-    public Hunter find(int id) {
+    public Hunter find(long id) {
         final Query query = em.createQuery("from Hunter where id = :id");
         query.setParameter("id", id);
         return (Hunter) query.getSingleResult();
@@ -62,6 +62,13 @@ public class HunterDaoImpl implements HunterDao {
         return query.getResultList();
     }
 
+    @Override
+    public List<Hunter> findByNick(String nick) {
+        final Query query = em.createQuery("from Hunter where nick = :nick");
+        query.setParameter("nick", nick);
+        return query.getResultList();
+    }
+    
     @Override
     public List<Hunter> findAll() {
         final Query query = em.createQuery("from Hunter");
