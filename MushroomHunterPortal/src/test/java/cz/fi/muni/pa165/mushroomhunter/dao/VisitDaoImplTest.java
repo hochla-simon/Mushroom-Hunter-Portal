@@ -73,8 +73,9 @@ public class VisitDaoImplTest {
         ReflectionTestUtils.setField(this.locationDao, "em", em);
         
         location = new Location();
-        location.setName("Brno - Zamilovaný háj");
+        location.setName("Zamilovaný háj");
         location.setDescription("Hríby nájdete na rozhraní lúky a lesa.");
+        location.setNearCity("Brno");
 
         hunter = new Hunter();
         hunter.setNick("Lesný muž");
@@ -126,9 +127,6 @@ public class VisitDaoImplTest {
     @After
     public void tearDown() {
           ((EntityManager) ReflectionTestUtils.getField(this.visitDao, "em")).close();
-          ((EntityManager) ReflectionTestUtils.getField(this.mushroomDao, "em")).close();
-          ((EntityManager) ReflectionTestUtils.getField(this.locationDao, "em")).close();
-          ((EntityManager) ReflectionTestUtils.getField(this.hunterDao, "em")).close();
     }
 
     /**
@@ -185,6 +183,7 @@ public class VisitDaoImplTest {
         System.out.println("find");
         
         Location location2 = new Location();
+        location2.setNearCity("Brno");
         location2.setName("Bystrc");
         location2.setDescription("Zmiešaný les.");
 
@@ -287,10 +286,12 @@ public class VisitDaoImplTest {
         hunter2.setDescription("Náruživec.");
         
         Location location2 = new Location();
+        location2.setNearCity("Brno");
         location2.setName("Bystrc");
         location2.setDescription("Zmiešaný les.");
         
         Location location3 = new Location();
+        location2.setNearCity("Adamov");
         location3.setName("Okolie Macochy.");
         location3.setDescription("Musí byť vlhké počasie.");
 
@@ -340,10 +341,12 @@ public class VisitDaoImplTest {
         hunter2.setDescription("Náruživec.");
         
         Location location2 = new Location();
+        location2.setNearCity("Brno");
         location2.setName("Bystrc");
         location2.setDescription("Zmiešaný les.");
         
         Location location3 = new Location();
+        location2.setNearCity("Adamov");
         location3.setName("Okolie Macochy.");
         location3.setDescription("Musí byť vlhké počasie.");
 
