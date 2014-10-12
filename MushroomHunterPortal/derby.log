@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Sun Oct 12 23:38:01 CEST 2014:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-0149-064b-f4c8-0000036a31c0 
+Sun Oct 12 23:49:58 CEST 2014:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-0149-0656-e46c-0000036a0a28 
 on database directory memory:D:\Ucebne_materialy-piaty_semester\Vyvoj_programovych_systemu_v_jazyce_Java\Mushroom-Hunter-Portal\MushroomHunterPortal\testDB with class loader sun.misc.Launcher$AppClassLoader@64f007ad 
 Loaded from file:/C:/Users/Simon/.m2/repository/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar
 java.vendor=Oracle Corporation

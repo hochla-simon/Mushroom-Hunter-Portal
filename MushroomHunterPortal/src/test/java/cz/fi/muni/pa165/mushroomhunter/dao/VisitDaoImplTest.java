@@ -291,7 +291,7 @@ public class VisitDaoImplTest {
         location2.setDescription("Zmiešaný les.");
         
         Location location3 = new Location();
-        location2.setNearCity("Adamov");
+        location3.setNearCity("Adamov");
         location3.setName("Okolie Macochy.");
         location3.setDescription("Musí byť vlhké počasie.");
 
@@ -346,7 +346,7 @@ public class VisitDaoImplTest {
         location2.setDescription("Zmiešaný les.");
         
         Location location3 = new Location();
-        location2.setNearCity("Adamov");
+        location3.setNearCity("Adamov");
         location3.setName("Okolie Macochy.");
         location3.setDescription("Musí byť vlhké počasie.");
 
