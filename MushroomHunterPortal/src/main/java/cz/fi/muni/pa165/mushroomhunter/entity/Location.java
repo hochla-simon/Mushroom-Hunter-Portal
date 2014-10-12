@@ -22,6 +22,9 @@ public class Location {
 
     @Column(nullable = false)
     private String description;
+    
+    @Column(nullable = false)
+    private String nearCity;
 
     public long getId() {
         return id;
@@ -76,6 +79,20 @@ public class Location {
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return the nearCity
+     */
+    public String getNearCity() {
+        return nearCity;
+    }
+
+    /**
+     * @param nearCity the nearCity to set
+     */
+    public void setNearCity(String nearCity) {
+        this.nearCity = nearCity;
     }
 
 }
