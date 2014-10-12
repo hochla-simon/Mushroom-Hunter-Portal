@@ -22,7 +22,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 /**
  *
- * @author Lukáš Valach
+ * @author LukĂˇĹˇ Valach
  */
 public class MushroomDaoImplTest {
 
@@ -75,7 +75,7 @@ public class MushroomDaoImplTest {
     @Test
     public void testSave() throws Exception {
         System.out.println("Mushroom Save Test");
-        Mushroom mushroom = this.createMushroom("Mochomůrka", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
+        Mushroom mushroom = this.createMushroom("MochomĹŻrka", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
         mushroomDao.save(mushroom);
         
         Long persistedMushroomId = null;
@@ -91,7 +91,7 @@ public class MushroomDaoImplTest {
     @Test
     public void testUpdate() throws Exception {
         System.out.println("Mushroom Update Test");
-        Mushroom mushroom = this.createMushroom("Mochomůrka", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
+        Mushroom mushroom = this.createMushroom("MochomĹŻrka", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
         mushroomDao.save(mushroom);
         mushroom.setType(Type.EDIBLE);
         Mushroom updatedMushroom = mushroomDao.update(mushroom);
@@ -104,7 +104,7 @@ public class MushroomDaoImplTest {
     @Test
     public void testDelete() throws Exception {
         System.out.println("Mushroom Delete Test");
-        Mushroom mushroom = this.createMushroom("Mochomůrka", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
+        Mushroom mushroom = this.createMushroom("MochomĹŻrka", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
         mushroomDao.save(mushroom);
         
         mushroomDao.delete(mushroom);
@@ -127,9 +127,9 @@ public class MushroomDaoImplTest {
     @Test
     public void testFind() throws Exception {
         System.out.println("Mushroom find by ID test");
-        Mushroom mushroom1 = this.createMushroom("Mochomůrka", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
-        Mushroom mushroom2 = this.createMushroom("Hřib", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
-        Mushroom mushroom3 = this.createMushroom("Liška obecná", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
+        Mushroom mushroom1 = this.createMushroom("MochomĹŻrka", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
+        Mushroom mushroom2 = this.createMushroom("HĹ™ib", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
+        Mushroom mushroom3 = this.createMushroom("LiĹˇka obecnĂˇ", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
         mushroomDao.save(mushroom1);
         mushroomDao.save(mushroom2);
         mushroomDao.save(mushroom3);
@@ -144,9 +144,9 @@ public class MushroomDaoImplTest {
     @Test
     public void testFindAll() throws Exception {
         System.out.println("Mushroom find all test");
-        Mushroom mushroom1 = this.createMushroom("Mochomůrka", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
-        Mushroom mushroom2 = this.createMushroom("Hřib", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
-        Mushroom mushroom3 = this.createMushroom("Liška obecná", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
+        Mushroom mushroom1 = this.createMushroom("MochomĹŻrka", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
+        Mushroom mushroom2 = this.createMushroom("HĹ™ib", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
+        Mushroom mushroom3 = this.createMushroom("LiĹˇka obecnĂˇ", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
         mushroomDao.save(mushroom1);
         mushroomDao.save(mushroom2);
         mushroomDao.save(mushroom3);
@@ -171,9 +171,9 @@ public class MushroomDaoImplTest {
     @Test
     public void testFindByName() throws Exception {
         System.out.println("Mushroom find by name test");
-        Mushroom mushroom1 = this.createMushroom("Mochomůrka", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
-        Mushroom mushroom2 = this.createMushroom("Hřib", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
-        Mushroom mushroom3 = this.createMushroom("Liška obecná", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
+        Mushroom mushroom1 = this.createMushroom("MochomĹŻrka", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
+        Mushroom mushroom2 = this.createMushroom("HĹ™ib", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
+        Mushroom mushroom3 = this.createMushroom("LiĹˇka obecnĂˇ", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
         mushroomDao.save(mushroom1);
         mushroomDao.save(mushroom2);
         mushroomDao.save(mushroom3);
@@ -205,18 +205,18 @@ public class MushroomDaoImplTest {
         VisitDaoImpl visitDao = new VisitDaoImpl();
         EntityManager emv = Persistence.createEntityManagerFactory("TestPU").createEntityManager();
         emv.getTransaction().begin();
-        ReflectionTestUtils.setField(locationDao, "em", emv);
+        ReflectionTestUtils.setField(visitDao, "em", emv);
         
-        Mushroom mushroom1 = this.createMushroom("Mochomůrka", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
-        Mushroom mushroom2 = this.createMushroom("Hřib", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
-        Mushroom mushroom3 = this.createMushroom("Liška obecná", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
+        Mushroom mushroom1 = this.createMushroom("MochomĹŻrka", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
+        Mushroom mushroom2 = this.createMushroom("HĹ™ib", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
+        Mushroom mushroom3 = this.createMushroom("LiĹˇka obecnĂˇ", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
         mushroomDao.save(mushroom1);
         mushroomDao.save(mushroom2);
         mushroomDao.save(mushroom3);
         
         Hunter hunter = new Hunter();
         hunter.setFirstName("Pepa");
-        hunter.setSurname("Novák");
+        hunter.setSurname("NovĂˇk");
         hunter.setDescription("Popis");
         hunter.setNick("PNovak");
         hunterDao.save(hunter);
@@ -249,9 +249,9 @@ public class MushroomDaoImplTest {
     @Test
     public void testFindByType() throws Exception {
         System.out.println("Mushroom find by type test");
-        Mushroom mushroom1 = this.createMushroom("Mochomůrka", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
-        Mushroom mushroom2 = this.createMushroom("Hřib", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
-        Mushroom mushroom3 = this.createMushroom("Liška obecná", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
+        Mushroom mushroom1 = this.createMushroom("MochomĹŻrka", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
+        Mushroom mushroom2 = this.createMushroom("HĹ™ib", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
+        Mushroom mushroom3 = this.createMushroom("LiĹˇka obecnĂˇ", new Date(1, 4, 1), new Date(1, 8, 1) , Type.POISONOUS);
         mushroomDao.save(mushroom1);
         mushroomDao.save(mushroom2);
         mushroomDao.save(mushroom3);
@@ -269,9 +269,9 @@ public class MushroomDaoImplTest {
     @Test
     public void testFindByOccurenceDate() throws Exception {
         System.out.println("Mushroom find by type test");
-        Mushroom mushroom1 = this.createMushroom("Mochomůrka", new Date(1, 1, 1), new Date(1, 3, 1) , Type.POISONOUS);
-        Mushroom mushroom2 = this.createMushroom("Hřib", new Date(1, 2, 1), new Date(1, 6, 1) , Type.POISONOUS);
-        Mushroom mushroom3 = this.createMushroom("Liška obecná", new Date(1, 6, 1), new Date(1, 8, 1) , Type.POISONOUS);
+        Mushroom mushroom1 = this.createMushroom("MochomĹŻrka", new Date(1, 1, 1), new Date(1, 3, 1) , Type.POISONOUS);
+        Mushroom mushroom2 = this.createMushroom("HĹ™ib", new Date(1, 2, 1), new Date(1, 6, 1) , Type.POISONOUS);
+        Mushroom mushroom3 = this.createMushroom("LiĹˇka obecnĂˇ", new Date(1, 6, 1), new Date(1, 8, 1) , Type.POISONOUS);
         mushroomDao.save(mushroom1);
         mushroomDao.save(mushroom2);
         mushroomDao.save(mushroom3);

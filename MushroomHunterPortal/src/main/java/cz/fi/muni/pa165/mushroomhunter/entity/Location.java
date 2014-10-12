@@ -8,14 +8,14 @@ import javax.persistence.Id;
 /**
  * The Location entity.
  *
- * @author Lukáš Valach
+ * @author LukĂˇĹˇ Valach
  */
 @Entity
 public class Location {
 
     @Id
     @GeneratedValue
-    private long id = 0;
+    private Long id;
 
     @Column(nullable = false, unique = true)
     private String name;
@@ -26,11 +26,11 @@ public class Location {
     @Column(nullable = false)
     private String nearCity;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
