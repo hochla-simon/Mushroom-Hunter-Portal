@@ -7,34 +7,34 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
 /**
- *
+ * Unit tests of the Hunter's DAO class.
+ * 
  * @author Roman Smékal
  */
 public class HunterDaoImplTest {
     
+    /**
+     * Implementation of Hunter's DAO class.
+     */
     private HunterDaoImpl hunterDaoImpl;
     
+    /**
+     * Constructor.
+     */
     public HunterDaoImplTest() {
     }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
     
+    /**
+     * Initializes stuff before every test.
+     */
     @Before
     public void setUp() {
         hunterDaoImpl = new HunterDaoImpl();
@@ -42,12 +42,24 @@ public class HunterDaoImplTest {
         em.getTransaction().begin();
         ReflectionTestUtils.setField(this.hunterDaoImpl, "em", em);
     }
-
+    
+    /**
+     * Closes entity manager after every test.
+     */
     @After
     public void tearDown() {
         ((EntityManager) ReflectionTestUtils.getField(this.hunterDaoImpl, "em")).close();
     }
-
+    
+    /**
+     * A method used to create the Hunter's entity object.
+     * 
+     * @param firstName Hunter's first name String.
+     * @param surname Hunter's surname String.
+     * @param description Hunter's description String.
+     * @param nick Hunter's nick String.
+     * @return Created hunter with the given attributes.
+     */
     public Hunter createHunter(String firstName, String surname, String description, String nick) {
         Hunter h = new Hunter();
         h.setFirstName(firstName);
@@ -57,6 +69,12 @@ public class HunterDaoImplTest {
         return h;
     }
     
+    /**
+     * Compares attributes of two Hunter's entity instances.
+     * 
+     * @param h1 The first hunter to be compared.
+     * @param h2 The secondt hunter to be compared.
+     */
     private void compareHunterAttributes(Hunter h1, Hunter h2) {
         assertEquals(h1.getId(), h2.getId());
         assertEquals(h1.getFirstName(), h2.getFirstName());

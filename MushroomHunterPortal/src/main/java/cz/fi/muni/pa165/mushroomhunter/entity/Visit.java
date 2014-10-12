@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.mushroomhunter.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +10,7 @@ import javax.persistence.ElementCollection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
@@ -17,28 +19,45 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- *
+ * The Visit Entity.
+ * 
  * @author Roman Smékal
- * @date 10/8/2014
  */
 @Entity
-public class Visit {
+public class Visit implements Serializable  {
+    private static final long serialVersionUID = 1L;
     
+    /**
+     * The ID of the visit.
+     */
     @Id
-    @GeneratedValue
-    private long id = 0;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     
+    /**
+     * The hunter who made the visit.
+     */
     @OneToOne
     @JoinColumn(name = "HUNTER_ID")
     private Hunter hunter;
     
+    /**
+     * The date when the visit was made.
+     */
     @Temporal(TemporalType.DATE)
     private Date date;
     
+    /**
+     * The location where the visit was made.
+     */
     @OneToOne
     @JoinColumn(name = "LOCATION_ID")
     private Location location;
     
+    /**
+     * The HashMap containing the ID's of mushrooms and their number of occurences
+     * at the visit.
+     */
     @ElementCollection
     @MapKeyColumn(name="mushroom_id")
     @Column(name="quantity")
@@ -46,78 +65,77 @@ public class Visit {
     private Map<Long,Integer> foundMushrooms = new HashMap<Long,Integer>();
     
     /**
-     * @param id the id to set
+     * @return the id.
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
     
     /**
-     * @return the id
+     * @param id the id to be set.
      */
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     /**
-     * @return the hunter
+     * @return the hunter.
      */
     public Hunter getHunter() {
         return hunter;
     }
 
     /**
-     * @param hunter the hunter to set
+     * @param hunter the hunter to be set.
      */
     public void setHunter(Hunter hunter) {
         this.hunter = hunter;
     }
 
     /**
-     * @return the date
+     * @return the date.
      */
     public Date getDate() {
         return date;
     }
 
     /**
-     * @param date the date to set
+     * @param date the date to be set.
      */
     public void setDate(Date date) {
         this.date = date;
     }
 
     /**
-     * @return the location
+     * @return the location.
      */
     public Location getLocation() {
         return location;
     }
 
     /**
-     * @param location the location to set
+     * @param location the location to be set.
      */
     public void setLocation(Location location) {
         this.location = location;
     }
 
     /**
-     * @return the foundMushrooms
+     * @return the foundMushrooms.
      */
     public Map<Long,Integer> getFoundMushrooms() {
         return foundMushrooms;
     }
 
     /**
-     * @param foundMushrooms the foundMushrooms to set
+     * @param foundMushrooms the foundMushrooms to be set.
      */
     public void setFoundMushrooms(Map<Long,Integer> foundMushrooms) {
         this.foundMushrooms = foundMushrooms;
     }
     
-    /**
-     * 
-     * @return the result hashCode 
+    /** 
+     * @return the result hashCode.
      */
     @Override
     public int hashCode() {
@@ -128,8 +146,7 @@ public class Visit {
     }
     
     /**
-     * 
-     * @return the String describing the Visit 
+     * @return the String describing the Visit.
      */
     @Override
     public String toString() {

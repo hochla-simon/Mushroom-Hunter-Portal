@@ -13,32 +13,32 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.springframework.test.util.ReflectionTestUtils;
 
 /**
- *
- * @author LukĂˇĹˇ Valach
+ * Unit tests of the Mushroom's DAO class.
+ * 
+ * @author Lukáš Valach
  */
 public class MushroomDaoImplTest {
-
+    
+    /**
+     * Implementation of Hunter's DAO class.
+     */
     private MushroomDaoImpl mushroomDao;
-
+    
+    /**
+     * Constructor.
+     */
     public MushroomDaoImplTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
+    /**
+     * Initializes stuff before every test.
+     */
     @Before
     public void setUp() {
         mushroomDao = new MushroomDaoImpl();
@@ -46,12 +46,24 @@ public class MushroomDaoImplTest {
         em.getTransaction().begin();
         ReflectionTestUtils.setField(this.mushroomDao, "em", em);
     }
-
+    
+    /**
+     * Closes entity manager after every test.
+     */
     @After
     public void tearDown() {
         ((EntityManager) ReflectionTestUtils.getField(this.mushroomDao, "em")).close();
     }
-
+    
+    /**
+     * A method used to create the Mushroom's entity object.
+     * 
+     * @param name The name of the mushroom.
+     * @param startOfOcc When the occurence of mushroom begins.
+     * @param enDate When the occurence of mushroom ends
+     * @param type The type of the mushroom.
+     * @return Created mushroom with the given attributes.
+     */
     public Mushroom createMushroom(String name, Date startOfOcc, Date enDate, Type type) {
         Mushroom m = new Mushroom();
         m.setName(name);
@@ -60,7 +72,13 @@ public class MushroomDaoImplTest {
         m.setType(type);
         return m;
     }
-
+    
+    /**
+     * Compares attributes of two Mushroom's entity instances.
+     * 
+     * @param m1 The first mushroom to be compared.
+     * @param m2 The second mushroom to be compared.
+     */
     private void compareMushroomAttributes(Mushroom m1, Mushroom m2) {
         assertEquals(m1.getId(), m2.getId());
         assertEquals(m1.getName(), m2.getName());
