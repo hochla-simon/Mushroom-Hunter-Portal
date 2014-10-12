@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.mushroomhunter.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -12,9 +13,10 @@ import javax.persistence.Id;
 @Entity
 public class Hunter {
 
+    private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
-    private long id = 0;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Column(nullable = false, unique = true)
     private String nick;
@@ -28,11 +30,11 @@ public class Hunter {
     @Column(nullable = true)
     private String description;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
