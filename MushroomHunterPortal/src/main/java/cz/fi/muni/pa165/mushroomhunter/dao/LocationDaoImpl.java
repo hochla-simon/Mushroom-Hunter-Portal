@@ -62,7 +62,7 @@ public class LocationDaoImpl implements LocationDao {
      */
     @Override
     public Location find(long id) {
-        final Query query = em.createQuery("FROM location WHERE id = :id");
+        final Query query = em.createQuery("FROM Location WHERE id = :id");
         query.setParameter("id", id);
         return (Location) query.getSingleResult();
     }

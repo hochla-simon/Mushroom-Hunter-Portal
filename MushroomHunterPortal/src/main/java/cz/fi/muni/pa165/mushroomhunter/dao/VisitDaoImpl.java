@@ -39,7 +39,7 @@ public class VisitDaoImpl implements VisitDao {
     }
 
     @Override
-    public Visit find(int id) {
+    public Visit find(long id) {
      final Query query = em.createQuery("from Visit where id = :id");
         query.setParameter("id", id);
         return (Visit) query.getSingleResult();
@@ -48,14 +48,14 @@ public class VisitDaoImpl implements VisitDao {
     @Override
     public List<Visit> findByHunter(Hunter hunter) {
        final Query query = em.createQuery("from Visit where hunter = :hunter");
-        query.setParameter("hunter", hunter.getId());
+        query.setParameter("hunter", hunter);
         return query.getResultList();
     }
 
     @Override
     public List<Visit> findByLocation(Location location) {
         final Query query = em.createQuery("from Visit where location = :location");
-        query.setParameter("location", location.getId());
+        query.setParameter("location", location);
         return query.getResultList();
     }
 

@@ -24,7 +24,7 @@ public interface VisitDao {
 
     public void delete(Visit visit);
 
-    public Visit find(int id);
+    public Visit find(long id);
 
     public List<Visit> findByHunter(Hunter hunter);
 
