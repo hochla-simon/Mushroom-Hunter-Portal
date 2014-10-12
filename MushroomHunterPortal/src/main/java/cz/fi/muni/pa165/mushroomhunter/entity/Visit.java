@@ -1,21 +1,24 @@
 package cz.fi.muni.pa165.mushroomhunter.entity;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapKey;
-import javax.persistence.OneToMany;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
  *
- * @author Roman Smekal
+ * @author Roman Smékal
  * @date 10/8/2014
  */
 @Entity
@@ -36,9 +39,11 @@ public class Visit {
     @JoinColumn(name = "LOCATION_ID")
     private Location location;
     
-    @OneToMany(mappedBy="VISIT_ID")
-    @MapKey(name="ID")
-    private Map<Mushroom,Integer> foundMushrooms;
+    @ElementCollection
+    @MapKeyColumn(name="mushroom_id")
+    @Column(name="quantity")
+    @CollectionTable(name="occurence", joinColumns=@JoinColumn(name="visit_id"))
+    private Map<Long,Integer> foundMushrooms = new HashMap<Long,Integer>();
     
     /**
      * @param id the id to set
@@ -99,14 +104,14 @@ public class Visit {
     /**
      * @return the foundMushrooms
      */
-    public Map<Mushroom,Integer> getFoundMushrooms() {
+    public Map<Long,Integer> getFoundMushrooms() {
         return foundMushrooms;
     }
 
     /**
      * @param foundMushrooms the foundMushrooms to set
      */
-    public void setFoundMushrooms(Map<Mushroom,Integer> foundMushrooms) {
+    public void setFoundMushrooms(Map<Long,Integer> foundMushrooms) {
         this.foundMushrooms = foundMushrooms;
     }
     
