@@ -25,6 +25,8 @@ public class HunterDaoImplTest {
      * Implementation of Hunter's DAO class.
      */
     private HunterDaoImpl hunterDaoImpl;
+    //Entity manager of Hunters's DAO class.
+    EntityManager em = null;
     
     /**
      * Constructor.
@@ -38,7 +40,7 @@ public class HunterDaoImplTest {
     @Before
     public void setUp() {
         hunterDaoImpl = new HunterDaoImpl();
-        EntityManager em = Persistence.createEntityManagerFactory("TestPU").createEntityManager();
+        em = Persistence.createEntityManagerFactory("TestPU").createEntityManager();
         em.getTransaction().begin();
         ReflectionTestUtils.setField(this.hunterDaoImpl, "em", em);
     }
@@ -48,7 +50,12 @@ public class HunterDaoImplTest {
      */
     @After
     public void tearDown() {
-        ((EntityManager) ReflectionTestUtils.getField(this.hunterDaoImpl, "em")).close();
+        if(em != null) {
+            if (em.getTransaction() != null && em.getTransaction().isActive()){
+                em.getTransaction().commit();
+            }
+            em.close();
+        }
     }
     
     /**
