@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -37,7 +38,7 @@ public class Visit implements Serializable  {
     /**
      * The hunter who made the visit.
      */
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "HUNTER_ID")
     private Hunter hunter;
     
@@ -50,7 +51,7 @@ public class Visit implements Serializable  {
     /**
      * The location where the visit was made.
      */
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "LOCATION_ID")
     private Location location;
     
