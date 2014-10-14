@@ -76,8 +76,8 @@ public class MushroomDaoImpl implements MushroomDao {
 
     @Override
     public List<Mushroom> findByOccurenceDate(Date startOfOccurence, Date endOfOccurence) {
-        final Query query = em.createQuery("SELECT m FROM Mushroom m"
-                + "WHERE m.startOfOccurence BETWEEN :startOfOccurence AND :endOfOccurence"
+        final Query query = em.createQuery("SELECT m FROM Mushroom m "
+                + "WHERE m.startOfOccurence BETWEEN :startOfOccurence AND :endOfOccurence "
                 + "OR m.endOfOccurence BETWEEN :startOfOccurence AND :endOfOccurence");
         
         query.setParameter("startOfOccurence", startOfOccurence);
