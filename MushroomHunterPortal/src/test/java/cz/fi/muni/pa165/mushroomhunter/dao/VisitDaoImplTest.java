@@ -1,10 +1,5 @@
 package cz.fi.muni.pa165.mushroomhunter.dao;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import cz.fi.muni.pa165.mushroomhunter.entity.Hunter;
 import cz.fi.muni.pa165.mushroomhunter.entity.Location;
 import cz.fi.muni.pa165.mushroomhunter.entity.Mushroom;
@@ -17,24 +12,19 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.ejb.embeddable.EJBContainer;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import junit.framework.Assert;
 import static junit.framework.Assert.assertEquals;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
 
 /**
- *
+ * Unit tests of the Visit's DAO class.
+ * 
  * @author Simon
  */
 public class VisitDaoImplTest {
@@ -49,15 +39,10 @@ public class VisitDaoImplTest {
     private Mushroom mushroom1;
     private Mushroom mushroom2;
     private Location location;
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
+        
+    /**
+     * Initializes stuff before every test.
+     */
     @Before
     public void setUp() throws ParseException {
         visitDao = new VisitDaoImpl();
@@ -123,7 +108,9 @@ public class VisitDaoImplTest {
         
     }
     
-        
+    /**
+     * Closes entity manager after every test.
+     */    
     @After
     public void tearDown() {
           ((EntityManager) ReflectionTestUtils.getField(this.visitDao, "em")).close();
@@ -149,7 +136,7 @@ public class VisitDaoImplTest {
         Date dateOfVisit = new SimpleDateFormat("MM/dd/yyyy").parse("1/1/2011");
         visit.setDate(dateOfVisit);
         visitDao.update(visit);
-        Visit visitRetrieved = visitDao.find(visit.getId());
+        Visit visitRetrieved = visitDao.find(visit.getId().intValue());
         Assert.assertEquals(visit, visitRetrieved);
     }
 
@@ -218,7 +205,7 @@ public class VisitDaoImplTest {
         visitDao.save(visit2);
         visitDao.save(visit3);
         
-        Visit visitRetrieved = visitDao.find(visit2.getId());
+        Visit visitRetrieved = visitDao.find(visit2.getId().intValue());
         assertEquals(visit2, visitRetrieved);
     }
 

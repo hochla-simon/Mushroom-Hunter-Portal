@@ -22,45 +22,54 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 
 /**
- *
+ * Unit tests of the Location's DAO class.
+ * 
  * @author Radim Cejka
  */
 
 
 public class LocationDaoImplTest
 {
-	private LocationDaoImpl locDimpl;
+    /**
+     * Implementation of Location's DAO class.
+     */
+    private LocationDaoImpl locDimpl;
          
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
+    /**
+     * Initializes stuff before every test.
+     */
     @Before
     public void setUp() {
-		 locDimpl = new LocationDaoImpl();
-                EntityManager em = Persistence.createEntityManagerFactory("TestPU").createEntityManager();
-                em.getTransaction().begin();
-                ReflectionTestUtils.setField(this.locDimpl, "em", em);
-               
-                
-                Location location = new Location();
-                location.setDescription("Under big spruce on blue tourinst way");
-                location.setNearCity("Jedlova");
-                location.setName("Pod smrkem");
-        
-                
-                }
-@After
+        locDimpl = new LocationDaoImpl();
+        EntityManager em = Persistence.createEntityManagerFactory("TestPU").createEntityManager();
+        em.getTransaction().begin();
+        ReflectionTestUtils.setField(this.locDimpl, "em", em);
+
+
+        Location location = new Location();
+        location.setDescription("Under big spruce on blue tourinst way");
+        location.setNearCity("Jedlova");
+        location.setName("Pod smrkem");              
+    }
+    
+    /**
+     * Closes entity manager after every test.
+     */ 
+    @After
     public void tearDown() {
         ((EntityManager) ReflectionTestUtils.getField(this.locDimpl, "em")).close();
     }
 
-
- public Mushroom createMushroom(String name, Date startOfOcc, Date enDate, Type type) {
+    /**
+     * A method used to create the Mushroom's entity object.
+     * 
+     * @param name Mushroom's name string.
+     * @param startOfOcc Mushroom's start of the occurence.
+     * @param enDate Mushroom's end of the occurence.
+     * @param type Mushroom's type.
+     * @return Created mushroom with the given attributes.
+     */
+    public Mushroom createMushroom(String name, Date startOfOcc, Date enDate, Type type) {
         Mushroom m = new Mushroom();
         m.setName(name);
         m.setStartOfOccurence(startOfOcc);
@@ -68,8 +77,14 @@ public class LocationDaoImplTest
         m.setType(type);
         return m;
     }
- 
-private void compareLocation(Location oldLocation,Location newLocation)
+    
+    /**
+     * Compares attributes of two Location's entity instances.
+     * 
+     * @param oldLocation The first location to be compared.
+     * @param newLocation The second location to be compared.
+     */
+    private void compareLocation(Location oldLocation, Location newLocation)
     {
         assertEquals(oldLocation.getId(), newLocation.getId());
         assertEquals(oldLocation.getName(), newLocation.getName());
@@ -391,9 +406,6 @@ private void compareLocation(Location oldLocation,Location newLocation)
         for (int i = 0; exceptedList.size() > i && locationList.size() > i; i++){
             compareLocation(exceptedList.get(i), locationList.get(i));
             i++;
-        }
-        
-        
-    }
-    
+        }    
+    }  
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.fi.muni.pa165.mushroomhunter.dao;
 
 import cz.fi.muni.pa165.mushroomhunter.entity.Location;
@@ -24,7 +19,7 @@ import javax.persistence.Query;
 public class MushroomDaoImpl implements MushroomDao {
 
      /**
-     * Entity manager
+     * Entity manager.
      */
     @PersistenceContext
     private EntityManager em;
@@ -83,9 +78,13 @@ public class MushroomDaoImpl implements MushroomDao {
     public List<Mushroom> findByOccurenceDate(Date startOfOccurence, Date endOfOccurence) {
         final Query query = em.createQuery("SELECT m FROM Mushroom m "
                 + "WHERE m.startOfOccurence BETWEEN :startOfOccurence AND :endOfOccurence "
+<<<<<<< HEAD
                 + "OR m.endOfOccurence BETWEEN :startOfOccurence AND :endOfOccurence "
                 + "OR :startOfOccurence BETWEEN m.startOfOccurence AND m.endOfOccurence "
                 + "OR :endOfOccurence BETWEEN m.startOfOccurence AND m.endOfOccurence");
+=======
+                + "OR m.endOfOccurence BETWEEN :startOfOccurence AND :endOfOccurence");
+>>>>>>> 143f05805cb319d0727801189d924f7f50cbc40f
         
         query.setParameter("startOfOccurence", startOfOccurence);
         query.setParameter("endOfOccurence", endOfOccurence);

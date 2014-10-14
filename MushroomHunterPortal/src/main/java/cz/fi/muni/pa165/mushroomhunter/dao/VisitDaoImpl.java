@@ -10,14 +10,15 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
- *
+ * The implementation of a data object for the entity Visit. 
+ * 
  * @author Radim Cejka
  */
 @Stateless
 public class VisitDaoImpl implements VisitDao {
 
     /**
-     * Entity manager
+     * Entity manager.
      */
     @PersistenceContext
     private EntityManager em;
@@ -63,7 +64,7 @@ public class VisitDaoImpl implements VisitDao {
      */
 
     @Override
-    public Visit find(long id) {
+    public Visit find(int id) {
      final Query query = em.createQuery("from Visit where id = :id");
         query.setParameter("id", id);
         return (Visit) query.getSingleResult();
