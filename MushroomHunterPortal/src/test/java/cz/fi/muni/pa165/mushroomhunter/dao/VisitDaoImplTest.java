@@ -39,7 +39,8 @@ public class VisitDaoImplTest {
     private Mushroom mushroom1;
     private Mushroom mushroom2;
     private Location location;
-        
+    
+    private EntityManager em;
     /**
      * Initializes stuff before every test.
      */
@@ -50,7 +51,7 @@ public class VisitDaoImplTest {
         hunterDao = new HunterDaoImpl();
         locationDao = new LocationDaoImpl();
         
-        EntityManager em = Persistence.createEntityManagerFactory("TestPU").createEntityManager();
+        em = Persistence.createEntityManagerFactory("TestPU").createEntityManager();
         em.getTransaction().begin();
         ReflectionTestUtils.setField(this.visitDao, "em", em);
         ReflectionTestUtils.setField(this.mushroomDao, "em", em);
@@ -113,7 +114,12 @@ public class VisitDaoImplTest {
      */    
     @After
     public void tearDown() {
-          ((EntityManager) ReflectionTestUtils.getField(this.visitDao, "em")).close();
+        if (em != null) {
+            if (em.getTransaction() != null && em.getTransaction().isActive()){
+                em.getTransaction().commit();
+            }
+            em.close();
+        }
     }
 
     /**
@@ -136,7 +142,7 @@ public class VisitDaoImplTest {
         Date dateOfVisit = new SimpleDateFormat("MM/dd/yyyy").parse("1/1/2011");
         visit.setDate(dateOfVisit);
         visitDao.update(visit);
-        Visit visitRetrieved = visitDao.find(visit.getId().intValue());
+        Visit visitRetrieved = visitDao.find(visit.getId());
         Assert.assertEquals(visit, visitRetrieved);
     }
 
@@ -205,7 +211,7 @@ public class VisitDaoImplTest {
         visitDao.save(visit2);
         visitDao.save(visit3);
         
-        Visit visitRetrieved = visitDao.find(visit2.getId().intValue());
+        Visit visitRetrieved = visitDao.find(visit2.getId());
         assertEquals(visit2, visitRetrieved);
     }
 

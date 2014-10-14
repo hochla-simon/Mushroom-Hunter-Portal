@@ -47,16 +47,16 @@ public class LocationDaoImpl implements LocationDao {
 
     @Override
     public List<Location> findByNearCity(String nearCity) {
-        final Query query = em.createQuery("FROM location WHERE nearcity = :nearCity");
+        final Query query = em.createQuery("FROM Location WHERE nearcity = :nearCity");
         query.setParameter("nearCity", nearCity);
         return query.getResultList();
     }
 
     @Override
     public List<Location> findByMushroom(Mushroom mushroom) {
-        final Query query = em.createQuery("SELECT DISTINCT location.id, location.name, "
-                + "location.nearCity, location.place FROM ((location"
-                + "JOIN visit ON location.id = visit.location_id)"
+        final Query query = em.createQuery("SELECT DISTINCT Location.id, Location.name, "
+                + "Location.nearCity, Location.place FROM ((Location"
+                + "JOIN visit ON Location.id = visit.Location_id)"
                 + "JOIN occurence ON visit.id = occurence.visit_id)"
                 + "WHERE occurence.mushroom_id = :id");
         query.setParameter("id", mushroom.getId());
@@ -65,10 +65,10 @@ public class LocationDaoImpl implements LocationDao {
 
     @Override
     public List<Location> findByOccurence(boolean ascending) {
-        final Query query = em.createQuery("SELECT * FROM location JOIN (COUNT(occurence.quantity) AS occ_quantity FROM ((location"
-                + "JOIN visit ON location.id=visit.location_id)"
+        final Query query = em.createQuery("SELECT * FROM Location JOIN (COUNT(occurence.quantity) AS occ_quantity FROM ((Location"
+                + "JOIN visit ON Location.id=visit.Location_id)"
                 + "JOIN occurence ON visit.id=occurence.visit_id)"
-                + "GROUP BY location.id :asc)");
+                + "GROUP BY Location.id :asc)");
         if(ascending)
             query.setParameter("asc", "ASC");
         else 
@@ -79,7 +79,7 @@ public class LocationDaoImpl implements LocationDao {
 
     @Override
     public List<Location> findAll() {
-        final Query query = em.createQuery("FROM location");
+        final Query query = em.createQuery("FROM Location");
         return query.getResultList();
     }    
 }

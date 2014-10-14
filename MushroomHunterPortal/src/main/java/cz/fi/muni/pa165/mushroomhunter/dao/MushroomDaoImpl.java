@@ -62,7 +62,7 @@ public class MushroomDaoImpl implements MushroomDao {
 
     @Override
     public List<Mushroom> findByLocation(Location loc) {
-        final Query query = em.createQuery("SELECT m FROM Mushroom m WHERE location = :location");
+        final Query query = em.createQuery("SELECT m FROM Mushroom m WHERE Location = :location");
         query.setParameter("location", loc);
         return (List<Mushroom>)query.getResultList();
     }
@@ -78,14 +78,10 @@ public class MushroomDaoImpl implements MushroomDao {
     public List<Mushroom> findByOccurenceDate(Date startOfOccurence, Date endOfOccurence) {
         final Query query = em.createQuery("SELECT m FROM Mushroom m "
                 + "WHERE m.startOfOccurence BETWEEN :startOfOccurence AND :endOfOccurence "
-<<<<<<< HEAD
                 + "OR m.endOfOccurence BETWEEN :startOfOccurence AND :endOfOccurence "
                 + "OR :startOfOccurence BETWEEN m.startOfOccurence AND m.endOfOccurence "
-                + "OR :endOfOccurence BETWEEN m.startOfOccurence AND m.endOfOccurence");
-=======
+                + "OR :endOfOccurence BETWEEN m.startOfOccurence AND m.endOfOccurence "
                 + "OR m.endOfOccurence BETWEEN :startOfOccurence AND :endOfOccurence");
->>>>>>> 143f05805cb319d0727801189d924f7f50cbc40f
-        
         query.setParameter("startOfOccurence", startOfOccurence);
         query.setParameter("endOfOccurence", endOfOccurence);
         

@@ -43,7 +43,7 @@ public interface VisitDao {
      * @param id The ID of the searched visit.
      * @return The found location.
      */
-    public Visit find(int id);
+    public Visit find(long id);
     
     /**
      * Finds all the visits of the given hunter.

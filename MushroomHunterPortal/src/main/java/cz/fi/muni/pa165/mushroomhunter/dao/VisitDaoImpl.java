@@ -64,7 +64,7 @@ public class VisitDaoImpl implements VisitDao {
      */
 
     @Override
-    public Visit find(int id) {
+    public Visit find(long id) {
      final Query query = em.createQuery("from Visit where id = :id");
         query.setParameter("id", id);
         return (Visit) query.getSingleResult();
