@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
@@ -34,6 +39,7 @@ public class LocationDaoImplTest
      * Implementation of Location's DAO class.
      */
     private LocationDaoImpl locDimpl;
+    private EntityManager em;
          
     /**
      * Initializes stuff before every test.
@@ -41,15 +47,16 @@ public class LocationDaoImplTest
     @Before
     public void setUp() {
         locDimpl = new LocationDaoImpl();
-        EntityManager em = Persistence.createEntityManagerFactory("TestPU").createEntityManager();
+        em = Persistence.createEntityManagerFactory("TestPU").createEntityManager();
         em.getTransaction().begin();
         ReflectionTestUtils.setField(this.locDimpl, "em", em);
 
-
+/*
         Location location = new Location();
         location.setDescription("Under big spruce on blue tourinst way");
         location.setNearCity("Jedlova");
-        location.setName("Pod smrkem");              
+        location.setName("Pod smrkem");
+         */
     }
     
     /**
@@ -57,7 +64,12 @@ public class LocationDaoImplTest
      */ 
     @After
     public void tearDown() {
-        ((EntityManager) ReflectionTestUtils.getField(this.locDimpl, "em")).close();
+         if(em != null) {
+            if (em.getTransaction() != null && em.getTransaction().isActive()){
+                em.getTransaction().commit();
+            }
+            em.close();
+        }
     }
 
     /**
@@ -156,9 +168,9 @@ public class LocationDaoImplTest
         locDimpl.save(location);
         locDimpl.save(location2);
         
+        locDimpl.delete(location);
         
-        
-        EntityManager em = (EntityManager) ReflectionTestUtils.getField(locDimpl, "em");
+        em = (EntityManager) ReflectionTestUtils.getField(locDimpl, "em");
         final Query query = em.createQuery("SELECT m FROM Location m WHERE id = :id");
         query.setParameter("id", location.getId());
         
@@ -238,19 +250,13 @@ public class LocationDaoImplTest
     public void testFindByMushroom() throws Exception {
         System.out.println("findByMushroom");
         HunterDaoImpl hunterDao = new HunterDaoImpl();
-        EntityManager emh = Persistence.createEntityManagerFactory("TestPU").createEntityManager();
-        emh.getTransaction().begin();
-        ReflectionTestUtils.setField(hunterDao, "em", emh);
+        ReflectionTestUtils.setField(hunterDao, "em", em);
         
         MushroomDaoImpl mushroomDao = new MushroomDaoImpl();
-        EntityManager emm = Persistence.createEntityManagerFactory("TestPU").createEntityManager();
-        emm.getTransaction().begin();
-        ReflectionTestUtils.setField(mushroomDao, "em", emm);
+        ReflectionTestUtils.setField(mushroomDao, "em", em);
         
         VisitDaoImpl visitDao = new VisitDaoImpl();
-        EntityManager emv = Persistence.createEntityManagerFactory("TestPU").createEntityManager();
-        emv.getTransaction().begin();
-        ReflectionTestUtils.setField(visitDao, "em", emv);
+        ReflectionTestUtils.setField(visitDao, "em", em);
         
         Mushroom mushroom1 = new Mushroom();
         mushroom1.setName("Mochomůrka");
@@ -300,19 +306,13 @@ public class LocationDaoImplTest
     public void testFindByOccurence() throws Exception {
         System.out.println("findByOccurence");
         HunterDaoImpl hunterDao = new HunterDaoImpl();
-        EntityManager emh = Persistence.createEntityManagerFactory("TestPU").createEntityManager();
-        emh.getTransaction().begin();
-        ReflectionTestUtils.setField(hunterDao, "em", emh);
+        ReflectionTestUtils.setField(hunterDao, "em", em);
         
         MushroomDaoImpl mushroomDao = new MushroomDaoImpl();
-        EntityManager emm = Persistence.createEntityManagerFactory("TestPU").createEntityManager();
-        emm.getTransaction().begin();
-        ReflectionTestUtils.setField(mushroomDao, "em", emm);
+        ReflectionTestUtils.setField(mushroomDao, "em", em);
         
         VisitDaoImpl visitDao = new VisitDaoImpl();
-        EntityManager emv = Persistence.createEntityManagerFactory("TestPU").createEntityManager();
-        emv.getTransaction().begin();
-        ReflectionTestUtils.setField(visitDao, "em", emv);
+        ReflectionTestUtils.setField(visitDao, "em", em);
         
         Mushroom mushroom1 = new Mushroom();
         mushroom1.setName("Mochomůrka");

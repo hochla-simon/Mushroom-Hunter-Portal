@@ -55,9 +55,9 @@ public class LocationDaoImpl implements LocationDao {
     @Override
     public List<Location> findByMushroom(Mushroom mushroom) {
         final Query query = em.createQuery("SELECT DISTINCT Location.id, Location.name, "
-                + "Location.nearCity, Location.place FROM ((Location"
-                + "JOIN visit ON Location.id = visit.Location_id)"
-                + "JOIN occurence ON visit.id = occurence.visit_id)"
+                + "Location.nearCity, Location.place FROM ((Location "
+                + "JOIN visit ON Location.id = visit.Location_id) "
+                + "JOIN occurence ON visit.id = occurence.visit_id) "
                 + "WHERE occurence.mushroom_id = :id");
         query.setParameter("id", mushroom.getId());
         return query.getResultList();
@@ -65,9 +65,9 @@ public class LocationDaoImpl implements LocationDao {
 
     @Override
     public List<Location> findByOccurence(boolean ascending) {
-        final Query query = em.createQuery("SELECT * FROM Location JOIN (COUNT(occurence.quantity) AS occ_quantity FROM ((Location"
-                + "JOIN visit ON Location.id=visit.Location_id)"
-                + "JOIN occurence ON visit.id=occurence.visit_id)"
+        final Query query = em.createQuery("SELECT * FROM Location JOIN (COUNT(occurence.quantity) AS occ_quantity FROM ((Location "
+                + "JOIN visit ON Location.id=visit.Location_id) "
+                + "JOIN occurence ON visit.id=occurence.visit_id) "
                 + "GROUP BY Location.id :asc)");
         if(ascending)
             query.setParameter("asc", "ASC");
