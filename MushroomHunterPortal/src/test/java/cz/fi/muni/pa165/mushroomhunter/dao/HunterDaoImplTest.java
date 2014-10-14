@@ -134,8 +134,8 @@ public class HunterDaoImplTest {
         hunterDaoImpl.save(hunter);       
         hunterDaoImpl.delete(hunter);
         
-        EntityManager em = (EntityManager) ReflectionTestUtils.getField(hunterDaoImpl, "em");
-        final Query query = em.createQuery("SELECT h FROM hunter h WHERE id = :id");
+        em = (EntityManager) ReflectionTestUtils.getField(hunterDaoImpl, "em");
+        final Query query = em.createQuery("SELECT h FROM Hunter h WHERE id = :id");
         query.setParameter("id", hunter.getId());
         
         Hunter newHunter = null;
