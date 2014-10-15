@@ -62,7 +62,7 @@ public class MushroomDaoImpl implements MushroomDao {
 
     @Override
     public List<Mushroom> findByLocation(Location loc) {
-        final Query query = em.createQuery("SELECT m FROM Mushroom m WHERE Location = :location");
+        final Query query = em.createQuery("SELECT m FROM Mushroom m, Visit v WHERE m.id = (SELECT key(map) FROM v.foundMushrooms map WHERE v.location = :location)");
         query.setParameter("location", loc);
         return (List<Mushroom>)query.getResultList();
     }
