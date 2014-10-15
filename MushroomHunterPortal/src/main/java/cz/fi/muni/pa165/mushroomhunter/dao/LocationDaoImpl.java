@@ -54,11 +54,9 @@ public class LocationDaoImpl implements LocationDao {
 
     @Override
     public List<Location> findByMushroom(Mushroom mushroom) {
-        final Query query = em.createQuery("SELECT DISTINCT Location.id, Location.name, "
-                + "Location.nearCity, Location.place FROM Location "
-                + "JOIN visit ON Location.id = visit.Location_id "
-                + "JOIN occurence ON visit.id = occurence.visit_id "
-                + "WHERE occurence.mushroom_id = :id");
+        final Query query = em.createQuery("SELECT DISTINCT loc FROM Location loc "
+                + "WHERE loc.id = (SELECT v.location FROM Visit v WHERE :id  = "
+                + "(SELECT key(map) FROM v.foundMushrooms map))");
         query.setParameter("id", mushroom.getId());
         return query.getResultList();
     }
