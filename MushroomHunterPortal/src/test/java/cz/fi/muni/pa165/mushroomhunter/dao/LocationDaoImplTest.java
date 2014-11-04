@@ -17,6 +17,7 @@ import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.servlet.annotation.MultipartConfig;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -342,6 +343,7 @@ public class LocationDaoImplTest
         location2.setDescription("Under big spruce on blue tourinst way");
         location2.setNearCity("Jedlova");
         location2.setName("Pod smrkem");
+        locDimpl.save(location2);
         
         HashMap<Long, Integer> foundMushrooms = new HashMap<>();
         foundMushrooms.put(mushroom2.getId(), 10);
