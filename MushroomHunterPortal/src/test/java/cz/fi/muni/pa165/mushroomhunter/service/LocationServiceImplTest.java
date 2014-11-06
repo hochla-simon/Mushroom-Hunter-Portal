@@ -13,13 +13,22 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  *
  * @author Simon
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"/applicationContext.xml"})
 public class LocationServiceImplTest {
     
+    @Autowired
+    LocationServiceImpl lsi;
+        
     public LocationServiceImplTest() {
     }
     
@@ -44,14 +53,11 @@ public class LocationServiceImplTest {
      */
     @Test
     public void testSave() {
-        System.out.println("save");
-        LocationDto locationDto = null;
-        LocationServiceImpl instance = new LocationServiceImpl();
-        long expResult = 0L;
-        long result = instance.save(locationDto);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       LocationDto location = new LocationDto();
+       location.setDescription("desc");
+       location.setName("name");
+       location.setNearCity("city");
+       lsi.save(location);
     }
 
     /**

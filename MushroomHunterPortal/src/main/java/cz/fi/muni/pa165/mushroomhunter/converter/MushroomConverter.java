@@ -6,11 +6,13 @@ package cz.fi.muni.pa165.mushroomhunter.converter;
 
 import cz.fi.muni.pa165.mushroomhunter.dto.MushroomDto;
 import cz.fi.muni.pa165.mushroomhunter.entity.Mushroom;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Simon
  */
+@Component
 public class MushroomConverter {
     
       public Mushroom mushroomDtoToEntity(MushroomDto mushroomDto) {

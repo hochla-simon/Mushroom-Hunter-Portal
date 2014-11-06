@@ -7,6 +7,8 @@ package cz.fi.muni.pa165.mushroomhunter.converter;
 
 import cz.fi.muni.pa165.mushroomhunter.dto.LocationDto;
 import cz.fi.muni.pa165.mushroomhunter.entity.Location;
+import java.util.ArrayList;
+import java.util.List;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.springframework.stereotype.Component;
@@ -35,11 +37,25 @@ public class LocationConverter {
      * @param Location entity
      * @return Location DTO
      */
-    public LocationDto locationEntityToLocationDto(Location location) {
+    public LocationDto locationEntityToDto(Location location) {
         Mapper mapper = new DozerBeanMapper();
         LocationDto locationDto =
                 mapper.map(location, LocationDto.class);
         return locationDto;
     }
     
+    public List<LocationDto> locationEntityToDtoList(List<Location> locationList) {
+        List<LocationDto> locationDaoList = new ArrayList<>();
+        for(Location location : locationList)
+		locationDaoList.add(this.locationEntityToDto(location));
+        return locationDaoList;
+    }
+    
+    public List<Location> locationDtoToEntityList(List<LocationDto> locationDtoList) {
+        List<Location> locationList = new ArrayList<>();
+        for (LocationDto locationDto: locationDtoList) {
+            locationList.add(this.locationDtoToEntity(locationDto));
+        }
+        return locationList;
+    }
 }

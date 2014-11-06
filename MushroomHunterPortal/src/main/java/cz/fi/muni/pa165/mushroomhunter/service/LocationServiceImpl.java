@@ -14,12 +14,15 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataRetrievalFailureException;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Simon
  */
+@Component
 public class LocationServiceImpl {
     
     @Autowired
@@ -41,7 +44,11 @@ public class LocationServiceImpl {
     */
     @Transactional
     public long save(LocationDto locationDto) {
-        return locationDao.save(locationConverter.locationDtoToEntity(locationDto));
+        try {
+            return locationDao.save(locationConverter.locationDtoToEntity(locationDto));
+        } catch (Exception e) {
+            throw new DataRetrievalFailureException("Error saving data.", e);
+        }
     }
     
     /**
@@ -52,8 +59,12 @@ public class LocationServiceImpl {
     */
     @Transactional
     public LocationDto update(LocationDto locationDto) {
-        return locationConverter.locationEntityToLocationDto(locationDao.update
+        try {
+            return locationConverter.locationEntityToDto(locationDao.update
                 (locationConverter.locationDtoToEntity(locationDto)));
+        } catch (Exception e) {
+            throw new DataRetrievalFailureException("Error updating data.", e);
+        }
     }
     
     /**
@@ -63,7 +74,11 @@ public class LocationServiceImpl {
      */
     @Transactional
     public void delete(LocationDto locationDto) {
-         locationDao.delete(locationConverter.locationDtoToEntity(locationDto));
+        try {
+            locationDao.delete(locationConverter.locationDtoToEntity(locationDto));
+        } catch (Exception e) {
+            throw new DataRetrievalFailureException("Error deleting data.", e);
+        }
     }
     
     /**
@@ -74,7 +89,11 @@ public class LocationServiceImpl {
      */
     @Transactional
     public LocationDto find(long id) {
-         return locationConverter.locationEntityToLocationDto(locationDao.find(id));
+        try {
+            return locationConverter.locationEntityToDto(locationDao.find(id));
+        } catch (Exception e) {
+            throw new DataRetrievalFailureException("Error retrieving data.", e);
+        }
     }
     
     /**
@@ -84,8 +103,12 @@ public class LocationServiceImpl {
      * @return The list of all locations near the given city.
      */
     @Transactional
-    public List<Location> findByNearCity(String nearCity) {
-        return locationDao.findByNearCity(nearCity);
+    public List<LocationDto> findByNearCity(String nearCity) {
+        try {
+            return locationConverter.locationEntityToDtoList(locationDao.findByNearCity(nearCity));
+        } catch (Exception e) {
+            throw new DataRetrievalFailureException("Error retrieving data.", e);
+        }
     }
     
     /**
@@ -95,8 +118,13 @@ public class LocationServiceImpl {
      * @return The list of all locations with the occurence of given mushroom.
      */
     @Transactional
-    public List<Location> findByMushroom(MushroomDto mushroomDto) {
-         return locationDao.findByMushroom(mushroomConverter.mushroomDtoToEntity(mushroomDto));
+    public List<LocationDto> findByMushroom(MushroomDto mushroomDto) {
+        try {
+           return locationConverter.locationEntityToDtoList(locationDao.findByMushroom
+                   (mushroomConverter.mushroomDtoToEntity(mushroomDto)));
+        } catch (Exception e) {
+            throw new DataRetrievalFailureException("Error retrieving data.", e);
+        }
     }
     
     /**
@@ -106,8 +134,12 @@ public class LocationServiceImpl {
      * @return The list of all locations sorted in ascending/descending order by the quantity of mushroom occurence.
      */
     @Transactional
-    public List<Location> findByOccurence(boolean ascending) {
-         return locationDao.findByOccurence(ascending);
+    public List<LocationDto> findByOccurence(boolean ascending) {
+         try {
+            return locationConverter.locationEntityToDtoList(locationDao.findByOccurence(ascending));
+        } catch (Exception e) {
+            throw new DataRetrievalFailureException("Error retrieving data.", e);
+        }
     }
     
     /**
@@ -116,7 +148,11 @@ public class LocationServiceImpl {
      * @return The list of all locations.
      */
     @Transactional
-    public List<Location> findAll() {
-        return locationDao.findAll();
+    public List<LocationDto> findAll() {
+        try {
+            return locationConverter.locationEntityToDtoList(locationDao.findAll());
+        } catch (Exception e) {
+            throw new DataRetrievalFailureException("Error retrieving data.", e);
+        }
     }
 }
