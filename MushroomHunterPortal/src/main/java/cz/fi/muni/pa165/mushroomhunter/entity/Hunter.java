@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.mushroomhunter.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -116,36 +117,44 @@ public class Hunter implements Serializable{
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    /** 
-     * @return the result hashCode.
-     */
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 47 * hash + (int) (this.id ^ (this.id >>> 32));
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.id);
+        hash = 29 * hash + Objects.hashCode(this.nick);
+        hash = 29 * hash + Objects.hashCode(this.firstName);
+        hash = 29 * hash + Objects.hashCode(this.surname);
+        hash = 29 * hash + Objects.hashCode(this.description);
         return hash;
     }
-    
-    /**
-     * @param obj The object to be compared with current instance of the hunter.
-     * @return true, if objects are equals, false otherwise.
-     */
+
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
         if (obj == null) {
             return false;
         }
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Hunter other = (Hunter) obj;
-        if (id != other.id) {
+        final Hunter other = (Hunter) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.nick, other.nick)) {
+            return false;
+        }
+        if (!Objects.equals(this.firstName, other.firstName)) {
+            return false;
+        }
+        if (!Objects.equals(this.surname, other.surname)) {
+            return false;
+        }
+        if (!Objects.equals(this.description, other.description)) {
             return false;
         }
         return true;
     }
+    
+    
 }

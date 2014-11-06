@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.mushroomhunter.entity;
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -82,35 +83,36 @@ public class Location {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    /** 
-     * @return the result hashCode.
-     */
+
     @Override
     public int hashCode() {
-        final int prime = 57;
-        int result = 1;
-        result = prime * result + (int) (id ^ (id >>> 32));
-        return result;
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.id);
+        hash = 79 * hash + Objects.hashCode(this.name);
+        hash = 79 * hash + Objects.hashCode(this.description);
+        hash = 79 * hash + Objects.hashCode(this.nearCity);
+        return hash;
     }
-    
-    /**
-     * @param obj The object to be compared with current instance of the location.
-     * @return true, if objects are equals, false otherwise.
-     */
+
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
         if (obj == null) {
             return false;
         }
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Location other = (Location) obj;
-        if (id != other.id) {
+        final Location other = (Location) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.nearCity, other.nearCity)) {
             return false;
         }
         return true;

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -134,16 +135,43 @@ public class Visit implements Serializable  {
     public void setFoundMushrooms(Map<Long,Integer> foundMushrooms) {
         this.foundMushrooms = foundMushrooms;
     }
-    
-    /** 
-     * @return the result hashCode.
-     */
+
     @Override
     public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + (int) (id ^ (id >>> 32));
-            return result;
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this.id);
+        hash = 79 * hash + Objects.hashCode(this.hunter);
+        hash = 79 * hash + Objects.hashCode(this.date);
+        hash = 79 * hash + Objects.hashCode(this.location);
+        hash = 79 * hash + Objects.hashCode(this.foundMushrooms);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Visit other = (Visit) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.hunter, other.hunter)) {
+            return false;
+        }
+        if (!Objects.equals(this.date, other.date)) {
+            return false;
+        }
+        if (!Objects.equals(this.location, other.location)) {
+            return false;
+        }
+        if (!Objects.equals(this.foundMushrooms, other.foundMushrooms)) {
+            return false;
+        }
+        return true;
     }
     
     /**

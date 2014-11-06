@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.mushroomhunter.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -124,28 +125,40 @@ public class Mushroom implements Serializable {
     public void setEndOfOccurence(Date endOfOccurence) {
         this.endOfOccurence = endOfOccurence;
     }
-    
-    /**
-     * @return the result hashCode.
-     */
+
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (getId() != null ? getId().hashCode() : 0);
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(this.id);
+        hash = 37 * hash + Objects.hashCode(this.name);
+        hash = 37 * hash + Objects.hashCode(this.type);
+        hash = 37 * hash + Objects.hashCode(this.startOfOccurence);
+        hash = 37 * hash + Objects.hashCode(this.endOfOccurence);
         return hash;
     }
-    
-    /**
-     * @param object The object to be compared with current instance of the mushroom.
-     * @return true, if objects are equals, false otherwise
-     */
+
     @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof Mushroom)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Mushroom other = (Mushroom) object;
-        if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Mushroom other = (Mushroom) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (this.type != other.type) {
+            return false;
+        }
+        if (!Objects.equals(this.startOfOccurence, other.startOfOccurence)) {
+            return false;
+        }
+        if (!Objects.equals(this.endOfOccurence, other.endOfOccurence)) {
             return false;
         }
         return true;
