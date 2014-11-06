@@ -4,7 +4,7 @@
  */
 package cz.fi.muni.pa165.mushroomhunter.service;
 
-import cz.fi.muni.pa165.mushroomhunter.dto.HunterDTO;
+import cz.fi.muni.pa165.mushroomhunter.dto.HunterDto;
 import java.util.List;
 
 /**
@@ -18,7 +18,7 @@ public interface HunterService {
     * @param hunter The hunter to be saved.
     * @return ID of the saved hunter.
     */
-    public long save(HunterDTO hunter);
+    public long save(HunterDto hunterDto);
     
     /**
     * Updates given hunter in database.
@@ -26,14 +26,14 @@ public interface HunterService {
     * @param hunter The location to be updated.
     * @return Updated hunter.
     */
-    public HunterDTO update(HunterDTO hunter);
+    public HunterDto update(HunterDto hunterDto);
     
     /**
      * Deletes given hunter from the database.
      * 
      * @param hunter The hunter to be deleted.
      */
-    public void delete(HunterDTO hunter);
+    public void delete(HunterDto hunterDto);
 
     /**
      * Finds a hunter by ID.
@@ -41,7 +41,7 @@ public interface HunterService {
      * @param id The ID of the searched hunter.
      * @return The found hunter.
      */
-    public HunterDTO find(long id);
+    public HunterDto find(long id);
 
     /**
      * Finds a hunter by firstName.
@@ -49,7 +49,7 @@ public interface HunterService {
      * @param firstName The firstName of the searched hunter.
      * @return The found hunter.
      */
-    public List<HunterDTO> findByName(String firstName);
+    public List<HunterDto> findByName(String firstName);
 
     /**
      * Finds a hunter by surname.
@@ -57,7 +57,7 @@ public interface HunterService {
      * @param surname The surname of the searched hunter.
      * @return The found hunter.
      */
-    public List<HunterDTO> findBySurname(String surname);
+    public List<HunterDto> findBySurname(String surname);
     
     /**
      * Finds a hunter by nick.
@@ -65,12 +65,12 @@ public interface HunterService {
      * @param nick The nick of the searched hunter.
      * @return The found hunter
      */
-    public List<HunterDTO> findByNick(String nick);
+    public List<HunterDto> findByNick(String nick);
 
     /**
      * Finds all hunters in the database.
      * 
      * @return The list of all hunters.
      */
-    public List<HunterDTO> findAll();
+    public List<HunterDto> findAll();
 }

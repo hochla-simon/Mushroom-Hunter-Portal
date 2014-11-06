@@ -10,7 +10,7 @@ import cz.fi.muni.pa165.mushroomhunter.converter.HunterConverter;
 import cz.fi.muni.pa165.mushroomhunter.converter.LocationConverter;
 import cz.fi.muni.pa165.mushroomhunter.converter.VisitConverter;
 import cz.fi.muni.pa165.mushroomhunter.dao.VisitDao;
-import cz.fi.muni.pa165.mushroomhunter.dto.HunterDTO;
+import cz.fi.muni.pa165.mushroomhunter.dto.HunterDto;
 import cz.fi.muni.pa165.mushroomhunter.dto.VisitDto;
 import cz.fi.muni.pa165.mushroomhunter.entity.Hunter;
 import cz.fi.muni.pa165.mushroomhunter.entity.Location;
@@ -71,7 +71,7 @@ public class VisitServiceImpl {
     }
 
     @Transactional
-    public List<VisitDto> findVisitByHunter(HunterDTO hunterDto) {
+    public List<VisitDto> findVisitByHunter(HunterDto hunterDto) {
         return visitConverter.visitEntityToDtoList(visitDao.findByHunter(hunterConverter.hunterDtoToEntity(hunterDto)));
     }
 }

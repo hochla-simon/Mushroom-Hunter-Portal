@@ -10,7 +10,7 @@ import java.util.Objects;
  *
  * @author Radim Cejka
  */
-public class HunterDTO {
+public class HunterDto {
     
     /**
      * The ID of the Hunter
@@ -126,7 +126,7 @@ public class HunterDTO {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final HunterDTO other = (HunterDTO) obj;
+        final HunterDto other = (HunterDto) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
