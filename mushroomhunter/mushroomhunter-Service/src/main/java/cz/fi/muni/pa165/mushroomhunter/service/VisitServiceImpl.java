@@ -59,7 +59,7 @@ public class VisitServiceImpl {
     }
 
     @Transactional
-    public List<VisitDto> findAllVisits(VisitDto visitDto) {
+    public List<VisitDto> findAllVisits() {
         return visitConverter.visitEntityToDtoList(visitDao.findAll());
     }
 

@@ -5,13 +5,14 @@
  */
 package cz.fi.muni.pa165.mushroomhunter.Service;
 
+import cz.fi.muni.pa165.mushroomhunter.converter.HunterConverter;
+import cz.fi.muni.pa165.mushroomhunter.converter.LocationConverter;
 import cz.fi.muni.pa165.mushroomhunter.converter.VisitConverter;
 import cz.fi.muni.pa165.mushroomhunter.dao.VisitDaoImpl;
 import cz.fi.muni.pa165.mushroomhunter.dto.HunterDto;
 import cz.fi.muni.pa165.mushroomhunter.dto.LocationDto;
 import cz.fi.muni.pa165.mushroomhunter.dto.VisitDto;
 import cz.fi.muni.pa165.mushroomhunter.entity.Mushroom;
-import cz.fi.muni.pa165.mushroomhunter.service.VisitServiceImpl;
 import cz.fi.muni.pa165.mushroomhunter.service.VisitServiceImpl;
 import java.util.Date;
 import java.util.HashMap;
@@ -20,24 +21,33 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.mockito.Mockito.mock;
+import org.mockito.InjectMocks;
 import static org.mockito.Mockito.verify;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  *
  * @author Lukáš Valach
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 @ContextConfiguration(locations = {"/applicationContext.xml"})
 public class VisitServiceImplTest {
 
     @Autowired
+    @InjectMocks
     VisitServiceImpl vsi;
-    @Autowired
-    VisitConverter v;
+    @Mock
+    VisitDaoImpl visitDao;
+    @Mock
+    VisitConverter vc = new VisitConverter();
+    @Mock
+    HunterConverter hc = new HunterConverter();
+    @Mock
+    LocationConverter lc = new LocationConverter();
 
     public VisitServiceImplTest() {
     }
@@ -62,12 +72,9 @@ public class VisitServiceImplTest {
      */
     @Test
     public void testSaveVisit() {
-        VisitDaoImpl visitDao = mock(VisitDaoImpl.class);
-        //do servisi nasetovat mock VisitDao
-        //mocku nastavit when
         VisitDto visitDto = this.createVisit();
         vsi.saveVisit(visitDto);
-        verify(visitDao).save(v.visitDtoToEntity(visitDto));
+        verify(visitDao).save(vc.visitDtoToEntity(visitDto));
     }
 
     /**
@@ -75,12 +82,9 @@ public class VisitServiceImplTest {
      */
     @Test
     public void testDeleteVisit() {
-        VisitDaoImpl visitDao = mock(VisitDaoImpl.class);
-        //do servisi nasetovat mock VisitDao
-        //mocku nastavit when
         VisitDto visitDto = this.createVisit();
-        vsi.saveVisit(visitDto);
-        verify(visitDao).delete(v.visitDtoToEntity(visitDto));
+        vsi.deleteVisit(visitDto);
+        verify(visitDao).delete(vc.visitDtoToEntity(visitDto));
     }
 
     /**
@@ -88,13 +92,9 @@ public class VisitServiceImplTest {
      */
     @Test
     public void testUpdateVisit() {
-        VisitDaoImpl visitDao = mock(VisitDaoImpl.class);
-        //do servisi nasetovat mock VisitDao
-        //mocku nastavit when
         VisitDto visitDto = this.createVisit();
-        vsi.saveVisit(visitDto);
-        verify(visitDao).update(v.visitDtoToEntity(visitDto));
-        //kontrolovat, co to vrání?
+        vsi.updateVisit(visitDto);
+        verify(visitDao).update(vc.visitDtoToEntity(visitDto));
     }
 
     /**
@@ -102,14 +102,8 @@ public class VisitServiceImplTest {
      */
     @Test
     public void testFindAllVisits() {
-        VisitDaoImpl visitDao = mock(VisitDaoImpl.class);
-        //do servisi nasetovat mock VisitDao
-        //mocku nastavit when
-        VisitDto visitDto = this.createVisit();
-        vsi.saveVisit(visitDto);
-        vsi.saveVisit(visitDto);
+        vsi.findAllVisits();
         verify(visitDao).findAll();
-        //zkontrolovat co to vrátilo
     }
 
     /**
@@ -117,6 +111,9 @@ public class VisitServiceImplTest {
      */
     @Test
     public void testFindVisitByLocation() {
+        LocationDto locationDto = this.createLocation();
+        vsi.findVisitByLocation(locationDto);
+        verify(visitDao).findByLocation(lc.locationDtoToEntity(locationDto));
     }
 
     /**
@@ -124,13 +121,16 @@ public class VisitServiceImplTest {
      */
     @Test
     public void testFindVisitByHunter() {
+        HunterDto hunterDto = this.createHunter();
+        vsi.findVisitByHunter(hunterDto);
+        verify(visitDao).findByHunter(hc.hunterDtoToEntity(hunterDto));
     }
 
     public VisitDto createVisit() {
         HunterDto hunter = this.createHunter("Pepa", "Novák", "Pepa je starý houbař.", "PepaN");
         LocationDto location = this.createLocation("LesŘáholec", "Les Řáholec, kde lišky dávají dobrou noc.", "Jičín");
         Map<Long, Integer> mushroomMap = this.createMushroomMap();
-        Date date = new Date(2000,1,1);
+        Date date = new Date(2000, 1, 1);
         return this.createVisit(hunter, location, date, mushroomMap);
     }
 
@@ -144,7 +144,8 @@ public class VisitServiceImplTest {
     }
 
     /**
-     * A method used to create the Map of Long-Integer to simulate map mushroom-quantity.
+     * A method used to create the Map of Long-Integer to simulate map
+     * mushroom-quantity.
      *
      * @return Created map of Long-Integer
      */
@@ -180,10 +181,19 @@ public class VisitServiceImplTest {
         locationDto.setNearCity(nearCity);
         return locationDto;
     }
-    
+
+    /**
+     * A method used to create the Hunter's DTO object.
+     *
+     * @return Created hunter with some default attributes.
+     */
+    public HunterDto createHunter() {
+        return this.createHunter("Pepa", "Novák", "Pepa je starý houbař.", "PepaN");
+    }
+
     /**
      * A method used to create the Hunter's entity object.
-     * 
+     *
      * @param firstName Hunter's first name String.
      * @param surname Hunter's surname String.
      * @param description Hunter's description String.
