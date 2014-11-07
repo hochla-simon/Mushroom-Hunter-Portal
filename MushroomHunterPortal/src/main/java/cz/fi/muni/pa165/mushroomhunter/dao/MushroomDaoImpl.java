@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -16,6 +17,7 @@ import javax.persistence.Query;
  * @author Simon Hochla
  */
 @Stateless
+@Component
 public class MushroomDaoImpl implements MushroomDao {
 
      /**

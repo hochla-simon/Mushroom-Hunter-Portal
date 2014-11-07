@@ -4,14 +4,18 @@
  */
 package cz.fi.muni.pa165.mushroomhunter.service;
 
+import cz.fi.muni.pa165.mushroomhunter.dao.HunterDao;
 import cz.fi.muni.pa165.mushroomhunter.dto.HunterDto;
 import java.util.List;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Radim Čejka
  */
+@Component
 public interface HunterService {
+    public void setDao(HunterDao dao);
     /**
     * Saves hunter into database.
     * 

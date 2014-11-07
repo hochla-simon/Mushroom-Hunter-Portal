@@ -5,12 +5,16 @@ import cz.fi.muni.pa165.mushroomhunter.entity.Mushroom;
 import cz.fi.muni.pa165.mushroomhunter.entity.Type;
 import java.util.Date;
 import java.util.List;
+import javax.ejb.Local;
+import org.springframework.stereotype.Component;
 
 /**
  * The interface of a data object for the entity Mushroom.
  * 
  * @author Simon Hochla
  */
+@Local
+@Component
 public interface MushroomDao {
     
     /**
