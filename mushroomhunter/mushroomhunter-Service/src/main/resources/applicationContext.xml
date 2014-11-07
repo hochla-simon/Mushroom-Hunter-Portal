@@ -26,7 +26,7 @@
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd
           http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
 ">
-    <context:component-scan base-package="cz.fi.muni.pa165.mushroomhunter-Service."/>
+    <context:component-scan base-package="cz.fi.muni.pa165."/>
     <context:annotation-config/>
     
     <tx:annotation-driven transaction-manager="transactionManager"/>
@@ -45,4 +45,5 @@
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="dataSource"/>
     </bean>
+    <bean id="mapper" class="org.dozer.DozerBeanMapper"></bean>
 </beans>

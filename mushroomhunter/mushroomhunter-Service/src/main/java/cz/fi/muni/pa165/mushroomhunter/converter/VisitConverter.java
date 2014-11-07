@@ -6,11 +6,14 @@
 package cz.fi.muni.pa165.mushroomhunter.converter;
 
 import cz.fi.muni.pa165.mushroomhunter.dto.VisitDto;
+import cz.fi.muni.pa165.mushroomhunter.entity.Hunter;
 import cz.fi.muni.pa165.mushroomhunter.entity.Visit;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import org.springframework.stereotype.Component;
+import org.dozer.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -19,42 +22,35 @@ import org.springframework.stereotype.Component;
 @Component
 public class VisitConverter {
 
+    @Autowired
+    private Mapper mapper;
+
     /**
      * Convert Visit DTO to Visit entity.
+     *
      * @param Visit DTO
      * @return Visit entity
      */
     public Visit visitDtoToEntity(VisitDto dto) {
-        Visit entity = new Visit();
-        entity.setId(dto.getId());
-        entity.setDate(dto.getDate());
-        entity.setFoundMushrooms(dto.getFoundMushrooms());
-        entity.setHunter(dto.getHunter());
-        entity.setLocation(dto.getLocation());
-        return entity;
+        return mapper.map(dto, Visit.class);
     }
 
     /**
      * Convert Visit entity to Visit DTO.
+     *
      * @param Visit entity
-     * @return Visit DTO
+     * @return Visit Dto
      */
     public VisitDto visitEntityToDto(Visit entity) {
-        VisitDto dto = new VisitDto();
-        dto.setId(entity.getId());
-        dto.setDate(entity.getDate());
-        dto.setFoundMushrooms(entity.getFoundMushrooms());
-        dto.setHunter(entity.getHunter());
-        dto.setLocation(entity.getLocation());
-        return dto;
+        return mapper.map(entity, VisitDto.class);
     }
 
     public List<VisitDto> visitEntityToDtoList(List<Visit> visits) {
         List<VisitDto> visitDaoList = new ArrayList<>();
         Iterator<Visit> iterator = visits.iterator();
         while (iterator.hasNext()) {
-		visitDaoList.add(this.visitEntityToDto(iterator.next()));
-	}
+            visitDaoList.add(this.visitEntityToDto(iterator.next()));
+        }
         return visitDaoList;
     }
 }

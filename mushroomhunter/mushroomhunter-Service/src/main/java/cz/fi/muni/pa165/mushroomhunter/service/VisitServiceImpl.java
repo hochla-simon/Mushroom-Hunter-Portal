@@ -12,21 +12,19 @@ import cz.fi.muni.pa165.mushroomhunter.converter.VisitConverter;
 import cz.fi.muni.pa165.mushroomhunter.dao.VisitDao;
 import cz.fi.muni.pa165.mushroomhunter.dto.HunterDto;
 import cz.fi.muni.pa165.mushroomhunter.dto.VisitDto;
-import cz.fi.muni.pa165.mushroomhunter.entity.Hunter;
-import cz.fi.muni.pa165.mushroomhunter.entity.Location;
 import cz.fi.muni.pa165.mushroomhunter.entity.Visit;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Lukáš Valach
  */
-@Component
+@Service
 public class VisitServiceImpl {
 
     @Autowired
