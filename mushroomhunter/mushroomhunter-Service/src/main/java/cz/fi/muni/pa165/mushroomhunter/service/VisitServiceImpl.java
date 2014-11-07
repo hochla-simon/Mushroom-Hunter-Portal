@@ -17,6 +17,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Lukáš Valach
  */
 @Service
-public class VisitServiceImpl {
+public class VisitServiceImpl implements VisitService {
 
     @Autowired
     VisitDao visitDao;
@@ -38,38 +39,67 @@ public class VisitServiceImpl {
     @PersistenceContext
     private EntityManager em;
 
-
     public VisitServiceImpl() {
     }
 
     @Transactional
+    @Override
     public long saveVisit(VisitDto visitDto) {
-        return visitDao.save(visitConverter.visitDtoToEntity(visitDto));
+        try {
+            return visitDao.save(visitConverter.visitDtoToEntity(visitDto));
+        } catch (Exception e) {
+            throw new DataRetrievalFailureException("Error saving visit.", e);
+        }
     }
 
     @Transactional
+    @Override
     public void deleteVisit(VisitDto visitDto) {
-        visitDao.delete(visitConverter.visitDtoToEntity(visitDto));
+        try {
+            visitDao.delete(visitConverter.visitDtoToEntity(visitDto));
+        } catch (Exception e) {
+            throw new DataRetrievalFailureException("Error deleting visit.", e);
+        }
     }
 
     @Transactional
+    @Override
     public VisitDto updateVisit(VisitDto visitDto) {
-        Visit visit = visitDao.update(visitConverter.visitDtoToEntity(visitDto));
-        return visitConverter.visitEntityToDto(visit);
+        try {
+            Visit visit = visitDao.update(visitConverter.visitDtoToEntity(visitDto));
+            return visitConverter.visitEntityToDto(visit);
+        } catch (Exception e) {
+            throw new DataRetrievalFailureException("Error updating visit.", e);
+        }
     }
 
     @Transactional
+    @Override
     public List<VisitDto> findAllVisits() {
-        return visitConverter.visitEntityToDtoList(visitDao.findAll());
+        try {
+            return visitConverter.visitEntityToDtoList(visitDao.findAll());
+        } catch (Exception e) {
+            throw new DataRetrievalFailureException("Error during findAllVisits.", e);
+        }
     }
 
     @Transactional
+    @Override
     public List<VisitDto> findVisitByLocation(LocationDto locationDto) {
-        return visitConverter.visitEntityToDtoList(visitDao.findByLocation(locationConverter.locationDtoToEntity(locationDto)));
+        try {
+            return visitConverter.visitEntityToDtoList(visitDao.findByLocation(locationConverter.locationDtoToEntity(locationDto)));
+        } catch (Exception e) {
+            throw new DataRetrievalFailureException("Error during findVisitByLocation.", e);
+        }
     }
 
     @Transactional
+    @Override
     public List<VisitDto> findVisitByHunter(HunterDto hunterDto) {
-        return visitConverter.visitEntityToDtoList(visitDao.findByHunter(hunterConverter.hunterDtoToEntity(hunterDto)));
+        try {
+            return visitConverter.visitEntityToDtoList(visitDao.findByHunter(hunterConverter.hunterDtoToEntity(hunterDto)));
+        } catch (Exception e) {
+            throw new DataRetrievalFailureException("Error during findVisitByHunter.", e);
+        }
     }
 }
