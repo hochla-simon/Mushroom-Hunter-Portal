@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.mushroomhunter.service;
+package cz.fi.muni.pa165.mushroomhunter.Service;
 
 import cz.fi.muni.pa165.mushroomhunter.dto.LocationDto;
 import cz.fi.muni.pa165.mushroomhunter.converter.HunterConverter;
@@ -36,7 +36,23 @@ public class MushroomServiceImpl implements MushroomService {
 
     public MushroomServiceImpl() {
     }
+    
+    public MushroomDao getMushroomDao() {
+        return mushroomDao;
+    }
 
+    public void setMushroomDao(MushroomDao mushroomDao) {
+        this.mushroomDao = mushroomDao;
+    }
+
+    public EntityManager getEm() {
+        return em;
+    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
+    
     @Transactional
     @Override
     public long save(MushroomDto mushroomDto) {
