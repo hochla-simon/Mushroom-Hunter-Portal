@@ -36,7 +36,7 @@ public class VisitDto {
     /**
      * The hunter who made the visit.
      */
-    private Hunter hunter;
+    private HunterDto hunter;
     
     /**
      * The date when the visit was made.
@@ -46,7 +46,7 @@ public class VisitDto {
     /**
      * The location where the visit was made.
      */
-    private Location location;
+    private LocationDto location;
     
     /**
      * The HashMap containing the ID's of mushrooms and their number of occurences
@@ -62,11 +62,11 @@ public class VisitDto {
         this.id = id;
     }
 
-    public Hunter getHunter() {
+    public HunterDto getHunter() {
         return hunter;
     }
 
-    public void setHunter(Hunter hunter) {
+    public void setHunter(HunterDto hunter) {
         this.hunter = hunter;
     }
 
@@ -78,21 +78,22 @@ public class VisitDto {
         this.date = date;
     }
 
-    public Location getLocation() {
+    public LocationDto getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(LocationDto location) {
         this.location = location;
     }
 
-    public Map<Long,Integer> getFoundMushrooms() {
+    public Map<Long, Integer> getFoundMushrooms() {
         return foundMushrooms;
     }
 
-    public void setFoundMushrooms(Map<Long,Integer> foundMushrooms) {
+    public void setFoundMushrooms(Map<Long, Integer> foundMushrooms) {
         this.foundMushrooms = foundMushrooms;
     }
+    
 }
 
 
