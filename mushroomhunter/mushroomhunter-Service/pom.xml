@@ -39,8 +39,7 @@
 <type>jar</type>
 </dependency>
     </dependencies>
-    
-  </dependencies>
+   
   
      <build>
         <plugins>
