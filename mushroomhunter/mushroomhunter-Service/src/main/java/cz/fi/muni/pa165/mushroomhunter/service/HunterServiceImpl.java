@@ -8,8 +8,11 @@ import cz.fi.muni.pa165.mushroomhunter.converter.HunterConverter;
 import cz.fi.muni.pa165.mushroomhunter.dao.HunterDao;
 import cz.fi.muni.pa165.mushroomhunter.dto.HunterDto;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataRetrievalFailureException;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,13 +20,18 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author Radim Cejka
  */
-@Service
+@Component
 public class HunterServiceImpl implements HunterService{
 
     @Autowired
     private HunterDao hunterDao;
     @Autowired
     private HunterConverter hunterConverter;
+    
+   
+    public void setDao(HunterDao dao) {
+    hunterDao = dao;
+}
     
       /**
     * Saves hunter into database.
@@ -108,6 +116,9 @@ public class HunterServiceImpl implements HunterService{
     @Transactional
     @Override
     public List<HunterDto> findByName(String firstName) {
+         if (firstName == null) {
+            throw new NullPointerException();
+        }
          try {
             return hunterConverter.hunterEntityToDtoList(hunterDao.findByName(firstName));
         } catch (Exception e) {
@@ -124,6 +135,9 @@ public class HunterServiceImpl implements HunterService{
     @Transactional
     @Override
     public List<HunterDto> findBySurname(String surname) {
+         if (surname == null) {
+            throw new NullPointerException();
+        }
          try {
             return hunterConverter.hunterEntityToDtoList(hunterDao.findBySurname(surname));
         } catch (Exception e) {
@@ -140,6 +154,9 @@ public class HunterServiceImpl implements HunterService{
     @Transactional
     @Override
     public List<HunterDto> findByNick(String nick) {
+         if (nick == null) {
+            throw new NullPointerException();
+        }
          try {
             return hunterConverter.hunterEntityToDtoList(hunterDao.findByNick(nick));
         } catch (Exception e) {

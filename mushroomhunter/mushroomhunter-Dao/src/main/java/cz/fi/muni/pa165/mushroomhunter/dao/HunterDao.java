@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.mushroomhunter.dao;
 import cz.fi.muni.pa165.mushroomhunter.entity.Hunter;
 import java.util.List;
 import javax.ejb.Local;
+import org.springframework.stereotype.Component;
 
 /**
  * The interface of a data object for the entity Hunter.
@@ -10,6 +11,7 @@ import javax.ejb.Local;
  * @author Lukáš Valach
  */
 @Local
+@Component
 public interface HunterDao {
     
     /**

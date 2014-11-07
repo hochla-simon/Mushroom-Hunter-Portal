@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.springframework.stereotype.Component;
 
 /**
  * The implementation of a data object for the entity Hunter.
@@ -13,6 +14,7 @@ import javax.persistence.Query;
  * @author Lukáš Valach
  */
 @Stateless
+@Component
 public class HunterDaoImpl implements HunterDao {
 
     /**
