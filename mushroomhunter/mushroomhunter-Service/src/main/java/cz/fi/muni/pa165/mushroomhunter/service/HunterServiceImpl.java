@@ -5,15 +5,13 @@
 package cz.fi.muni.pa165.mushroomhunter.service;
 
 import cz.fi.muni.pa165.mushroomhunter.converter.HunterConverter;
+
 import cz.fi.muni.pa165.mushroomhunter.dao.HunterDao;
 import cz.fi.muni.pa165.mushroomhunter.dto.HunterDto;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -29,6 +27,7 @@ public class HunterServiceImpl implements HunterService{
     private HunterConverter hunterConverter;
     
    
+    @Override
     public void setDao(HunterDao dao) {
     hunterDao = dao;
 }
