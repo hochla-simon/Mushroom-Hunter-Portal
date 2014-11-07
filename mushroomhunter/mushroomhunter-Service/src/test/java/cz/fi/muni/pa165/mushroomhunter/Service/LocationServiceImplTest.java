@@ -4,17 +4,26 @@
  */
 package cz.fi.muni.pa165.mushroomhunter.Service;
 
+import cz.fi.muni.pa165.mushroomhunter.converter.LocationConverter;
+import cz.fi.muni.pa165.mushroomhunter.converter.MushroomConverter;
+import cz.fi.muni.pa165.mushroomhunter.dao.LocationDaoImpl;
 import cz.fi.muni.pa165.mushroomhunter.dto.LocationDto;
 import cz.fi.muni.pa165.mushroomhunter.dto.MushroomDto;
+import cz.fi.muni.pa165.mushroomhunter.entity.Type;
 import cz.fi.muni.pa165.mushroomhunter.service.LocationServiceImpl;
+import java.util.Date;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
+import static org.mockito.Mockito.verify;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -23,42 +32,29 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  * @author Simon
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 @ContextConfiguration(locations = {"/applicationContext.xml"})
 public class LocationServiceImplTest {
     
-    @Autowired
+    @InjectMocks
     LocationServiceImpl lsi;
-        
+    @Mock
+    LocationDaoImpl locationDao;
+    @Mock
+    LocationConverter lc = new LocationConverter();
+    @Mock
+    MushroomConverter mc = new MushroomConverter();
     public LocationServiceImplTest() {
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
     /**
      * Test of save method, of class LocationServiceImpl.
      */
     @Test
     public void testSave() {
-       LocationDto location = new LocationDto();
-       location.setDescription("desc");
-       location.setName("name");
-       location.setNearCity("city");
-       lsi.save(location);
+       LocationDto locationDto = this.createLocation();
+       lsi.save(locationDto);
+       verify(locationDao).save(lc.locationDtoToEntity(locationDto));
     }
 
     /**
@@ -66,10 +62,9 @@ public class LocationServiceImplTest {
      */
     @Test
     public void testUpdate() {
-        System.out.println("update");
-       
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        LocationDto locationDto = this.createLocation();
+        lsi.delete(locationDto);
+        verify(locationDao).delete(lc.locationDtoToEntity(locationDto));
     }
 
     /**
@@ -77,12 +72,9 @@ public class LocationServiceImplTest {
      */
     @Test
     public void testDelete() {
-        System.out.println("delete");
-        LocationDto locationDto = null;
-        LocationServiceImpl instance = new LocationServiceImpl();
-        instance.delete(locationDto);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       LocationDto locationDto = this.createLocation();
+        lsi.update(locationDto);
+        verify(locationDao).update(lc.locationDtoToEntity(locationDto));
     }
 
     /**
@@ -90,10 +82,10 @@ public class LocationServiceImplTest {
      */
     @Test
     public void testFind() {
-        System.out.println("find");
-    
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       LocationDto locationDto = this.createLocation();
+       lsi.save(locationDto);
+       lsi.find(locationDto.getId());
+       verify(locationDao).find(locationDto.getId());
     }
 
     /**
@@ -101,14 +93,8 @@ public class LocationServiceImplTest {
      */
     @Test
     public void testFindByNearCity() {
-        System.out.println("findByNearCity");
-        String nearCity = "";
-        LocationServiceImpl instance = new LocationServiceImpl();
-        List expResult = null;
-        List result = instance.findByNearCity(nearCity);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       lsi.findByNearCity("Brno");
+       verify(locationDao).findByNearCity("Brno");
     }
 
     /**
@@ -116,14 +102,10 @@ public class LocationServiceImplTest {
      */
     @Test
     public void testFindByMushroom() {
-        System.out.println("findByMushroom");
-        MushroomDto mushroomDto = null;
-        LocationServiceImpl instance = new LocationServiceImpl();
-        List expResult = null;
-        List result = instance.findByMushroom(mushroomDto);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        LocationDto locationDto = this.createLocation();
+         MushroomDto mushroomDto = this.createMushroom("Mochomurka", new Date(1, 4, 1), new Date(1, 8, 1), Type.POISONOUS);
+        lsi.findByMushroom(mushroomDto);
+        verify(locationDao).findByMushroom(mc.mushroomDtoToEntity(mushroomDto));
     }
 
     /**
@@ -131,14 +113,8 @@ public class LocationServiceImplTest {
      */
     @Test
     public void testFindByOccurence() {
-        System.out.println("findByOccurence");
-        boolean ascending = false;
-        LocationServiceImpl instance = new LocationServiceImpl();
-        List expResult = null;
-        List result = instance.findByOccurence(ascending);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        lsi.findByOccurence(true);
+        verify(locationDao).findByOccurence(true);
     }
 
     /**
@@ -146,12 +122,26 @@ public class LocationServiceImplTest {
      */
     @Test
     public void testFindAll() {
-        System.out.println("findAll");
-        LocationServiceImpl instance = new LocationServiceImpl();
-        List expResult = null;
-        List result = instance.findAll();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       lsi.findAll();
+       verify(locationDao).findAll();
+    }
+    
+    public LocationDto createLocation() {
+        LocationDto locationDto = new LocationDto();
+        
+        locationDto.setDescription("desc");
+        locationDto.setName("name");
+        locationDto.setNearCity("city");
+        
+        return locationDto;
+    }
+    
+     public MushroomDto createMushroom(String name, Date startOfOcc, Date enDate, Type type) {
+        MushroomDto m = new MushroomDto();
+        m.setName(name);
+        m.setStartOfOccurence(startOfOcc);
+        m.setEndOfOccurence(enDate);
+        m.setType(type);
+        return m;
     }
 }

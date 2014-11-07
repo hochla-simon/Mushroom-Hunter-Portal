@@ -44,7 +44,9 @@ public class LocationServiceImpl {
     @Transactional
     public long save(LocationDto locationDto) {
         try {
-            return locationDao.save(locationConverter.locationDtoToEntity(locationDto));
+            long id =  locationDao.save(locationConverter.locationDtoToEntity(locationDto));
+            locationDto.setId(id);
+            return id;
         } catch (Exception e) {
             throw new DataRetrievalFailureException("Error saving data.", e);
         }
