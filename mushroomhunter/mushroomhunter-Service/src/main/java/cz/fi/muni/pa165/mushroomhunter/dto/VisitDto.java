@@ -5,22 +5,9 @@
  */
 package cz.fi.muni.pa165.mushroomhunter.dto;
 
-import cz.fi.muni.pa165.mushroomhunter.entity.Hunter;
-import cz.fi.muni.pa165.mushroomhunter.entity.Location;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapKeyColumn;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
