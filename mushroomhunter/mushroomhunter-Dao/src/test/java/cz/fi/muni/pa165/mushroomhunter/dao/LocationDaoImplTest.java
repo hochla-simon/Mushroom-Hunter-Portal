@@ -346,7 +346,8 @@ public class LocationDaoImplTest
         locDimpl.save(location2);
         
         HashMap<Long, Integer> foundMushrooms = new HashMap<>();
-        foundMushrooms.put(mushroom2.getId(), 10);
+        foundMushrooms.put(mushroom1.getId(), 1);
+        foundMushrooms.put(mushroom2.getId(), 2);
         
         Visit visit = new Visit();
         visit.setHunter(hunter);
@@ -356,7 +357,8 @@ public class LocationDaoImplTest
         visitDao.save(visit);
         
         HashMap<Long, Integer> foundMushrooms2 = new HashMap<>();
-        foundMushrooms2.put(mushroom1.getId(), 5);
+        foundMushrooms2.put(mushroom1.getId(), 10);
+        foundMushrooms2.put(mushroom2.getId(), 20);
         
         Visit visit2 = new Visit();
         visit2.setHunter(hunter);
@@ -368,8 +370,8 @@ public class LocationDaoImplTest
         List<Location> findLocations = locDimpl.findByOccurence(true);
         assertEquals(2, findLocations.size());
         if (findLocations.size() > 0){
-            compareLocation(location2, findLocations.get(0));
-            compareLocation(location, findLocations.get(1));
+            compareLocation(location, findLocations.get(0));
+            compareLocation(location2, findLocations.get(1));
         }
     }
 

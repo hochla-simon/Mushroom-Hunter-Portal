@@ -36,8 +36,6 @@ public class VisitServiceImpl implements VisitService {
     HunterConverter hunterConverter;
     @Autowired
     LocationConverter locationConverter;
-    @PersistenceContext
-    private EntityManager em;
 
     public VisitServiceImpl() {
     }
