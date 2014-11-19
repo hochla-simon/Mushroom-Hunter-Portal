@@ -159,5 +159,6 @@
   <modules>
     <module>mushroomhunter-Dao</module>
     <module>mushroomhunter-Service</module>
+    <module>mushroomhunter-Web</module>
   </modules>
 </project>

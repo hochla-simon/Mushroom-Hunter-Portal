@@ -1,56 +1,50 @@
-<?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>cz.fi.muni.pa165.mushroomhunter</groupId>
-    <artifactId>mushroomhunter</artifactId>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>cz.fi.muni.pa165.mushroomhunter</groupId>
+        <artifactId>mushroomhunter</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <groupId>cz.fi.muni.pa165.mushroomhunter.Web</groupId>
+    <artifactId>mushroomhunter-Web</artifactId>
     <version>1.0-SNAPSHOT</version>
-  </parent>
-  <groupId>cz.fi.muni.pa165.mushroomhunter.Service</groupId>
-  <artifactId>mushroomhunter-Service</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <name>mushroomhunter-Service</name>
-  <url>http://maven.apache.org</url>
-   <packaging>jar</packaging>
-   
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-  <dependencies>
-      
-    <dependency>
-      <groupId>cz.fi.muni.pa165.mushroomhunter.dao</groupId>
-      <artifactId>mushroomhunter-Dao</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <scope>compile</scope>
-    </dependency>
+    <packaging>war</packaging>
+
+    <name>mushroomhunter-Web</name>
+
+    <properties>
+        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     
-    <dependency>
-        <groupId>net.sf.dozer</groupId>
-        <artifactId>dozer</artifactId>
-        <version>5.5.1</version>
-    </dependency>
-<dependency>
-<groupId>org.mockito</groupId>
-<artifactId>mockito-all</artifactId>
-<version>1.9.5</version>
-<scope>test</scope>
-<type>jar</type>
-</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>cz.fi.muni.pa165.mushroomhunter.dao</groupId>
+            <artifactId>mushroomhunter-Dao</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>cz.fi.muni.pa165.mushroomhunter.Service</groupId>
+            <artifactId>mushroomhunter-Service</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-servlet-api</artifactId>
+            <version>7.0.42</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
-   
-  
-     <build>
+
+    <build>
         <plugins>
-<!--            <plugin> 
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
-            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -97,10 +91,12 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.15</version>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.1</version>
             </plugin>
         </plugins>
+        <finalName>my-webapp</finalName>
     </build>
+
 </project>
