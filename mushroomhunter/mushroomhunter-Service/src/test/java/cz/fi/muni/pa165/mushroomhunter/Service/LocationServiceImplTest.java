@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.fi.muni.pa165.mushroomhunter.Service;
+package cz.fi.muni.pa165.mushroomhunter.service;
 
 import cz.fi.muni.pa165.mushroomhunter.converter.LocationConverter;
 import cz.fi.muni.pa165.mushroomhunter.converter.MushroomConverter;

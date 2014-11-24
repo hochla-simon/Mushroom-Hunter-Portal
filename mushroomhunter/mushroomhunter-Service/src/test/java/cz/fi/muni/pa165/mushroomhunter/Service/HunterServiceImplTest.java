@@ -2,44 +2,41 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.fi.muni.pa165.mushroomhunter.Service;
+package cz.fi.muni.pa165.mushroomhunter.service;
 
-import cz.fi.muni.pa165.mushroomhunter.dao.HunterDao;
 import cz.fi.muni.pa165.mushroomhunter.dto.HunterDto;
 import cz.fi.muni.pa165.mushroomhunter.converter.HunterConverter;
+import cz.fi.muni.pa165.mushroomhunter.dao.HunterDaoImpl;
 import cz.fi.muni.pa165.mushroomhunter.entity.Hunter;
-import cz.fi.muni.pa165.mushroomhunter.service.HunterService;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import static org.mockito.Mockito.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  *
  * @author Radim Cejka
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 @ContextConfiguration(locations = {"/applicationContext.xml"})
 public class HunterServiceImplTest {
    
-    private HunterDto hunterDto;
-    @Autowired
-    private HunterService hunterService;
-    @Autowired
-    private HunterConverter hunterConverter;
    
-    HunterDao hunterDao;
+    private HunterDto hunterDto;
+    //@Autowired
+    @InjectMocks
+    private HunterServiceImpl hunterService;
+    //@Autowired
+    @Mock
+    private HunterConverter hunterConverter = new HunterConverter();
+    @Mock
+    HunterDaoImpl hunterDao;
     
     public HunterServiceImplTest() {
     }
@@ -53,29 +50,15 @@ public class HunterServiceImplTest {
         hunterDto.setDescription("Short description.");
         hunterDto.setNick("Frantisek");
         
-        hunterDao = mock(HunterDao.class);
-        hunterService.setDao(hunterDao);
-        /*   
-     * 
-        hunterService = new HunterServiceImpl();
-        hunterConverter = new HunterConverter();
-        * */
+      
     }
-    
-    @After
-    public void tearDown() {
-        /*
-        hunterDto = null;
-        hunterService = null;
-        * */
-    }
+   
 
     /**
      * Test of save method, of class HunterServiceImpl.
      */
     @Test (expected = NullPointerException.class)
     public void testSave() {
-        Hunter h = hunterConverter.hunterDtoToEntity(hunterDto);
         hunterService.save(hunterDto);
         verify(hunterDao).save(hunterConverter.hunterDtoToEntity(hunterDto));
         //doThrow(DataRetrievalFailureException.class).when(hunterDao).save(any(Hunter.class));
@@ -87,9 +70,7 @@ public class HunterServiceImplTest {
      */
     @Test
     public void testUpdate() {
-        Hunter hunter = hunterConverter.hunterDtoToEntity(hunterDto);
-        when(hunterDao.update(hunter)).thenReturn(hunter);
-        hunterService.update(hunterDto);
+    hunterService.update(hunterDto);
         verify(hunterDao).update(hunterConverter.hunterDtoToEntity(hunterDto));
     }
 
@@ -109,10 +90,8 @@ public class HunterServiceImplTest {
      */
     @Test
     public void testFind() {
-        Hunter hunter = hunterConverter.hunterDtoToEntity(hunterDto);
-        when(hunterDao.find(42)).thenReturn(hunter);
-        HunterDto foundHunter = hunterService.find(42);
-        assertEquals(hunter, hunterConverter.hunterDtoToEntity(foundHunter));
+        hunterService.find(hunterDto.getId());
+        verify(hunterDao).find(hunterDto.getId());
     }
 
     /**
@@ -120,20 +99,8 @@ public class HunterServiceImplTest {
      */
     @Test
     public void testFindByName() {
-        Hunter hunter2 = new Hunter();
-        hunter2.setId(new Long(22));
-        hunter2.setFirstName("Franta");
-        hunter2.setSurname("Voprsalek");
-        hunter2.setDescription("Short description.");
-        hunter2.setNick("Frantisek");
-        HunterDto hunter2Dto = hunterConverter.hunterEntityToDto(hunter2);
-        Hunter hunter = hunterConverter.hunterDtoToEntity(hunterDto);
-        
-        when(hunterDao.findByName("Franta")).thenReturn(new ArrayList((Collection)Arrays.asList(hunter,hunter2)));
-        List<HunterDto> foundHunter = hunterService.findByName("Franta");
-        assertEquals(foundHunter.size(), 2);
-        assertEquals(foundHunter.get(0), hunterDto);
-        assertEquals(foundHunter.get(1), hunter2Dto);
+        hunterService.findByName(hunterDto.getFirstName());
+        verify(hunterDao).findByName(hunterDto.getFirstName());
     }
 
     /**
@@ -141,20 +108,8 @@ public class HunterServiceImplTest {
      */
     @Test
     public void testFindBySurname() {
-        Hunter hunter2 = new Hunter();
-        hunter2.setId(new Long(22));
-        hunter2.setFirstName("Franta");
-        hunter2.setSurname("Voprsalek");
-        hunter2.setDescription("Short description.");
-        hunter2.setNick("Frantisek");
-        HunterDto hunter2Dto = hunterConverter.hunterEntityToDto(hunter2);
-        Hunter hunter = hunterConverter.hunterDtoToEntity(hunterDto);
-        
-        when(hunterDao.findBySurname("Voprsalek")).thenReturn(new ArrayList((Collection)Arrays.asList(hunter,hunter2)));
-        List<HunterDto> foundHunter = hunterService.findBySurname("Voprsalek");
-        assertEquals(foundHunter.size(), 2);
-        assertEquals(foundHunter.get(0), hunterDto);
-        assertEquals(foundHunter.get(1), hunter2Dto);
+        hunterService.findBySurname(hunterDto.getSurname());
+        verify(hunterDao).findBySurname(hunterDto.getSurname());
     }
 
     /**
@@ -162,20 +117,8 @@ public class HunterServiceImplTest {
      */
     @Test
     public void testFindByNick() {
-        Hunter hunter2 = new Hunter();
-        hunter2.setId(new Long(22));
-        hunter2.setFirstName("Franta");
-        hunter2.setSurname("Voprsalek");
-        hunter2.setDescription("Short description.");
-        hunter2.setNick("Frantisek");
-        HunterDto hunter2Dto = hunterConverter.hunterEntityToDto(hunter2);
-        Hunter hunter = hunterConverter.hunterDtoToEntity(hunterDto);
-        
-        when(hunterDao.findByNick("Frantisek")).thenReturn(new ArrayList((Collection)Arrays.asList(hunter,hunter2)));
-        List<HunterDto> foundHunter = hunterService.findByNick("Frantisek");
-        assertEquals(foundHunter.size(), 2);
-        assertEquals(foundHunter.get(0), hunterDto);
-        assertEquals(foundHunter.get(1), hunter2Dto);
+        hunterService.findByNick(hunterDto.getNick());
+        verify(hunterDao).findByNick(hunterDto.getNick());
     }
 
     /**
@@ -183,19 +126,7 @@ public class HunterServiceImplTest {
      */
     @Test
     public void testFindAll() {
-        Hunter hunter2 = new Hunter();
-        hunter2.setId(new Long(22));
-        hunter2.setFirstName("Franta");
-        hunter2.setSurname("Voprsalek");
-        hunter2.setDescription("Short description.");
-        hunter2.setNick("Frantisek");
-        HunterDto hunter2Dto = hunterConverter.hunterEntityToDto(hunter2);
-        Hunter hunter = hunterConverter.hunterDtoToEntity(hunterDto);
-        
-        when(hunterDao.findAll()).thenReturn(new ArrayList((Collection)Arrays.asList(hunter,hunter2)));
-        List<HunterDto> foundHunter = hunterService.findAll();
-        assertEquals(foundHunter.size(), 2);
-        assertEquals(foundHunter.get(0), hunterDto);
-        assertEquals(foundHunter.get(1), hunter2Dto);
+        hunterService.findAll();
+        verify(hunterDao).findAll();
     }
 }

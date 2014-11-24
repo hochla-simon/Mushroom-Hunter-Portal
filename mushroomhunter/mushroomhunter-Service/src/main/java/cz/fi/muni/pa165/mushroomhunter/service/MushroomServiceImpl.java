@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.mushroomhunter.Service;
+package cz.fi.muni.pa165.mushroomhunter.service;
 
 import cz.fi.muni.pa165.mushroomhunter.dto.LocationDto;
 import cz.fi.muni.pa165.mushroomhunter.converter.HunterConverter;
