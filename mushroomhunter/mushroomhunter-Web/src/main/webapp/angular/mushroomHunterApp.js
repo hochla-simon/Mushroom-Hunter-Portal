@@ -2,7 +2,8 @@
 var app = angular.module('mushroomHunterApp', [
     'ngRoute',
     'mainControllers',
-    'locationControllers'
+    'locationControllers',
+    'locationServices'
 ]);
 
 app.config(['$routeProvider',

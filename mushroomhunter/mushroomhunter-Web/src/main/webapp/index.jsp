@@ -7,6 +7,7 @@
         <!-- JS -->
         <script src="https://code.angularjs.org/1.3.3/angular.min.js"></script>
         <script src="//code.angularjs.org/1.3.3/angular-route.js"></script>
+        <script src="//code.angularjs.org/1.3.3/angular-resource.js"></script>
         <script src="angular/mushroomHunterApp.js"></script>
         <script src="angular/homepage/mainCtrl.js"></script>
         <script src="angular/location/locationCtrl.js"></script>

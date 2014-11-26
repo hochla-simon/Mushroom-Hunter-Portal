@@ -5,7 +5,20 @@
 <table>
     <tr ng-repeat="location in locations">
         <td>
+            {{location.id}}
+        </td>
+        <td>
             {{location.name}}
+        </td>
+        <td>
+            {{location.description}}
+        </td>
+        <td>
+            {{location.nearCity}}
+        </td>
+        <td>
+            <a href="" ng-click="showLocationDetail(location.id)">Detail</a>
         </td>
     </tr>
 </table>
+<a href="" ng-click="refreshLocations()">Refresh location list</a>

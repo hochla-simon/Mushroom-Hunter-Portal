@@ -1,4 +1,39 @@
 <h2>
     Location Detail
 </h2>
-<div>Location ID: {{locationId}}</div>
+
+<table>
+    <tr>
+        <td>
+            Id
+        </td>
+        <td>
+            {{location.id}}
+        </td>
+    </tr>
+        <tr>
+        <td>
+            Name
+        </td>
+        <td>
+            {{location.name}}
+        </td>
+    </tr>
+        <tr>
+        <td>
+            Description
+        </td>
+        <td>
+            {{location.description}}
+        </td>
+    </tr>
+        <tr>
+        <td>
+            Near city
+        </td>
+        <td>
+            {{location.nearCity}}
+        </td>
+    </tr>
+    <a href="" ng-click="goToLocationList()">Show location list</a>
+</table>

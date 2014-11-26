@@ -94,7 +94,7 @@ public class LocationDaoImpl implements LocationDao {
         String order = ascending ? "ASC" : "DESC";
         final Query query = em.createQuery("SELECT SUM(fm), v.location.id, v.location.name, v.location.description, v.location.nearCity FROM Visit v JOIN v.foundMushrooms fm GROUP BY v.location.id, v.location.name, v.location.description, v.location.nearCity ORDER BY SUM(fm) " + order);
         List<Object[]> resultList = query.getResultList();
-        Map<Location, Integer> relustlMap = new HashMap<Location, Integer>();
+        Map<Location, Integer> resultMap = new HashMap<Location, Integer>();
         for (Object[] rl : resultList) {
             {
                 Integer sumOfMushrooms = new Integer((int) (long) rl[0]);
@@ -105,11 +105,11 @@ public class LocationDaoImpl implements LocationDao {
                 l.setDescription((String) rl[3]);
                 l.setNearCity((String) rl[4]);
 
-                relustlMap.put(l, sumOfMushrooms);
+                resultMap.put(l, sumOfMushrooms);
             }
 
         }
-        return relustlMap;
+        return resultMap;
     }
 
     @Override

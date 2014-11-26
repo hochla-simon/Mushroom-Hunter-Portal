@@ -4,6 +4,9 @@
 /mushroomhunter/mushroomhunter-Dao/target/
 
 *.log
+**/derby.log
+**/target/
+target
 /mushroomhunter/mushroomhunter-Service/target/
 /mushroomhunter/mushroomhunter-Web/target/
 mushroomhunter/mushroomhunter-Dao/derby.log
