@@ -9,6 +9,7 @@ import cz.fi.muni.pa165.mushroomhunter.converter.MushroomConverter;
 import cz.fi.muni.pa165.mushroomhunter.dao.LocationDao;
 import cz.fi.muni.pa165.mushroomhunter.dto.LocationDto;
 import cz.fi.muni.pa165.mushroomhunter.dto.MushroomDto;
+import cz.fi.muni.pa165.mushroomhunter.entity.Location;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.EntityManager;
@@ -45,13 +46,9 @@ public class LocationServiceImpl {
      */
     @Transactional
     public long save(LocationDto locationDto) {
-        try {
-            long id = locationDao.save(locationConverter.locationDtoToEntity(locationDto));
-            locationDto.setId(id);
-            return id;
-        } catch (Exception e) {
-            throw new DataRetrievalFailureException("Error saving data.", e);
-        }
+        long id = locationDao.save(locationConverter.locationDtoToEntity(locationDto));
+        locationDto.setId(id);
+        return id;
     }
 
     /**
@@ -62,11 +59,7 @@ public class LocationServiceImpl {
      */
     @Transactional
     public LocationDto update(LocationDto locationDto) {
-        try {
-            return locationConverter.locationEntityToDto(locationDao.update(locationConverter.locationDtoToEntity(locationDto)));
-        } catch (Exception e) {
-            throw new DataRetrievalFailureException("Error updating data.", e);
-        }
+        return locationConverter.locationEntityToDto(locationDao.update(locationConverter.locationDtoToEntity(locationDto)));
     }
 
     /**
@@ -156,8 +149,8 @@ public class LocationServiceImpl {
      * the quantity of mushroom occurence.
      */
     @Transactional
-    public Map<LocationDto, Integer> findByOccurenceWithSumOfMushrooms(boolean ascending) {
-        return locationConverter.locationEntityToDtoMap(locationDao.findByOccurenceWithSumOfMushrooms(ascending));
+    public List<LocationDto> findByOccurenceWithSumOfMushrooms(boolean ascending) {
+        return locationConverter.locationEntityMapToDto(locationDao.findByOccurenceWithSumOfMushrooms(ascending));
     }
 
     /**

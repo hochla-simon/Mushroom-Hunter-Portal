@@ -31,6 +31,11 @@ public class LocationDto {
      * The city near the location.
      */
     private String nearCity;
+    
+    /**
+     * Sum of mushrooms which were found in this location.
+     */
+    private Integer mushroomOccurence;
 
     public Long getId() {
         return id;
@@ -62,6 +67,14 @@ public class LocationDto {
 
     public void setNearCity(String nearCity) {
         this.nearCity = nearCity;
+    }
+
+    public Integer getMushroomOccurence() {
+        return mushroomOccurence;
+    }
+
+    public void setMushroomOccurence(Integer mushroomOccurence) {
+        this.mushroomOccurence = mushroomOccurence;
     }
 
     @Override

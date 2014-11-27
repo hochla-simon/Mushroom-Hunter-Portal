@@ -1,6 +1,7 @@
 //Vytvoří naši angulární aplikaci, ta má dependence na kontrolery pro jednotlivé UC
 var app = angular.module('mushroomHunterApp', [
     'ngRoute',
+    'xeditable',
     'mainControllers',
     'locationControllers',
     'locationServices'
@@ -20,11 +21,19 @@ app.config(['$routeProvider',
                     templateUrl: 'angular/location/locationList.html',
                     controller: 'LocationListCtrl'
                 }).
-                when('/location/:locationId', {
+                when('/location/detail/:locationId', {
                     templateUrl: 'angular/location/locationDetail.html',
                     controller: 'LocationDetailCtrl'
+                }).
+                when('/location/create', {
+                    templateUrl: 'angular/location/locationCreate.html',
+                    controller: 'LocationCreateCtrl'
                 }).
                 otherwise({
                     redirectTo: '/homepage'
                 });
     }]);
+
+app.run(function (editableOptions) {
+    editableOptions.theme = 'bs3'; // bootstrap3 theme.
+});

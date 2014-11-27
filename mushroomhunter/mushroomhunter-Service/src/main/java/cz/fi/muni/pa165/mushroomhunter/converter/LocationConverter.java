@@ -68,6 +68,16 @@ public class LocationConverter {
         return locationDaoMap;
     }
     
+    public List<LocationDto> locationEntityMapToDto(Map<Location, Integer> locationEntityMap) {
+        List<LocationDto> locationDtoList = new ArrayList<>();
+        for(Location location : locationEntityMap.keySet()){
+                LocationDto locationDto = this.locationEntityToDto(location);
+                locationDto.setMushroomOccurence(locationEntityMap.get(location));
+                locationDtoList.add(locationDto);
+        }
+        return locationDtoList;
+    }
+    
     public Map<Location, Integer>locationDtoToEntityMap(Map<LocationDto, Integer> locationDaoMap) {
         Map<Location, Integer> locationEntityMap = new HashMap<Location, Integer>();
         for (LocationDto locationDto: locationDaoMap.keySet()) {

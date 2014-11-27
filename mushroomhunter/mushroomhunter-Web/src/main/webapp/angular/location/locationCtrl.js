@@ -1,14 +1,14 @@
-//Skupina controllerů pro location, angulární aplikace (mushroomHunterApp.js) na ní má závislost
 var locationControllers = angular.module('locationControllers', []);
 
-//Controller pro zobrazení listu lokací (locationList.html)
-locationControllers.controller('LocationListCtrl', ['$scope', '$window', 'LocationService', function ($scope, $window, LocationService) {
-//Objekt zapsaný v JSONu
+//
+//  LOCATION LIST CONTROLLER
+//
+locationControllers.controller('LocationListCtrl', ['$scope', '$window', '$log', 'LocationService', function ($scope, $window, $log, LocationService) {
 
-        $scope.locations = LocationService("").query();
+        $scope.locations = LocationService("").getLocationWithMushroomOccurence();
 
         $scope.refreshLocations = function () {
-            LocationService("withMushroomOccurence").query(
+            LocationService("").getLocationWithMushroomOccurence(
                     function (data, status, headers, config) {
                         $scope.messages = data;
                         $log.info("List of location loaded.");
@@ -18,33 +18,22 @@ locationControllers.controller('LocationListCtrl', ['$scope', '$window', 'Locati
         };
 
         $scope.showLocationDetail = function (locationId) {
-            $window.location.href = '/mushroomhunter-web/#/location/' + locationId;
-        }
-
-
-//        var testLoc = LocationService().query({param: '10'}, function (data, status, headers, config) {
-//            $scope.time = new Date();
-//            $scope.messages = data;
-//            $scope.checkNewMessages();
-//        }, function (data, status, headers, config) {
-//            $log.info("An error occurred on server!");
-//        }
-//        );
-//        $scope.locations = [
-//            {
-//                "id": 1,
-//                "name": "Brno"
-//            },
-//            {
-//                "id": 2,
-//                "name": "Praha"
-//            }];
+            $window.location.href = '/mushroomhunter-web/#/location/detail/' + locationId;
+        };
+        
+        $scope.goToCreateLocation = function () {
+            $window.location.href = '/mushroomhunter-web/#/location/create';
+        };
+        
+        $scope.goToHomePage = function () {
+            $window.location.href = '/mushroomhunter-web/';
+        };
     }]);
 
-//Controller pro zobrazení detailu lokací (locationDetail.html)
-//Má dependenci na '$routeParams' a ta se mu pak předá jako parametr $routeParams
-//Z $routeParams jde vytáhnout parametr z URL
-locationControllers.controller('LocationDetailCtrl', ['$scope', '$routeParams', 'LocationService', function ($scope, $routeParams, LocationService) {
+//
+//  LOCATION DETAIL CONTROLLER
+//
+locationControllers.controller('LocationDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'LocationService', function ($scope, $routeParams, $window, $log, LocationService) {
         $scope.location = LocationService($routeParams.locationId).getLocationDetail(
                 function (data, status, headers, config) {
                     $log.info("Location detail loaded.");
@@ -56,20 +45,76 @@ locationControllers.controller('LocationDetailCtrl', ['$scope', '$routeParams', 
         $scope.goToLocationList = function () {
             $window.location.href = '/mushroomhunter-web/#/location';
         };
+
+        $scope.updateLocation = function (location) {
+            $log.info("Saving location with ID: " + location.id);
+            LocationService("").update(location,
+                    function (data, status, headers, config) {
+                        $log.info("Location updated");
+                    },
+                    function (data, status, headers, config) {
+                        $log.error("An error occurred on server! Location cannot be updated.");
+                    });
+        };
+
+        $scope.deleteLocation = function (location) {
+            $log.info("Deleting location with ID: " + location.id);
+            LocationService(location.id).delete(
+                    function (data, status, headers, config) {
+                        $log.info("Location deleted");
+                        $scope.goToLocationList();
+                    },
+                    function (data, status, headers, config) {
+                        $log.error("An error occurred on server! Location cannot be deleted.");
+                    });
+        };
     }]);
 
+//
+//  CREATE NEW LOCATION CONTROLLER
+//
+locationControllers.controller('LocationCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'LocationService', function ($scope, $routeParams, $window, $log, LocationService) {
+        $scope.location = {
+            "id":null,
+            "name":"",
+            "description": null,
+            "nearCity": null,
+            "mushroomOccurence":null
+        };
 
+        $scope.goToLocationList = function () {
+            $window.location.href = '/mushroomhunter-web/#/location';
+        };
+
+        $scope.createLocation = function () {
+            $log.info("Creating location with name: " + $scope.location.name);
+            LocationService("").create($scope.location,
+                    function (data, status, headers, config) {
+                        $log.info("Location created");
+                        $scope.showLocationDetail(data);
+                    },
+                    function (data, status, headers, config) {
+                        $log.error("An error occurred on server! Location cannot be created.");
+                    });
+        };
+        
+        $scope.showLocationDetail = function (locationId) {
+            $window.location.href = '/mushroomhunter-web/#/location/detail/' + locationId;
+        };
+    }]);
 //
 //  LOCATION SERVICES
 //
 var locationServices = angular.module('locationServices', ['ngResource']);
 locationServices.factory('LocationService', ['$resource', function ($resource) {
         return function (location) {
-            return $resource('rest/location/' + location + ":param", {}, {
+            return $resource('rest/location/' + location + ':param', {}, {
                 query: {method: 'GET', isArray: true},
+                getLocationWithMushroomOccurence: {url: 'rest/location/withMushroomOccurence' + ':param', method: 'GET', isArray: true},
                 getLocationDetail: {method: 'GET', isArray: false},
-                create: {method: 'PUT'},
-                delete: {method: 'DELETE'}
+                create: {method: 'POST', isArray:true},
+                update: {method: 'PUT', isArray:false},
+                delete: {method: 'DELETE', isArray:false}
             });
         };
     }])

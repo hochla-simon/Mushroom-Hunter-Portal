@@ -40,6 +40,9 @@ public class LocationDaoImpl implements LocationDao {
 
     @Override
     public void delete(Location location) {
+        if (!em.contains(location)){
+            location = em.merge(location);
+        }
         em.remove(location);
     }
 
@@ -91,23 +94,32 @@ public class LocationDaoImpl implements LocationDao {
      * @return
      */
     public Map<Location, Integer> findByOccurenceWithSumOfMushrooms(boolean ascending) {
+        //Get ordered list of location with mushrooms
         String order = ascending ? "ASC" : "DESC";
-        final Query query = em.createQuery("SELECT SUM(fm), v.location.id, v.location.name, v.location.description, v.location.nearCity FROM Visit v JOIN v.foundMushrooms fm GROUP BY v.location.id, v.location.name, v.location.description, v.location.nearCity ORDER BY SUM(fm) " + order);
-        List<Object[]> resultList = query.getResultList();
+        final Query query = em.createQuery("SELECT SUM(fm), v.location.id, v.location.name, v.location.description, v.location.nearCity FROM Visit v LEFT JOIN v.foundMushrooms fm RIGHT JOIN v.location l GROUP BY v.location.id, v.location.name, v.location.description, v.location.nearCity ORDER BY SUM(fm) " + order);
+        List<Object[]> locationWihtMushroomsList = query.getResultList();
         Map<Location, Integer> resultMap = new HashMap<Location, Integer>();
-        for (Object[] rl : resultList) {
+        for (Object[] location : locationWihtMushroomsList) {
             {
-                Integer sumOfMushrooms = new Integer((int) (long) rl[0]);
+                Integer sumOfMushrooms = new Integer((int) (long) location[0]);
 
                 Location l = new Location();
-                l.setId((Long) rl[1]);
-                l.setName((String) rl[2]);
-                l.setDescription((String) rl[3]);
-                l.setNearCity((String) rl[4]);
+                l.setId((Long) location[1]);
+                l.setName((String) location[2]);
+                l.setDescription((String) location[3]);
+                l.setNearCity((String) location[4]);
 
                 resultMap.put(l, sumOfMushrooms);
             }
 
+        }
+        //Get all mushrooms
+        List<Location> allLocaitonsList = this.findAll();
+        //Add location without mushrooms to result map
+        for (Location location : allLocaitonsList) {
+            if(!resultMap.containsKey(location)){
+                resultMap.put(location, 0);
+            }
         }
         return resultMap;
     }

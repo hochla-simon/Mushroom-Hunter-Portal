@@ -1,8 +1,29 @@
 <h2>
     Location List
 </h2>
-<div>Ukázka tabulky přes ng-repeat</div>
-<table>
+<table class="table table-striped table-bordered table-hover table-condensed">
+    <thead>
+        <tr>
+            <td>
+                ID
+            </td>
+            <td>
+                Location name
+            </td>
+            <td>
+                Description
+            </td>
+            <td>
+                Near city
+            </td>
+            <td>
+                Mushroom occurence
+            </td>
+            <td>
+                Snow detail
+            </td>
+        </tr>
+    </thead>
     <tr ng-repeat="location in locations">
         <td>
             {{location.id}}
@@ -17,8 +38,19 @@
             {{location.nearCity}}
         </td>
         <td>
+            {{location.mushroomOccurence}}
+        </td>
+        <td>
             <a href="" ng-click="showLocationDetail(location.id)">Detail</a>
         </td>
     </tr>
 </table>
-<a href="" ng-click="refreshLocations()">Refresh location list</a>
+<button type="button" class="btn btn-info" ng-click="goToCreateLocation()">
+    Create new location
+</button>
+<button type="button" class="btn btn-info" ng-click="refreshLocations()">
+    Refresh
+</button>
+<button type="button" class="btn btn-info" ng-click="goToHomePage()">
+    Back to homepage
+</button>
