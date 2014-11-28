@@ -1,4 +1,4 @@
-﻿//Vytvoří naši angulární aplikaci, ta má dependence na kontrolery pro jednotlivé UC
+//Vytvoří naši angulární aplikaci, ta má dependence na kontrolery pro jednotlivé UC
 var app = angular.module('mushroomHunterApp', [
     'ngRoute',
     'xeditable',
@@ -7,10 +7,8 @@ var app = angular.module('mushroomHunterApp', [
     'locationServices',
     'visitControllers',
     'visitServices',
-    
-	'mushroomControllers',
-    
-	'mushroomServices'
+    'mushroomControllers',
+    'mushroomServices'
 ]);
 
 app.config(['$routeProvider',

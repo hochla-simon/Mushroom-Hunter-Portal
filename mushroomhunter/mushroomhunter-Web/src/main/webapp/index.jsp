@@ -24,6 +24,9 @@
         <!--Visit JS -->
         <script src="angular/hunter/hunterCtrl.js"></script>
         
+        <!--Mushroom JS -->
+        <script src="angular/mushroom/mushroomCtrl.js"></script>
+        
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -75,6 +78,9 @@
                         <li>
                             <a href="/mushroomhunter-web/#/location">List of Locations</a>
                         </li>
+                        <li>
+                        <a href="/mushroomhunter-web/#/mushroom">List of Mushrooms</a>
+                    </li>
                         <li>
                             <a href="/mushroomhunter-web/#/visit">List of Visits</a>
                         </li>
