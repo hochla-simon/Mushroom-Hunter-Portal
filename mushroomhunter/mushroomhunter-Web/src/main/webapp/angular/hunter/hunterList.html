@@ -1,51 +1,67 @@
-<br />
-<br />
-<center>
-    <h1 class="brand-name">List of hunters</h1>
-    <hr class="tagline-divider">
-</center>
-<br />
-<br />
-<table class="table table-striped table-bordered table-hover table-condensed">
-    <thead>
-        <tr>
-            <td>
-                ID
-            </td>
-            <td>
-                Firstname
-            </td>
-            <td>
-                Description
-            </td>
-        </tr>
-    </thead>
-    <tr ng-repeat="hunter in hunters| filter:searchText">
-        <td>
-            {{hunter.id}}
-        </td>
-        <td>
-            {{hunter.name}}
-        </td>
-        <td>
-            {{hunter.description}}
-        </td>
-        <td>
-            <a href="" ng-click="showhunterDetail(hunter.id)">Detail</a>
-        </td>
-    </tr>
-</table>
-<div>
-    <input ng-model="searchText" class="form-control" id="exampleInputEmail1" placeholder="Filter hunters">
+<div class="row">
+    <div class="box">
+        <div class="col-lg-12 text-center">
+            <h1 class="brand-name">List of Hunters</h1>
+            <hr class="tagline-divider">
+        </div>
+    </div>
 </div>
-<center>
-    <button type="button" class="btn btn-info" ng-click="goToCreateHunter()">
-        Create new hunter
-    </button>
-    <button type="button" class="btn btn-info" ng-click="refreshHunters()">
-        Refresh
-    </button>
-    <button type="button" class="btn btn-info" ng-click="goToHomePage()">
-        Back to homepage
-    </button>
-</center>
+
+<div class="row">
+    <div class="box">
+        <div class="col-lg-12">
+            <table class="table table-striped table-bordered table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <td>
+                            ID
+                        </td>
+                        <td>
+                            Nick
+                        </td>
+                        <td>
+                            First Name
+                        </td>
+                        <td>
+                            Surname
+                        </td>
+                         <td>
+                            Description
+                        </td>
+                    </tr>
+                </thead>
+                <tr ng-repeat="hunter in hunters| filter:searchText">
+                    <td>
+                        {{hunter.id}}
+                    </td>
+                    <td>
+                        {{hunter.nick}}
+                    </td>
+                    <td>
+                        {{hunter.firstName}}
+                    </td>
+                    <td>
+                        {{hunter.surname}}
+                    </td>
+                    <td>
+                        {{hunter.description}}
+                    </td>
+                    <td>
+                        <a href="" ng-click="showHunterDetail(hunter.id)">Detail</a>
+                    </td>
+                </tr>
+            </table>
+            <center>
+                <button type="button" class="btn btn-info" ng-click="goToCreateHunter()">
+                    Create new hunter
+                </button>
+                <button type="button" class="btn btn-info" ng-click="refreshHunter()">
+                    Refresh
+                </button>
+                <button type="button" class="btn btn-info" ng-click="goToHomePage()">
+                    Back to homepage
+                </button>
+            </center>
+        </div>
+    </div>
+</div>

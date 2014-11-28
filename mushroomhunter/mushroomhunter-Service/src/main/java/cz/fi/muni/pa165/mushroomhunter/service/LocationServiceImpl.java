@@ -9,14 +9,10 @@ import cz.fi.muni.pa165.mushroomhunter.converter.MushroomConverter;
 import cz.fi.muni.pa165.mushroomhunter.dao.LocationDao;
 import cz.fi.muni.pa165.mushroomhunter.dto.LocationDto;
 import cz.fi.muni.pa165.mushroomhunter.dto.MushroomDto;
-import cz.fi.muni.pa165.mushroomhunter.entity.Location;
 import java.util.List;
-import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataRetrievalFailureException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,11 +69,7 @@ public class LocationServiceImpl implements LocationService {
     @Transactional
     @Override
     public void delete(LocationDto locationDto) {
-        try {
             locationDao.delete(locationConverter.locationDtoToEntity(locationDto));
-        } catch (Exception e) {
-            throw new DataRetrievalFailureException("Error deleting data.", e);
-        }
     }
 
     /**
@@ -89,11 +81,7 @@ public class LocationServiceImpl implements LocationService {
     @Transactional
     @Override
     public LocationDto find(long id) {
-        try {
             return locationConverter.locationEntityToDto(locationDao.find(id));
-        } catch (Exception e) {
-            throw new DataRetrievalFailureException("Error retrieving data.", e);
-        }
     }
 
     /**
@@ -105,11 +93,7 @@ public class LocationServiceImpl implements LocationService {
     @Transactional
     @Override
     public List<LocationDto> findByNearCity(String nearCity) {
-        try {
             return locationConverter.locationEntityToDtoList(locationDao.findByNearCity(nearCity));
-        } catch (Exception e) {
-            throw new DataRetrievalFailureException("Error retrieving data.", e);
-        }
     }
 
     /**
@@ -121,11 +105,7 @@ public class LocationServiceImpl implements LocationService {
     @Transactional
     @Override
     public List<LocationDto> findByMushroom(MushroomDto mushroomDto) {
-        try {
             return locationConverter.locationEntityToDtoList(locationDao.findByMushroom(mushroomConverter.mushroomDtoToEntity(mushroomDto)));
-        } catch (Exception e) {
-            throw new DataRetrievalFailureException("Error retrieving data.", e);
-        }
     }
 
     /**
@@ -140,11 +120,7 @@ public class LocationServiceImpl implements LocationService {
     @Transactional
     @Override
     public List<LocationDto> findByOccurence(boolean ascending) {
-        try {
             return locationConverter.locationEntityToDtoList(locationDao.findByOccurence(ascending));
-        } catch (Exception e) {
-            throw new DataRetrievalFailureException("Error retrieving data.", e);
-        }
     }
 
     /**
@@ -170,10 +146,6 @@ public class LocationServiceImpl implements LocationService {
     @Transactional
     @Override
     public List<LocationDto> findAll() {
-        try {
             return locationConverter.locationEntityToDtoList(locationDao.findAll());
-        } catch (Exception e) {
-            throw new DataRetrievalFailureException("Error retrieving data.", e);
-        }
     }
 }

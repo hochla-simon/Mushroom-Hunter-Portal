@@ -8,7 +8,9 @@ var app = angular.module('mushroomHunterApp', [
     'visitControllers',
     'visitServices',
     'mushroomControllers',
-    'mushroomServices'
+    'mushroomServices',
+    'hunterControllers',
+    'hunterServices'
 ]);
 
 app.config(['$routeProvider',

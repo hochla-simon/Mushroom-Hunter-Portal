@@ -21,7 +21,7 @@
         <!--Visit JS -->
         <script src="angular/visit/visitCtrl.js"></script>
 
-        <!--Visit JS -->
+        <!--Hunter JS -->
         <script src="angular/hunter/hunterCtrl.js"></script>
         
         <!--Mushroom JS -->
