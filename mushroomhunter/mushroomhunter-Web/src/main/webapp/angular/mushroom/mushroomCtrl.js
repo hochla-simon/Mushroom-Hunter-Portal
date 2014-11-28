@@ -11,7 +11,7 @@ mushroomControllers.controller('MushroomListCtrl', ['$scope', '$window', '$log',
         };
         
         $scope.goToCreateMushroom = function () {
-            $window.mushroom.href = '/mushroomhunter-web/#/mushroom/create';
+            $window.mushroom.href = '/mushroomhunter-web/#/mushroom/create/';
         };
         
         $scope.goToHomePage = function () {

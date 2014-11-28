@@ -30,7 +30,8 @@ public class mushroomRest {
     @RequestMapping(method = RequestMethod.GET)
     public List<MushroomDto> getMushroomList() {
         List<MushroomDto> mushroomList = mushroomService.findAll();
-        if (mushroomList == null) mushroomList = new ArrayList<MushroomDto>();
+        if (mushroomList == null)
+			mushroomList = new ArrayList<MushroomDto>();
         return mushroomList;
     }
 

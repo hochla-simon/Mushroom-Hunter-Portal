@@ -20,7 +20,7 @@ mainControllers.controller('MainCtrl', [ '$scope', '$window', function ($scope, 
     };
 
  $scope.goToMushroomList = function () {
-        	$window.mushroom.href = '/mushroomhunter-web/#/mushroom';
+       $window.mushroom.href = '/mushroomhunter-web/#/mushroom';
     };
 
     //For test only

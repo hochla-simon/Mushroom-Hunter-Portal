@@ -1,27 +1,27 @@
+//Skupina controllerů pro hunter, angulární aplikace (mushroomHunterApp.js) na ní má závislost
 var hunterControllers = angular.module('hunterControllers', []);
 
-//
-//HUNTER LIST CONTROLLER
-///
+//Controller pro zobrazení listu lokací (hunterList.html)
 hunterControllers.controller('HunterListCtrl', ['$scope', '$window', 'HunterService', function ($scope, $window, HunterService) {
+//Objekt zapsaný v JSONu
 
         $scope.hunters = HunterService("").query();
 
         $scope.refreshHunters = function () {
-            HunterService("").query(
+            HunterService("withMushroomOccurence").query(
                     function (data, status, headers, config) {
                         $scope.messages = data;
-                        $log.info("List of hunters loaded.");
+                        $log.info("List of hunter loaded.");
                     }, function (data, status, headers, config) {
-                $log.error("An error occurred on server! List of hunters cannot be loaded.");
+                $log.error("An error occurred on server! List of hunter cannot be loaded.");
             });
         };
 
         $scope.showHunterDetail = function (hunterId) {
-            $window.hunter.href = '/mushroomhunter-web/#/hunter/detail/' + hunterId;
+            $window.hunter.href = '/mushroomhunter-web/#/hunter/' + hunterId;
         };
 		
-	$scope.goToCreateHunter = function () {
+		$scope.goToCreateHunter = function () {
             $window.hunter.href = '/mushroomhunter-web/#/hunter/create';
         };
         
@@ -30,39 +30,6 @@ hunterControllers.controller('HunterListCtrl', ['$scope', '$window', 'HunterServ
         };
     }]);
 
-
-//
-//  CREATE NEW VISIT CONTROLLER
-//
-hunterControllers.controller('HunterCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'HunterService', function ($scope, $routeParams, $window, $log, HunterService) {
-        $scope.visit = {
-            "id":null,
-            "nick": null,
-            "firstName": null,
-            "surname": null,
-            "description":null
-        };
-
-        $scope.goToHunterList = function () {
-            $window.location.href = '/mushroomhunter-web/#/hunter';
-        };
-
-        $scope.createHunter = function () {
-            $log.info("Creating new hunter");
-            HunterService("").create($scope.hunter,
-                    function (data, status, headers, config) {
-                        $log.info("Hunter created");
-                        $scope.showHunterDetail(data);
-                    },
-                    function (data, status, headers, config) {
-                        $log.error("An error occurred on server! Hunter cannot be created.");
-                    });
-        };
-        
-        $scope.showHunterDetail = function (hunterId) {
-            $window.hunter.href = '/mushroomhunter-web/#/hunter/detail/' + hunterId;
-        };
-    }]);
 
 hunterControllers.controller('HunterDetailCtrl', ['$scope', '$routeParams', 'HunterService', function ($scope, $routeParams, HunterService) {
         $scope.hunter = HunterService($routeParams.hunterId).getHunterDetail(
@@ -112,7 +79,7 @@ hunterServices.factory('HunterService', ['$resource', function ($resource) {
                 query: {method: 'GET', isArray: true},
                 getHunterDetail: {method: 'GET', isArray: false},
                 create: {method: 'POST', isArray:true},
-                update: {method: 'PUT'},
+                create: {method: 'PUT'},
                 delete: {method: 'DELETE'}
             });
         };

@@ -1,7 +1,7 @@
 <div class="row">
     <div class="box">
         <div class="col-lg-12 text-center">
-            <h1 class="brand-name">Detail of Visit</h1>
+            <h1 class="brand-name">{{ 'VISITDETAIL' | translate }}</h1>
             <hr class="tagline-divider">
         </div>
     </div>
@@ -14,10 +14,10 @@
                 <thead>
                     <tr>
                         <td>
-                            Property
+                            {{ 'PROPERTY' | translate }}
                         </td>
                         <td>
-                            Value
+                            {{ 'VALUE' | translate }}
                         </td>
                     </tr>
                 </thead>
@@ -31,7 +31,7 @@
                 </tr>
                 <tr>
                     <td>
-                        Location
+                        {{ 'LOC' | translate }}
                     </td>
                     <td>
                         <span editable-text="visit.location" onbeforesave="" onaftersave="updateVisit(visit)">{{visit.location}}</span> 
@@ -39,7 +39,7 @@
                 </tr>
                 <tr>
                     <td>
-                        Hunter
+                         {{ 'HUNTER' | translate }}
                     </td>
                     <td>
                         <span editable-text="visit.hunter" onbeforesave="" onaftersave="updateVisit(visit)">{{visit.hunter}}</span> 
@@ -47,7 +47,7 @@
                 </tr>
                 <tr>
                     <td>
-                        Date
+                         {{ 'DATE' | translate }}
                     </td>
                     <td>
                         <span editable-text="visit.date" onbeforesave="" onaftersave="updateVisit(visit)">{{visit.date}}</span>
@@ -56,10 +56,10 @@
             </table>
             <center>
                 <button type="button" class="btn btn-danger" ng-click="deleteVisit(visit)">
-                    Delete visit
+                     {{ 'DELETEVISIT' | translate }}
                 </button>
                 <button type="button" class="btn btn-info" ng-click="goToVisitList()">
-                    Back to visit list
+                     {{ 'BACKTOVL' | translate }}
                 </button>
             </center>
         </div>
