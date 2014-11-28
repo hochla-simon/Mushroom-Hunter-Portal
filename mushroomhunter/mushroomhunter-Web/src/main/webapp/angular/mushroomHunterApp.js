@@ -29,6 +29,9 @@ app.config(['$routeProvider',
                     templateUrl: 'angular/location/locationCreate.html',
                     controller: 'LocationCreateCtrl'
                 }).
+                when('/contact', {
+                    templateUrl: 'angular/contact/contact.html',
+                }).
                 otherwise({
                     redirectTo: '/homepage'
                 });
