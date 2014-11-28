@@ -1,4 +1,4 @@
-//Vytvoří naši angulární aplikaci, ta má dependence na kontrolery pro jednotlivé UC
+﻿//Vytvoří naši angulární aplikaci, ta má dependence na kontrolery pro jednotlivé UC
 var app = angular.module('mushroomHunterApp', [
     'ngRoute',
     'xeditable',
@@ -6,7 +6,11 @@ var app = angular.module('mushroomHunterApp', [
     'locationControllers',
     'locationServices',
     'visitControllers',
-    'visitServices'
+    'visitServices',
+    
+	'mushroomControllers',
+    
+	'mushroomServices'
 ]);
 
 app.config(['$routeProvider',
@@ -57,6 +61,14 @@ app.config(['$routeProvider',
                 when('/hunter/create', {
                     templateUrl: 'angular/hunter/hunterCreate.html',
                     controller: 'HunterCreateCtrl'
+                }). 
+when('/mushroom', {
+                    templateUrl: 'angular/mushroom/mushroomList.html',
+                    controller: 'MushroomListCtrl'
+                }).
+                 when('/mushroom/create', {
+                    templateUrl: 'angular/mushroom/mushroomCreate.html',
+                    controller: 'MushroomCreateCtrl'
                 }). 
                 otherwise({
                     redirectTo: '/homepage'

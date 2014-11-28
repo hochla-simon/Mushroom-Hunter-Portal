@@ -19,6 +19,10 @@ mainControllers.controller('MainCtrl', [ '$scope', '$window', function ($scope, 
         $window.location.href = '/mushroomhunter-web/#/hunter';
     };
 
+ $scope.goToMushroomList = function () {
+        	$window.mushroom.href = '/mushroomhunter-web/#/mushroom';
+    };
+
     //For test only
     $scope.goToHunterDetail = function () {
         $window.location.href = '/mushroomhunter-web/#/hunter/10';

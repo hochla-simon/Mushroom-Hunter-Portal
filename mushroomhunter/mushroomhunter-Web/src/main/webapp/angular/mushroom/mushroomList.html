@@ -1,0 +1,73 @@
+<div class="row">
+            <div class="box">
+                <div class="col-lg-12 text-center">
+                    <h1 class="brand-name">List of Mushrooms</h1>
+                    <hr class="tagline-divider">
+                </div>
+            </div>
+        </div>
+
+<div class="row">
+            <div class="box">
+                <div class="col-lg-12">
+<table class="table table-striped table-bordered table-hover table-condensed">
+    <thead>
+        <tr>
+            <td>
+                ID
+            </td>
+            <td>
+                Mushroom name
+            </td>
+            <td>
+                Type
+            </td>
+            <td>
+                Date of start occurence
+            </td>
+            <td>
+                Date of end occurence
+            </td>
+            <td>
+                Snow detail
+            </td>
+        </tr>
+    </thead>
+    <tr ng-repeat="mushroom in mushrooms| filter:searchText">
+        <td>
+            {{mushroom.id}}
+        </td>
+        <td>
+            {{mushroom.name}}
+        </td>
+        <td>
+            {{mushroom.type}}
+        </td>
+        <td>
+            {{mushroom.startOfOccurence}}
+        </td>
+        <td>
+            {{mushroom.endOfOccurence}}
+        </td>
+        <td>
+            <a href="" ng-click="showMushroomDetail(mushroom.id)">Detail</a>
+        </td>
+    </tr>
+</table>
+<div>
+    <input ng-model="searchText" class="form-control" id="exampleInputEmail1" placeholder="Filter mushrooms">
+</div>
+<center>
+    <button type="button" class="btn btn-info" ng-click="goToCreateMushroom()">
+        Create new mushroom
+    </button>
+    <button type="button" class="btn btn-info" ng-click="refreshMushrooms()">
+        Refresh
+    </button>
+    <button type="button" class="btn btn-info" ng-click="goToHomePage()">
+        Back to homepage
+    </button>
+</center>
+                    </div>
+            </div>
+        </div>
