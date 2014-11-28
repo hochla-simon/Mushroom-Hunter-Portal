@@ -10,6 +10,10 @@ mainControllers.controller('MainCtrl', [ '$scope', '$window', function ($scope, 
     $scope.goToLocationDetail = function () {
         $window.location.href = '/mushroomhunter-web/#/location/10';
     };
+    
+    $scope.goToVisitList = function () {
+        $window.visit.href = '/mushroomhunter-web/#/visit';
+    };
 
 
 }]);

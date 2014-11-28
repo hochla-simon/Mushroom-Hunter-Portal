@@ -1,28 +1,22 @@
-var locationControllers = angular.module('locationControllers', []);
+var visitControllers = angular.module('visitControllers', []);
 
 //
-//  LOCATION LIST CONTROLLER
+//  VISIT LIST CONTROLLER
 //
-locationControllers.controller('LocationListCtrl', ['$scope', '$window', '$log', 'LocationService', function ($scope, $window, $log, LocationService) {
+visitControllers.controller('VisitListCtrl', ['$scope', '$window', '$log', 'VisitService', function ($scope, $window, $log, VisitService) {
 
-        $scope.locations = LocationService("").getLocationWithMushroomOccurence();
+        $scope.visits = VisitService("").query();
 
-        $scope.refreshLocations = function () {
-            LocationService("").getLocationWithMushroomOccurence(
-                    function (data, status, headers, config) {
-                        $scope.messages = data;
-                        $log.info("List of location loaded.");
-                    }, function (data, status, headers, config) {
-                $log.error("An error occurred on server! List of location cannot be loaded.");
-            });
+        $scope.refreshVisits = function () {
+            
         };
 
-        $scope.showLocationDetail = function (locationId) {
-            $window.location.href = '/mushroomhunter-web/#/location/detail/' + locationId;
+        $scope.showVisitDetail = function (visitId) {
+            $window.location.href = '/mushroomhunter-web/#/visit/detail/' + visitId;
         };
         
-        $scope.goToCreateLocation = function () {
-            $window.location.href = '/mushroomhunter-web/#/location/create';
+        $scope.goToCreateVisit = function () {
+            $window.location.href = '/mushroomhunter-web/#/visit/create';
         };
         
         $scope.goToHomePage = function () {
@@ -30,88 +24,49 @@ locationControllers.controller('LocationListCtrl', ['$scope', '$window', '$log',
         };
     }]);
 
-//
-//  LOCATION DETAIL CONTROLLER
-//
-locationControllers.controller('LocationDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'LocationService', function ($scope, $routeParams, $window, $log, LocationService) {
-        $scope.location = LocationService($routeParams.locationId).getLocationDetail(
-                function (data, status, headers, config) {
-                    $log.info("Location detail loaded.");
-                },
-                function (data, status, headers, config) {
-                    $log.error("An error occurred on server! Detail of location cannot be loaded.");
-                });
-
-        $scope.goToLocationList = function () {
-            $window.location.href = '/mushroomhunter-web/#/location';
-        };
-
-        $scope.updateLocation = function (location) {
-            $log.info("Saving location with ID: " + location.id);
-            LocationService("").update(location,
-                    function (data, status, headers, config) {
-                        $log.info("Location updated");
-                    },
-                    function (data, status, headers, config) {
-                        $log.error("An error occurred on server! Location cannot be updated.");
-                    });
-        };
-
-        $scope.deleteLocation = function (location) {
-            $log.info("Deleting location with ID: " + location.id);
-            LocationService(location.id).delete(
-                    function (data, status, headers, config) {
-                        $log.info("Location deleted");
-                        $scope.goToLocationList();
-                    },
-                    function (data, status, headers, config) {
-                        $log.error("An error occurred on server! Location cannot be deleted.");
-                    });
-        };
-    }]);
 
 //
-//  CREATE NEW LOCATION CONTROLLER
+//  CREATE NEW Visit CONTROLLER
 //
-locationControllers.controller('LocationCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'LocationService', function ($scope, $routeParams, $window, $log, LocationService) {
-        $scope.location = {
+visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', function ($scope, $routeParams, $window, $log, VisitService) {
+        $scope.visit = {
             "id":null,
-            "name":"",
-            "description": null,
-            "nearCity": null,
-            "mushroomOccurence":null
+            "hunter": null,
+            "date": null,
+            "location": null,
+            "foundMushrooms":null
         };
 
-        $scope.goToLocationList = function () {
-            $window.location.href = '/mushroomhunter-web/#/location';
+        $scope.goToVisitList = function () {
+            $window.location.href = '/mushroomhunter-web/#/visit';
         };
 
-        $scope.createLocation = function () {
-            $log.info("Creating location with name: " + $scope.location.name);
-            LocationService("").create($scope.location,
+        $scope.createVisit = function () {
+            $log.info("Creating new visit");
+            VisitService("").create($scope.visit,
                     function (data, status, headers, config) {
-                        $log.info("Location created");
+                        $log.info("Visit created");
                         $scope.showLocationDetail(data);
                     },
                     function (data, status, headers, config) {
-                        $log.error("An error occurred on server! Location cannot be created.");
+                        $log.error("An error occurred on server! Visit cannot be created.");
                     });
         };
         
-        $scope.showLocationDetail = function (locationId) {
-            $window.location.href = '/mushroomhunter-web/#/location/detail/' + locationId;
+        $scope.showVisitDetail = function (visitId) {
+            $window.location.href = '/mushroomhunter-web/#/visit/detail/' + visitId;
         };
     }]);
+
 //
-//  LOCATION SERVICES
+//  VISIT SERVICES
 //
-var locationServices = angular.module('locationServices', ['ngResource']);
-locationServices.factory('LocationService', ['$resource', function ($resource) {
-        return function (location) {
-            return $resource('rest/location/' + location + ':param', {}, {
+var visitServices = angular.module('visitServices', ['ngResource']);
+visitServices.factory('VisitService', ['$resource', function ($resource) {
+        return function (visit) {
+            return $resource('rest/visit/' + visit + ':param', {}, {
                 query: {method: 'GET', isArray: true},
-                getLocationWithMushroomOccurence: {url: 'rest/location/withMushroomOccurence' + ':param', method: 'GET', isArray: true},
-                getLocationDetail: {method: 'GET', isArray: false},
+                getVisitDetail: {method: 'GET', isArray: false},
                 create: {method: 'POST', isArray:true},
                 update: {method: 'PUT', isArray:false},
                 delete: {method: 'DELETE', isArray:false}

@@ -18,6 +18,9 @@
         <!--Location JS -->
         <script src="angular/location/locationCtrl.js"></script>
         
+        <!--Visit JS -->
+        <script src="angular/visit/visitCtrl.js"></script>
+        
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
         
@@ -64,7 +67,7 @@
                         <a href="/mushroomhunter-web/#/location">List of Locations</a>
                     </li>
                     <li>
-                        <a href="blog.html">Blog</a>
+                        <a href="/mushroomhunter-web/#/visit">List of Visits</a>
                     </li>
                     <li>
                         <a href="/mushroomhunter-web/#/contact">Contact</a>

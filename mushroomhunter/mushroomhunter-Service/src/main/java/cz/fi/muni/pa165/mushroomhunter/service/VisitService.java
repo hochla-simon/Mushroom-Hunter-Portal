@@ -21,6 +21,9 @@ public interface VisitService {
     void deleteVisit(VisitDto visitDto);
 
     @Transactional
+    public VisitDto findVisit(long id);
+    
+    @Transactional
     List<VisitDto> findAllVisits();
 
     @Transactional

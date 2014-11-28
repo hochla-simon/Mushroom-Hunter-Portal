@@ -4,7 +4,9 @@ var app = angular.module('mushroomHunterApp', [
     'xeditable',
     'mainControllers',
     'locationControllers',
-    'locationServices'
+    'locationServices',
+    'visitControllers',
+    'visitServices'
 ]);
 
 app.config(['$routeProvider',
@@ -31,6 +33,14 @@ app.config(['$routeProvider',
                 }).
                 when('/contact', {
                     templateUrl: 'angular/contact/contact.html',
+                }).
+                when('/visit', {
+                    templateUrl: 'angular/visit/visitList.html',
+                    controller: 'VisitListCtrl'
+                }).
+                 when('/visit/create', {
+                    templateUrl: 'angular/visit/visitCreate.html',
+                    controller: 'VisitCreateCtrl'
                 }).
                 otherwise({
                     redirectTo: '/homepage'

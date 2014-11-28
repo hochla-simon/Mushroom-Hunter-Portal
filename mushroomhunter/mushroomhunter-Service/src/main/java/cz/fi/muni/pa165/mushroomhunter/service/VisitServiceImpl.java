@@ -55,6 +55,13 @@ public class VisitServiceImpl implements VisitService {
             Visit visit = visitDao.update(visitConverter.visitDtoToEntity(visitDto));
             return visitConverter.visitEntityToDto(visit);
     }
+    
+    @Transactional
+    @Override
+    public VisitDto findVisit(long id) {
+            Visit visit = visitDao.find(id);
+            return visitConverter.visitEntityToDto(visit);
+    }
 
     @Transactional
     @Override
