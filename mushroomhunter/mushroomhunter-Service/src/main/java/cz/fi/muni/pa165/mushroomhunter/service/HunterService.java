@@ -7,7 +7,6 @@ package cz.fi.muni.pa165.mushroomhunter.service;
 import cz.fi.muni.pa165.mushroomhunter.dao.HunterDao;
 import cz.fi.muni.pa165.mushroomhunter.dto.HunterDto;
 import java.util.List;
-import org.springframework.stereotype.Component;
 
 /**
  *

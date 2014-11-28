@@ -6,7 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 /**
  * The implementation of a data object for the entity Hunter.
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  * @author Lukáš Valach
  */
 @Stateless
-@Component
+@Repository
 public class HunterDaoImpl implements HunterDao {
 
     /**
@@ -36,7 +36,7 @@ public class HunterDaoImpl implements HunterDao {
 
     @Override
     public void delete(Hunter hunter) {
-        if (!em.contains(hunter)){
+		if (!em.contains(hunter)){
             hunter = em.merge(hunter);
         }
         em.remove(hunter);

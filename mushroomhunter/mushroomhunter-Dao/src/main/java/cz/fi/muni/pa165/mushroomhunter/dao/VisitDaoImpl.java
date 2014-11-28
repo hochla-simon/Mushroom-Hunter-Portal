@@ -8,7 +8,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 /**
  * The implementation of a data object for the entity Visit. 
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  * @author Radim Cejka
  */
 @Stateless
-@Component
+@Repository
 public class VisitDaoImpl implements VisitDao {
 
     /**
@@ -55,7 +55,7 @@ public class VisitDaoImpl implements VisitDao {
      */
     @Override
     public void delete(Visit visit) {
-        if (!em.contains(visit)){
+	if (!em.contains(visit)){
             visit = em.merge(visit);
         }
         em.remove(visit);

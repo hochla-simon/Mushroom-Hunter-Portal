@@ -5,7 +5,7 @@ import cz.fi.muni.pa165.mushroomhunter.entity.Mushroom;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.Local;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 /**
  * The interface of a data object for the entity Location.
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @author Roman Smékal
  */
 @Local
-@Component
+@Repository
 public interface LocationDao {
 
     /**

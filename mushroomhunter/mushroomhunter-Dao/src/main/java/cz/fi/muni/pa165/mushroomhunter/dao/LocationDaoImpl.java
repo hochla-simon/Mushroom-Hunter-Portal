@@ -10,7 +10,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 /**
  * The implementation of a data object for the entity Location.
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
  * @author Roman Smékal
  */
 @Stateless
-@Component
+@Repository
 public class LocationDaoImpl implements LocationDao {
 
     /**

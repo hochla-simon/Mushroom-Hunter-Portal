@@ -6,7 +6,6 @@ import cz.fi.muni.pa165.mushroomhunter.entity.Type;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 /**

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.fi.muni.pa165.mushroomhunter.service;
 
 import cz.fi.muni.pa165.mushroomhunter.dto.LocationDto;
@@ -39,6 +34,12 @@ public class VisitServiceImpl implements VisitService {
 
     @Transactional
     @Override
+    public VisitDto findVisit(long id) {
+            Visit visit = visitDao.find(id);
+            return visitConverter.visitEntityToDto(visit);
+    }
+    @Transactional
+    @Override
     public long saveVisit(VisitDto visitDto) {
             return visitDao.save(visitConverter.visitDtoToEntity(visitDto));
     }
@@ -55,14 +56,7 @@ public class VisitServiceImpl implements VisitService {
             Visit visit = visitDao.update(visitConverter.visitDtoToEntity(visitDto));
             return visitConverter.visitEntityToDto(visit);
     }
-    
-    @Transactional
-    @Override
-    public VisitDto findVisit(long id) {
-            Visit visit = visitDao.find(id);
-            return visitConverter.visitEntityToDto(visit);
-    }
-
+	
     @Transactional
     @Override
     public List<VisitDto> findAllVisits() {

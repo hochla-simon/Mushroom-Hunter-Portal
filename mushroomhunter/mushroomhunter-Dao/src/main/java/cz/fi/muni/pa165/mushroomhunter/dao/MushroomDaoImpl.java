@@ -9,7 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 
 /**
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  * @author Simon Hochla
  */
 @Stateless
-@Component
+@Repository
 public class MushroomDaoImpl implements MushroomDao {
 
      /**
@@ -39,7 +39,7 @@ public class MushroomDaoImpl implements MushroomDao {
 
     @Override
     public void delete(Mushroom mushroom) {
-        if (!em.contains(mushroom)){
+		if (!em.contains(mushroom)){
             mushroom = em.merge(mushroom);
         }
         em.remove(mushroom);

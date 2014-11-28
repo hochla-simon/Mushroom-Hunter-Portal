@@ -21,6 +21,9 @@
         <!--Visit JS -->
         <script src="angular/visit/visitCtrl.js"></script>
 
+        <!--Visit JS -->
+        <script src="angular/hunter/hunterCtrl.js"></script>
+        
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
 

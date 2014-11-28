@@ -50,6 +50,14 @@ app.config(['$routeProvider',
                     templateUrl: 'angular/hunter/hunterList.html',
                     controller: 'HunterListCtrl'
                 }).
+                when('/hunter/detail/:hunterId', {
+                    templateUrl: 'angular/hunter/hunterDetail.html',
+                    controller: 'HunterDetailCtrl'
+                }).
+                when('/hunter/create', {
+                    templateUrl: 'angular/hunter/hunterCreate.html',
+                    controller: 'HunterCreateCtrl'
+                }). 
                 otherwise({
                     redirectTo: '/homepage'
                 });
