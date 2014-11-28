@@ -55,6 +55,9 @@ public class VisitDaoImpl implements VisitDao {
      */
     @Override
     public void delete(Visit visit) {
+        if (!em.contains(visit)){
+            visit = em.merge(visit);
+        }
         em.remove(visit);
     }
     
