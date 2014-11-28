@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 /**
  * The interface of a data object for the entity Mushroom.
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Component;
  * @author Simon Hochla
  */
 @Local
-@Component
+@Repository
 public interface MushroomDao {
     
     /**

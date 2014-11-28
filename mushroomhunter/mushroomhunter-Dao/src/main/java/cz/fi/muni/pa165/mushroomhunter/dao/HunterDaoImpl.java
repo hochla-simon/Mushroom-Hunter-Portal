@@ -36,6 +36,9 @@ public class HunterDaoImpl implements HunterDao {
 
     @Override
     public void delete(Hunter hunter) {
+        if (!em.contains(hunter)){
+            hunter = em.merge(hunter);
+        }
         em.remove(hunter);
     }
 

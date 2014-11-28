@@ -39,6 +39,9 @@ public class MushroomDaoImpl implements MushroomDao {
 
     @Override
     public void delete(Mushroom mushroom) {
+        if (!em.contains(mushroom)){
+            mushroom = em.merge(mushroom);
+        }
         em.remove(mushroom);
     }
 
