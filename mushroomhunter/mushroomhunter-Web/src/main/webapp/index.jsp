@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="mushroomHunterApp">
     <head>
-        <title>Start Page</title>
+        <title>Mushroom Hunter Portal</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
@@ -77,16 +77,6 @@
     </nav>
 
     <div ng-view></div>
-
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <p>Copyright &copy; Your Website 2014</p>
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
