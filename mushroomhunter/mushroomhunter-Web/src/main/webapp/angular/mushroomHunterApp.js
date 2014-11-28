@@ -38,9 +38,17 @@ app.config(['$routeProvider',
                     templateUrl: 'angular/visit/visitList.html',
                     controller: 'VisitListCtrl'
                 }).
-                 when('/visit/create', {
+                when('/visit/create', {
                     templateUrl: 'angular/visit/visitCreate.html',
                     controller: 'VisitCreateCtrl'
+                }).
+                when('/visit/detail/:visitId', {
+                    templateUrl: 'angular/visit/visitDetail.html',
+                    controller: 'VisitDetailCtrl'
+                }).
+                when('/hunter', {
+                    templateUrl: 'angular/hunter/hunterList.html',
+                    controller: 'HunterListCtrl'
                 }).
                 otherwise({
                     redirectTo: '/homepage'
