@@ -17,14 +17,15 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Simon
  */
-@Component
-public class LocationServiceImpl {
+@Service
+public class LocationServiceImpl implements LocationService {
 
     @Autowired
     LocationDao locationDao;
@@ -45,6 +46,7 @@ public class LocationServiceImpl {
      * @return ID of the saved location.
      */
     @Transactional
+    @Override
     public long save(LocationDto locationDto) {
         long id = locationDao.save(locationConverter.locationDtoToEntity(locationDto));
         locationDto.setId(id);
@@ -58,6 +60,7 @@ public class LocationServiceImpl {
      * @return Updated location.
      */
     @Transactional
+    @Override
     public LocationDto update(LocationDto locationDto) {
         return locationConverter.locationEntityToDto(locationDao.update(locationConverter.locationDtoToEntity(locationDto)));
     }
@@ -68,6 +71,7 @@ public class LocationServiceImpl {
      * @param location The location to be deleted.
      */
     @Transactional
+    @Override
     public void delete(LocationDto locationDto) {
         try {
             locationDao.delete(locationConverter.locationDtoToEntity(locationDto));
@@ -83,6 +87,7 @@ public class LocationServiceImpl {
      * @return The found location.
      */
     @Transactional
+    @Override
     public LocationDto find(long id) {
         try {
             return locationConverter.locationEntityToDto(locationDao.find(id));
@@ -98,6 +103,7 @@ public class LocationServiceImpl {
      * @return The list of all locations near the given city.
      */
     @Transactional
+    @Override
     public List<LocationDto> findByNearCity(String nearCity) {
         try {
             return locationConverter.locationEntityToDtoList(locationDao.findByNearCity(nearCity));
@@ -113,6 +119,7 @@ public class LocationServiceImpl {
      * @return The list of all locations with the occurence of given mushroom.
      */
     @Transactional
+    @Override
     public List<LocationDto> findByMushroom(MushroomDto mushroomDto) {
         try {
             return locationConverter.locationEntityToDtoList(locationDao.findByMushroom(mushroomConverter.mushroomDtoToEntity(mushroomDto)));
@@ -131,6 +138,7 @@ public class LocationServiceImpl {
      * the quantity of mushroom occurence.
      */
     @Transactional
+    @Override
     public List<LocationDto> findByOccurence(boolean ascending) {
         try {
             return locationConverter.locationEntityToDtoList(locationDao.findByOccurence(ascending));
@@ -149,6 +157,7 @@ public class LocationServiceImpl {
      * the quantity of mushroom occurence.
      */
     @Transactional
+    @Override
     public List<LocationDto> findByOccurenceWithSumOfMushrooms(boolean ascending) {
         return locationConverter.locationEntityMapToDto(locationDao.findByOccurenceWithSumOfMushrooms(ascending));
     }
@@ -159,6 +168,7 @@ public class LocationServiceImpl {
      * @return The list of all locations.
      */
     @Transactional
+    @Override
     public List<LocationDto> findAll() {
         try {
             return locationConverter.locationEntityToDtoList(locationDao.findAll());

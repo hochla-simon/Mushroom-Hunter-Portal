@@ -12,13 +12,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Radim Cejka
  */
-@Component
+@Service
 public class HunterServiceImpl implements HunterService{
 
     @Autowired
@@ -44,12 +45,9 @@ public class HunterServiceImpl implements HunterService{
         if (hunterDto == null) {
             throw new NullPointerException();
         }
-        try{
+        
         //return hunterDao.save(mapper.map(hunterDto, Hunter.class));
          return  hunterDao.save(hunterConverter.hunterDtoToEntity(hunterDto));
-        } catch (Exception e) {
-            throw new DataRetrievalFailureException("Error saving data.", e);
-        }
         
     }
 
@@ -65,12 +63,8 @@ public class HunterServiceImpl implements HunterService{
          if (hunterDto == null) {
             throw new NullPointerException();
         }
-        try {
             return hunterConverter.hunterEntityToDto(hunterDao.update
                 (hunterConverter.hunterDtoToEntity(hunterDto)));
-        } catch (Exception e) {
-            throw new DataRetrievalFailureException("Error updating data.", e);
-        }
     }
 /**
      * Deletes given hunter from the database.
@@ -83,11 +77,7 @@ public class HunterServiceImpl implements HunterService{
          if (hunterDto == null) {
             throw new NullPointerException();
         }
-     try {
             hunterDao.delete(hunterConverter.hunterDtoToEntity(hunterDto));
-        } catch (Exception e) {
-            throw new DataRetrievalFailureException("Error deleting data.", e);
-        }    
     }
     
 /**
@@ -99,11 +89,7 @@ public class HunterServiceImpl implements HunterService{
     @Transactional
     @Override
     public HunterDto find(long id) {
-        try {
             return hunterConverter.hunterEntityToDto(hunterDao.find(id));
-        } catch (Exception e) {
-            throw new DataRetrievalFailureException("Error retrieving data.", e);
-        }
     }
 
     /**
@@ -118,11 +104,7 @@ public class HunterServiceImpl implements HunterService{
          if (firstName == null) {
             throw new NullPointerException();
         }
-         try {
             return hunterConverter.hunterEntityToDtoList(hunterDao.findByName(firstName));
-        } catch (Exception e) {
-            throw new DataRetrievalFailureException("Error retrieving data.", e);
-        }
     }
 
     /**
@@ -137,11 +119,7 @@ public class HunterServiceImpl implements HunterService{
          if (surname == null) {
             throw new NullPointerException();
         }
-         try {
             return hunterConverter.hunterEntityToDtoList(hunterDao.findBySurname(surname));
-        } catch (Exception e) {
-            throw new DataRetrievalFailureException("Error retrieving data.", e);
-        }
     }
 
     /**
@@ -156,11 +134,7 @@ public class HunterServiceImpl implements HunterService{
          if (nick == null) {
             throw new NullPointerException();
         }
-         try {
             return hunterConverter.hunterEntityToDtoList(hunterDao.findByNick(nick));
-        } catch (Exception e) {
-            throw new DataRetrievalFailureException("Error retrieving data.", e);
-        }
     }
 
     /**
@@ -171,11 +145,7 @@ public class HunterServiceImpl implements HunterService{
     @Transactional
     @Override
     public List<HunterDto> findAll() {
-         try {
             return hunterConverter.hunterEntityToDtoList(hunterDao.findAll());
-        } catch (Exception e) {
-            throw new DataRetrievalFailureException("Error retrieving data.", e);
-        }
     }
     
 }

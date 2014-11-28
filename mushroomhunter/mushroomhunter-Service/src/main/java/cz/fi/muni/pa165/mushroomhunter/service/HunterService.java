@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
  *
  * @author Radim Čejka
  */
-@Component
 public interface HunterService {
     public void setDao(HunterDao dao);
     /**
