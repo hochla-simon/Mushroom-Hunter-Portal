@@ -42,7 +42,13 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
             "location": null,
             "foundMushrooms":null
         };
-
+        
+        $scope.visits = VisitService("").query();
+        
+        $scope.goToCreateLocation = function () {
+            $window.location.href = '/mushroomhunter-web/#/location/create';
+        };
+        
         $scope.goToVisitList = function () {
             $window.location.href = '/mushroomhunter-web/#/visit';
         };
