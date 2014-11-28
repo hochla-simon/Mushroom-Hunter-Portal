@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import cz.fi.muni.pa165.mushroomhunter.dto.LocationDto;
-import cz.fi.muni.pa165.mushroomhunter.entity.Location;
-import cz.fi.muni.pa165.mushroomhunter.service.LocationServiceImpl;
+import cz.fi.muni.pa165.mushroomhunter.service.LocationService;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class locationRest {
 
     @Autowired
-    LocationServiceImpl locationService;
+    LocationService locationService;
 
     @RequestMapping(method = RequestMethod.GET)
     public List<LocationDto> getLocationList() {
