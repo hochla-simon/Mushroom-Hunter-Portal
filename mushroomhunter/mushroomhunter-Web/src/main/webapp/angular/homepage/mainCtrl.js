@@ -12,15 +12,15 @@ mainControllers.controller('MainCtrl', [ '$scope', '$window', function ($scope, 
     };
     
     $scope.goToVisitList = function () {
-        $window.visit.href = '/mushroomhunter-web/#/visit';
+        $window.location.href = '/mushroomhunter-web/#/visit';
     };
 
     $scope.goToHunterList = function () {
-        $window.hunter.href = '/mushroomhunter-web/#/hunter';
+        $window.location.href = '/mushroomhunter-web/#/hunter';
     };
 
  $scope.goToMushroomList = function () {
-       $window.mushroom.href = '/mushroomhunter-web/#/mushroom';
+       $window.location.href = '/mushroomhunter-web/#/mushroom';
     };
 
 

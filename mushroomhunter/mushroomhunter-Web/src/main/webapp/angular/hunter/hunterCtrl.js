@@ -18,7 +18,7 @@ hunterControllers.controller('HunterListCtrl', ['$scope', '$window', 'HunterServ
         };
 
         $scope.showHunterDetail = function (hunterId) {
-            $window.location.href = '/mushroomhunter-web/#/hunter/' + hunterId;
+            $window.location.href = '/mushroomhunter-web/#/hunter/detail/' + hunterId;
         };
 		
 		$scope.goToCreateHunter = function () {
@@ -31,7 +31,7 @@ hunterControllers.controller('HunterListCtrl', ['$scope', '$window', 'HunterServ
     }]);
 
 
-hunterControllers.controller('HunterDetailCtrl', ['$scope', '$routeParams', 'HunterService', function ($scope, $routeParams, HunterService) {
+hunterControllers.controller('HunterDetailCtrl', ['$scope', '$routeParams',  '$window', '$log', 'HunterService', function ($scope, $routeParams, $window, $log, HunterService) {
         $scope.hunter = HunterService($routeParams.hunterId).getHunterDetail(
                 function (data, status, headers, config) {
                     $log.info("Hunter detail loaded.");
