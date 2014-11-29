@@ -5,6 +5,17 @@ var mushroomControllers = angular.module('mushroomControllers', []);
 //
 mushroomControllers.controller('MushroomListCtrl', ['$scope', '$window', '$log', 'MushroomService', function ($scope, $window, $log, MushroomService) {
 
+    $scope.mushrooms = MushroomService("").query();
+
+        $scope.refreshLocations = function () {
+            MushroomService("").query(
+                    function (data, status, headers, config) {
+                        $scope.messages = data;
+                        $log.info("List of mushroom loaded.");
+                    }, function (data, status, headers, config) {
+                $log.error("An error occurred on server! List of mushroom cannot be loaded.");
+            });
+        };
 
         $scope.showMushroomDetail = function (mushroomId) {
             $window.location.href = '/mushroomhunter-web/#/mushroom/detail/' + mushroomId;

@@ -197,8 +197,8 @@ app.config(function($translateProvider) {
     
     
     
-  });
-  $translateProvider.determinePreferredLanguage();
+   }).fallbackLanguage('en')
+  .determinePreferredLanguage();
 });
 
 app.run(function (editableOptions) {
