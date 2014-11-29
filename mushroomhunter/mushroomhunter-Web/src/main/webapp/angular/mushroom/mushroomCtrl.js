@@ -81,6 +81,48 @@ mushroomControllers.controller('MushroomCreateCtrl', ['$scope', '$routeParams', 
             "startOfOccurence": null,
             "endOfOccurence":null
         };
+        
+        $scope.types = [
+            {name: 'edible'},
+            {name: 'inedible'},
+            {name: 'poisonous'},
+        ];
+        
+        $scope.startOfOccurence = [
+            {name: 'January'},
+            {name: 'February'},
+            {name: 'March'},
+            {name: 'April'},
+            {name: 'May'},
+            {name: 'June'},
+            {name: 'July'},
+            {name: 'August'},
+            {name: 'September'},
+            {name: 'October'},
+            {name: 'November'},
+            {name: 'December'},
+        ];
+        
+         $scope.endOfOccurence = [
+            {name: 'January'},
+            {name: 'February'},
+            {name: 'March'},
+            {name: 'April'},
+            {name: 'May'},
+            {name: 'June'},
+            {name: 'July'},
+            {name: 'August'},
+            {name: 'September'},
+            {name: 'October'},
+            {name: 'November'},
+            {name: 'December'},
+        ];
+        
+        $scope.myType =  $scope.types[0];
+        
+        $scope.startOfOccurenceSelected;
+        
+        $scope.endOfOccurenceSelected;
 
         $scope.goToMushroomList = function () {
             $window.location.href = '/mushroomhunter-web/#/mushroom';

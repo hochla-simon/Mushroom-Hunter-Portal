@@ -34,7 +34,9 @@
                         {{ 'TYPE' | translate }}
                     </td>
                     <td>
-                        <span editable-text="mushroom.type" onbeforesave="">{{mushroom.type|| 'Set descriprion' }}</span> 
+                        <!--<span editable-text="mushroom.type" onbeforesave="">{{mushroom.type|| 'Set descriprion' }}</span>--> 
+                          <select ng-model="myType" ng-options="type.name for type in types"></select><br>
+
                     </td>
                 </tr>
                 <tr>
@@ -42,7 +44,12 @@
                         {{ 'STARTOFO' | translate }}
                     <td>
                          <!--  <input class="form-control" ng-model="mushroom.startOfOccurence" name="date" bs-datepicker type="text"> -->
-                      <span editable-text="mushroom.startOfOccurence" onbeforesave="">{{mushroom.startOfOccurence|| 'Set date of start of occurence' }}</span>
+                      <!--<span editable-text="mushroom.startOfOccurence" onbeforesave="">{{mushroom.startOfOccurence|| 'Set date of start of occurence' }}</span>-->
+                      <span  class="nullable">
+                          <select ng-model="startOfOccurenceSelected" ng-options="month.name for month in startOfOccurence">
+                              <option value="">-- choose month --</option>
+                          </select>
+                      </span>
                     </td>
                 </tr>
                 <tr>
@@ -50,7 +57,12 @@
                         {{ 'ENDOFO' | translate }}
                     </td>
                     <td>
-                        <span editable-text="mushroom.endOfOccurence" onbeforesave="">{{mushroom.endOfOccurence|| 'Set date of end of occurence' }}</span>
+                        <!--<span editable-text="mushroom.endOfOccurence" onbeforesave="">{{mushroom.endOfOccurence|| 'Set date of end of occurence' }}</span>-->
+                        <span  class="nullable">
+                            <select ng-model="endOfOccurenceSelected" ng-options="month.name for month in endOfOccurence">
+                                <option value="">-- choose month --</option>
+                            </select>
+                        </span>
                     </td>
                 </tr>
             </table>
