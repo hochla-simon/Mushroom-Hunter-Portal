@@ -34,7 +34,7 @@ visitControllers.controller('VisitListCtrl', ['$scope', '$window', '$log', 'Visi
 //
 //  CREATE NEW VISIT CONTROLLER
 //
-visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', function ($scope, $routeParams, $window, $log, VisitService) {
+visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', 'LocationService', function ($scope, $routeParams, $window, $log, VisitService, LocationService) {
         $scope.visit = {
             "id":null,
             "hunter": null,
@@ -44,6 +44,8 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
         };
         
         $scope.visits = VisitService("").query();
+        
+        $scope.locations = LocationService("").query();
         
         $scope.goToCreateLocation = function () {
             $window.location.href = '/mushroomhunter-web/#/location/create';
@@ -74,6 +76,7 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
 //  VISIT DETAIL CONTROLLER
 //
 visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', function ($scope, $routeParams, $window, $log, VisitService) {
+             
         $scope.visit = VisitService($routeParams.visitId).getVisitDetail(
                 function (data, status, headers, config) {
                     $log.info("Visit detail loaded.");
@@ -119,9 +122,26 @@ visitServices.factory('VisitService', ['$resource', function ($resource) {
             return $resource('rest/visit/' + visit + ':param', {}, {
                 query: {method: 'GET', isArray: true},
                 getVisitDetail: {method: 'GET', isArray: false},
-                create: {method: 'POST', isArray:true},
-                update: {method: 'PUT', isArray:false},
-                delete: {method: 'DELETE', isArray:false}
+                create: {method: 'POST', isArray: true},
+                update: {method: 'PUT', isArray: false},
+                delete: {method: 'DELETE', isArray: false}
+            });
+        };
+    }]);
+
+//
+//  LOCATION SERVICES
+//
+var locationServices = angular.module('locationServices', ['ngResource']);
+locationServices.factory('LocationService', ['$resource', function ($resource) {
+        return function (location) {
+            return $resource('rest/location/' + location + ':param', {}, {
+                query: {method: 'GET', isArray: true},
+                getLocationWithMushroomOccurence: {url: 'rest/location/withMushroomOccurence' + ':param', method: 'GET', isArray: true},
+                getLocationDetail: {method: 'GET', isArray: false},
+                create: {method: 'POST', isArray: true},
+                update: {method: 'PUT', isArray: false},
+                delete: {method: 'DELETE', isArray: false}
             });
         };
     }])
