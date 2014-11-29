@@ -24,4 +24,13 @@
             <property name="hibernate.format_sql" value="true"/>
         </properties>
     </persistence-unit>
+   <persistence-unit name="ApplicationPU" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <properties>
+            <property name="hibernate.connection.driver_class" value="com.company.driver" />
+            <property name="hibernate.connection.url" value="jdbc:derby://localhost:1527/pa165"/>
+            <property name="hibernate.connection.username" value="pa165" />
+            <property name="hibernate.connection.password" value="pa165" />
+        </properties>
+    </persistence-unit>
 </persistence>

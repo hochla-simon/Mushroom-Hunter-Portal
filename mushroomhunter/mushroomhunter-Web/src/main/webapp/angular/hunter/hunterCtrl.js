@@ -8,7 +8,7 @@ hunterControllers.controller('HunterListCtrl', ['$scope', '$window', 'HunterServ
         $scope.hunters = HunterService("").query();
 
         $scope.refreshHunters = function () {
-            HunterService("withMushroomOccurence").query(
+            HunterService("").query(
                     function (data, status, headers, config) {
                         $scope.messages = data;
                         $log.info("List of hunter loaded.");
@@ -18,15 +18,15 @@ hunterControllers.controller('HunterListCtrl', ['$scope', '$window', 'HunterServ
         };
 
         $scope.showHunterDetail = function (hunterId) {
-            $window.hunter.href = '/mushroomhunter-web/#/hunter/' + hunterId;
+            $window.location.href = '/mushroomhunter-web/#/hunter/' + hunterId;
         };
 		
 		$scope.goToCreateHunter = function () {
-            $window.hunter.href = '/mushroomhunter-web/#/hunter/create';
+            $window.location.href = '/mushroomhunter-web/#/hunter/create';
         };
         
         $scope.goToHomePage = function () {
-            $window.hunter.href = '/mushroomhunter-web/';
+            $window.location.href = '/mushroomhunter-web/';
         };
     }]);
 
@@ -41,7 +41,7 @@ hunterControllers.controller('HunterDetailCtrl', ['$scope', '$routeParams', 'Hun
                 });
 
         $scope.goToHunterList = function () {
-            $window.hunter.href = '/mushroomhunter-web/#/hunter';
+            $window.location.href = '/mushroomhunter-web/#/hunter';
         };
 		
 		 $scope.updateHunter = function (hunter) {
@@ -68,7 +68,38 @@ hunterControllers.controller('HunterDetailCtrl', ['$scope', '$routeParams', 'Hun
         };
     }]);
 
+//
+//  CREATE NEW HUNTER CONTROLLER
+//
+hunterControllers.controller('HunterCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'HunterService', function ($scope, $routeParams, $window, $log, HunterService) {
+        $scope.hunter = {
+            "id":null,
+            "firstName":"",
+            "Surname": null,
+            "description": null,
+            "nick":null
+        };
 
+        $scope.goToHunterList = function () {
+            $window.location.href = '/mushroomhunter-web/#/hunter';
+        };
+
+        $scope.createHunter = function () {
+            $log.info("Creating hunter with name: " + $scope.hunter.name);
+            HunterService("").create($scope.hunter,
+                    function (data, status, headers, config) {
+                        $log.info("Hunter created");
+                        $scope.showHunterDetail(data);
+                    },
+                    function (data, status, headers, config) {
+                        $log.error("An error occurred on server! Hunter cannot be created.");
+                    });
+        };
+        
+        $scope.showHunterDetail = function (hunterId) {
+            $window.location.href = '/mushroomhunter-web/#/hunter/detail/' + hunterId;
+        };
+    }]);
 //
 //  HUNTER SERVICES
 //
@@ -79,7 +110,7 @@ hunterServices.factory('HunterService', ['$resource', function ($resource) {
                 query: {method: 'GET', isArray: true},
                 getHunterDetail: {method: 'GET', isArray: false},
                 create: {method: 'POST', isArray:true},
-                create: {method: 'PUT'},
+                update: {method: 'PUT'},
                 delete: {method: 'DELETE'}
             });
         };

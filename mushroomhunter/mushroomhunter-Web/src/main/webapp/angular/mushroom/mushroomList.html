@@ -1,7 +1,7 @@
 <div class="row">
             <div class="box">
                 <div class="col-lg-12 text-center">
-                    <h1 class="brand-name">{{ 'LLOCATION' | translate }}</h1>
+                    <h1 class="brand-name">{{ 'LMUSH' | translate }}</h1>
                     <hr class="tagline-divider">
                 </div>
             </div>
@@ -14,58 +14,58 @@
     <thead>
         <tr>
             <td>
-                IDda
+                ID
             </td>
             <td>
-                {{ 'LOCNAME' | translate }}
+                {{ 'NAME' | translate }}
             </td>
             <td>
-                {{ 'DESCRIPTION' | translate }}
+                {{ 'TYPE' | translate }}
             </td>
             <td>
-                {{ 'NEARC' | translate }}
+                {{ 'STARTOFO' | translate }}
             </td>
             <td>
-                {{ 'MUSHOCCURENCE' | translate }}
+                 {{ 'ENDOFO' | translate }}
             </td>
             <td>
-                {{ 'SHOWDETAIL' | translate }}
+                 {{ 'SHOWDETAIL' | translate }}
             </td>
         </tr>
     </thead>
-    <tr ng-repeat="location in locations| filter:searchText">
+    <tr ng-repeat="mushroom in mushrooms| filter:searchText">
         <td>
-            {{location.id}}
+            {{mushroom.id}}
         </td>
         <td>
-            {{location.name}}
+            {{mushroom.name}}
         </td>
         <td>
-            {{location.description}}
+            {{mushroom.type}}
         </td>
         <td>
-            {{location.nearCity}}
+            {{mushroom.startOfOccurence}}
         </td>
         <td>
-            {{location.mushroomOccurence}}
+            {{mushroom.endOfOccurence}}
         </td>
         <td>
-            <a href="" ng-click="showLocationDetail(location.id)">Detail</a>
+            <a href="" ng-click="showMushroomDetail(mushroom.id)">Detail</a>
         </td>
     </tr>
 </table>
 <div>
-    <input ng-model="searchText" class="form-control" id="exampleInputEmail1" placeholder="Filter locations">
+    <input ng-model="searchText" class="form-control" id="exampleInputEmail1" placeholder="Filter mushrooms">
 </div>
 <center>
-    <button type="button" class="btn btn-info" ng-click="goToCreateLocation()">
-        {{ 'CREATENEWLOC' | translate }}
+    <button type="button" class="btn btn-info" ng-click="goToCreateMushroom()">
+         {{ 'CREATENEWMUSH' | translate }}
     </button>
-    <button type="button" class="btn btn-info" ng-click="refreshLocations()">
-        {{ 'REFRESH' | translate }}
+    <button type="button" class="btn btn-info" ng-click="refreshMushrooms()">
+         {{ 'REFRESH' | translate }}
     </button>
     <button type="button" class="btn btn-info" ng-click="goToHomePage()">
-        {{ 'BACKTOHP' | translate }}
+         {{ 'BACKTOHP' | translate }}
     </button>
 </center>
                     </div>
