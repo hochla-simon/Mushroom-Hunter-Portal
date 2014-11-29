@@ -127,15 +127,3 @@ visitServices.factory('VisitService', ['$resource', function ($resource) {
             });
         };
     }]);
-
-//
-//  LOCATION SERVICES
-//
-var locationServices = angular.module('locationServices', ['ngResource']);
-locationServices.factory('LocationService', ['$resource', function ($resource) {
-        return function (location) {
-            return $resource('rest/location/' + location + ':param', {}, {
-                query: {method: 'GET', isArray: true}
-            });
-        };
-    }]);
