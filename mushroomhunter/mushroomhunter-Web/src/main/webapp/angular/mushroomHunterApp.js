@@ -9,6 +9,8 @@ var app = angular.module('mushroomHunterApp', [
     'visitServices',
     'mushroomControllers',
     'mushroomServices',
+    'hunterControllers',
+    'hunterServices',
     'pascalprecht.translate'
 ]);
 
@@ -35,7 +37,7 @@ app.config(['$routeProvider',
                     controller: 'LocationCreateCtrl'
                 }).
                 when('/contact', {
-                    templateUrl: 'angular/contact/contact.html',
+                    templateUrl: 'angular/contact/contact.html'
                 }).
                 when('/visit', {
                     templateUrl: 'angular/visit/visitList.html',
