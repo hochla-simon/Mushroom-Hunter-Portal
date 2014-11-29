@@ -39,6 +39,12 @@ public class visitRest {
     
     @RequestMapping(method = RequestMethod.POST)
     public List<Long> createVisit(@RequestBody VisitDto visit) {
+        if(visit.getLocation() != null) {
+            System.out.println("obsahuje lokaci");
+        } else {
+            System.out.println("neobsahuje lokaci");
+        }
+        
         List<Long> resultList = new ArrayList<>();
         resultList.add(visitService.saveVisit(visit));
         return resultList;

@@ -41,9 +41,7 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
             "date": null,
             "location": null,
             "foundMushrooms":null
-        };
-        
-        $scope.visits = VisitService("").query();
+        }; 
         
         $scope.locations = LocationService("").query();
         
@@ -57,6 +55,7 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
 
         $scope.createVisit = function () {
             $log.info("Creating new visit");
+            $scope.visit.location = $scope.location;
             VisitService("").create($scope.visit,
                     function (data, status, headers, config) {
                         $log.info("Visit created");
@@ -136,13 +135,7 @@ var locationServices = angular.module('locationServices', ['ngResource']);
 locationServices.factory('LocationService', ['$resource', function ($resource) {
         return function (location) {
             return $resource('rest/location/' + location + ':param', {}, {
-                query: {method: 'GET', isArray: true},
-                getLocationWithMushroomOccurence: {url: 'rest/location/withMushroomOccurence' + ':param', method: 'GET', isArray: true},
-                getLocationDetail: {method: 'GET', isArray: false},
-                create: {method: 'POST', isArray: true},
-                update: {method: 'PUT', isArray: false},
-                delete: {method: 'DELETE', isArray: false}
+                query: {method: 'GET', isArray: true}
             });
         };
-    }])
-        ;
+    }]);

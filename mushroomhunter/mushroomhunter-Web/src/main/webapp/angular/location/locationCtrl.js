@@ -5,7 +5,7 @@ var locationControllers = angular.module('locationControllers', []);
 //
 locationControllers.controller('LocationListCtrl', ['$scope', '$window', '$log', 'LocationService', function ($scope, $window, $log, LocationService) {
 
-        $scope.locations = LocationService("").getLocationWithMushroomOccurence();
+        $scope.locations = LocationService("").query();
 
         $scope.refreshLocations = function () {
             LocationService("").getLocationWithMushroomOccurence(
