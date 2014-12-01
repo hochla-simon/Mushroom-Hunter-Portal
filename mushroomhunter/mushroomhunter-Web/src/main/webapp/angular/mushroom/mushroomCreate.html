@@ -34,35 +34,51 @@
                         {{ 'TYPE' | translate }}
                     </td>
                     <td>
-                        <!--<span editable-text="mushroom.type" onbeforesave="">{{mushroom.type|| 'Set descriprion' }}</span>--> 
-                          <select ng-model="myType" ng-options="type.name for type in types"></select><br>
-
+                    
+                    <div ng-controller="MushroomTypeCtrl">
+        <select name="{{mushroom.type = SelectType.mushType}}" class="form-control"
+                ng-model="SelectType.mushType"
+                ng-options="type.Key as type.Value for type in mushroomTypes"
+                required ></select>
+                
+                        
+    </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        {{ 'STARTOFO' | translate }}
+                       {{ 'STARTOFO' | translate }}
+                        </td>
                     <td>
                          <!--  <input class="form-control" ng-model="mushroom.startOfOccurence" name="date" bs-datepicker type="text"> -->
-                      <!--<span editable-text="mushroom.startOfOccurence" onbeforesave="">{{mushroom.startOfOccurence|| 'Set date of start of occurence' }}</span>-->
-                      <span  class="nullable">
-                          <select ng-model="startOfOccurenceSelected" ng-options="month.name for month in startOfOccurence">
-                              <option value="">-- choose month --</option>
-                          </select>
-                      </span>
-                    </td>
+<!--<div ng-controller="DateController">-->
+   <input type="date" id="exampleInput" name="input" ng-model="mushroom.startOfOccurence"
+       placeholder="yyyy-MM-dd" required />
+   <span class="error" ng-show="input.$error.required">
+       Required!</span>
+   <span class="error" ng-show="input.$error.date">
+       Not a valid date!</span>
+   <!--
+    <tt>value = {{value | date: "yyyy-MM-dd"}}</tt><br/>
+    <tt>myForm.input.$valid = {{myForm.input.$valid}}</tt><br/>
+    <tt>myForm.input.$error = {{myForm.input.$error}}</tt><br/>
+    <tt>myForm.$valid = {{myForm.$valid}}</tt><br/>
+    <tt>myForm.$error.required = {{!!myForm.$error.required}}</tt><br/>
+
+    </div> -->
+</td>
                 </tr>
                 <tr>
                     <td>
                         {{ 'ENDOFO' | translate }}
                     </td>
                     <td>
-                        <!--<span editable-text="mushroom.endOfOccurence" onbeforesave="">{{mushroom.endOfOccurence|| 'Set date of end of occurence' }}</span>-->
-                        <span  class="nullable">
-                            <select ng-model="endOfOccurenceSelected" ng-options="month.name for month in endOfOccurence">
-                                <option value="">-- choose month --</option>
-                            </select>
-                        </span>
+                        <input type="date" id="exampleInput" name="input" ng-model="mushroom.endOfOccurence"
+       placeholder="yyyy-MM-dd" required />
+   <span class="error" ng-show="input.$error.required">
+       Required!</span>
+   <span class="error" ng-show="input.$error.date">
+       Not a valid date!</span>
                     </td>
                 </tr>
             </table>

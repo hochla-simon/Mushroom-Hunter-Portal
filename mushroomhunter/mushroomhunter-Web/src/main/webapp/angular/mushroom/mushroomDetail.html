@@ -13,7 +13,7 @@
             <table class="table table-striped table-bordered table-hover table-condensed">
                 <thead>
                     <tr>
-                       <td>
+                        <td>
                             {{ 'PROPERTY' | translate }}
                         </td>
                         <td>
@@ -31,7 +31,7 @@
                 </tr>
                 <tr>
                     <td>
-                         {{ 'NAME' | translate }}
+                        {{ 'NAME' | translate }}
                     </td>
                     <td>
                         <span editable-text="mushroom.name" onbeforesave="" onaftersave="updateMushroom(mushroom)">{{mushroom.name}}</span> 
@@ -39,10 +39,16 @@
                 </tr>
                 <tr>
                     <td>
-                         {{ 'TYPE' | translate }}
+                       {{ 'TYPE' | translate }}
                     </td>
                     <td>
-                        <span editable-text="mushroom.type" onbeforesave="" onaftersave="updateMushroom(mushroom)">{{mushroom.type}}</span> 
+                     <select name="mushType" class="form-control"
+                                ng-model="mushroom.type"
+                                ng-options="type.Key as type.Value for type in mushroomTypes"
+                                ng-change="updateType(mushroom)"
+                                required 
+                                ></select>
+
                     </td>
                 </tr>
                 <tr>
@@ -50,7 +56,14 @@
                         {{ 'STARTOFO' | translate }}
                     </td>
                     <td>
-                        <span editable-text="mushroom.startOfOccurence" onbeforesave="" onaftersave="updateMushroom(mushroom)">{{mushroom.startOfOccurence}}</span>
+                        {{mushroom.startOfOccurence | date:'dd.MM.yyyy'}}
+                        
+                       <input type="date" id="exampleInput" name="input" ng-model="mushroom.startOfOccurence" ng-change="updateMushroom(mushroom)"
+       required />
+   <span class="error" ng-show="input.$error.required">
+       Required!</span>
+   <span class="error" ng-show="input.$error.date">
+       Not a valid date!</span>
                     </td>
                 </tr>
                 <tr>
@@ -58,16 +71,21 @@
                         {{ 'ENDOFO' | translate }}
                     </td>
                     <td>
-                        <span editable-text="mushroom.endOfOccurence" onbeforesave="" onaftersave="updateMushroom(mushroom)">{{mushroom.endOfOccurence}}</span>
+                        {{mushroom.endOfOccurence | date:'dd.MM.yyyy'}}<input type="date" id="exampleInput" name="input" ng-model="mushroom.endOfOccurence" ng-change="updateMushroom(mushroom)"
+       placeholder="yyyy-MM-dd" required />
+   <span class="error" ng-show="input.$error.required">
+       Required!</span>
+   <span class="error" ng-show="input.$error.date">
+       Not a valid date!</span>
                     </td>
                 </tr>
             </table>
             <center>
                 <button type="button" class="btn btn-danger" ng-click="deleteMushroom(mushroom)">
-                     {{ 'DELETEMUSH' | translate }}
+                    {{ 'DELETEMUSH' | translate }}
                 </button>
                 <button type="button" class="btn btn-info" ng-click="goToMushroomList()">
-                     {{ 'BACKTOML' | translate }}
+                    {{ 'BACKTOML' | translate }}
                 </button>
             </center>
         </div>

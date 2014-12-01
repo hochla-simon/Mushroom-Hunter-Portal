@@ -70,7 +70,11 @@ app.config(['$routeProvider',
                  when('/mushroom/create', {
                     templateUrl: 'angular/mushroom/mushroomCreate.html',
                     controller: 'MushroomCreateCtrl'
-                }). 
+                }).
+                when('/mushroom/detail/:mushroomId', {
+                    templateUrl: 'angular/mushroom/mushroomDetail.html',
+                    controller: 'MushroomDetailCtrl'
+                }).
                 otherwise({
                     redirectTo: '/homepage'
                 });
@@ -131,10 +135,13 @@ app.config(function($translateProvider) {
     LOC: 'Location',
     HUNTER: 'Hunter',
     CREATEVISIT: 'Create visit',
-    CREATENEWVISIT: 'Create novou visit',
+    CREATENEWVISIT: 'Create new visit',
     BACKTOVL: 'Back to visit list',
-    DELETEVISIT: 'Delete visit'
+    DELETEVISIT: 'Delete visit',
     
+    EDIBLE: 'Edible',
+    INEDIBLE: 'Inedble',
+    POISONOUS: 'Poisonous'    
   })
   .translations('cs', {
     WELCOMETO: 'Vitejte na',
@@ -192,7 +199,11 @@ app.config(function($translateProvider) {
     CREATEVISIT: 'Vyvorit navstevu',
     CREATENEWVISIT: 'Vytvorit novou navstevu',
     BACKTOVL: 'Zpet na seznam navstev',
-    DELETEVISIT: 'Smazat navstevu'
+    DELETEVISIT: 'Smazat navstevu',
+    
+    EDIBLE: 'Jedla',
+    INEDIBLE: 'Nejedla',
+    POISONOUS: 'Jedovata'
     
     
     

@@ -41,13 +41,14 @@
             {{mushroom.name}}
         </td>
         <td>
-            {{mushroom.type}}
+            {{ mushroom.type | translate }}
+            
         </td>
         <td>
-            {{mushroom.startOfOccurence}}
+            {{mushroom.startOfOccurence | date:'dd.MM.yyyy'}}
         </td>
         <td>
-            {{mushroom.endOfOccurence}}
+            {{mushroom.endOfOccurence | date:'dd.MM.yyyy'}}
         </td>
         <td>
             <a href="" ng-click="showMushroomDetail(mushroom.id)">Detail</a>

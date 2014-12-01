@@ -1,5 +1,36 @@
 var mushroomControllers = angular.module('mushroomControllers', []);
 
+
+mushroomControllers.controller('MushroomTypeCtrl', ['$scope', '$translate', function ($scope, $translate) {
+  $translate(['EDIBLE', 'INEDIBLE', 'POISONOUS']).then(function (translations) {
+    $scope.mushroomTypes = [
+        {Key: 0, Value: translations.EDIBLE},
+        {Key: 1, Value: translations.INEDIBLE},
+        {Key: 2, Value: translations.POISONOUS}
+    ];
+    $scope.SelectType = {};
+    
+    //Populate value here
+    $scope.SelectType.mushType = $scope.mushroom.type;
+    //$scope.mushroom.type = $scope.SelectType.mushType;
+  });
+}]);
+
+mushroomControllers.directive('dateFix', function() {
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function (scope, element, attr, ngModel) {
+            element.on('change', function() {
+                scope.$apply(function () {
+                    ngModel.$setViewValue(element.val());
+                });         
+            });
+        }
+    };
+});
+
+
 //
 //  MUSHROOM LIST CONTROLLER
 //
@@ -33,7 +64,15 @@ mushroomControllers.controller('MushroomListCtrl', ['$scope', '$window', '$log',
 //
 //  MUSHROOM DETAIL CONTROLLER
 //
-mushroomControllers.controller('MushroomDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'MushroomService', function ($scope, $routeParams, $window, $log, MushroomService) {
+mushroomControllers.controller('MushroomDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'MushroomService','$translate', function ($scope, $routeParams, $window, $log, MushroomService, $translate) {
+        $translate(['EDIBLE', 'INEDIBLE', 'POISONOUS']).then(function (translations) {
+
+    $scope.mushroomTypes = [
+        {Key: 'EDIBLE', Value: translations.EDIBLE},
+        {Key: 'INEDIBLE', Value: translations.INEDIBLE},
+        {Key: 'POISONOUS', Value: translations.POISONOUS}
+    ];
+    
         $scope.mushroom = MushroomService($routeParams.mushroomId).getMushroomDetail(
                 function (data, status, headers, config) {
                     $log.info("Mushroom detail loaded.");
@@ -41,7 +80,20 @@ mushroomControllers.controller('MushroomDetailCtrl', ['$scope', '$routeParams', 
                 function (data, status, headers, config) {
                     $log.error("An error occurred on server! Detail of mushroom cannot be loaded.");
                 });
-
+    
+    $scope.startDate = new Date($scope.mushroom.startOfOccurence);
+    
+    $scope.updateType = function(mushroom) {
+        //mushroom.type = $scope.SelectType.mushType;
+        $scope.updateMushroom(mushroom);
+   // use $scope.selectedItem.code and $scope.selectedItem.name here
+   // for other stuff ...
+};
+    
+    //Populate value here
+    //$scope.SelectType.mushType =  $scope.mushroom.type;
+   // $scope.SelectType.mushType = 1;
+            
         $scope.goToMushroomList = function () {
             $window.location.href = '/mushroomhunter-web/#/mushroom';
         };
@@ -68,6 +120,7 @@ mushroomControllers.controller('MushroomDetailCtrl', ['$scope', '$routeParams', 
                         $log.error("An error occurred on server! Mushroom cannot be deleted.");
                     });
         };
+       });
     }]);
 
 //
@@ -77,52 +130,10 @@ mushroomControllers.controller('MushroomCreateCtrl', ['$scope', '$routeParams', 
         $scope.mushroom = {
             "id":null,
             "name":"",
-            "type": null,
+            "type": 'EDIBLE',
             "startOfOccurence": null,
             "endOfOccurence":null
         };
-        
-        $scope.types = [
-            {name: 'edible'},
-            {name: 'inedible'},
-            {name: 'poisonous'},
-        ];
-        
-        $scope.startOfOccurence = [
-            {name: 'January'},
-            {name: 'February'},
-            {name: 'March'},
-            {name: 'April'},
-            {name: 'May'},
-            {name: 'June'},
-            {name: 'July'},
-            {name: 'August'},
-            {name: 'September'},
-            {name: 'October'},
-            {name: 'November'},
-            {name: 'December'},
-        ];
-        
-         $scope.endOfOccurence = [
-            {name: 'January'},
-            {name: 'February'},
-            {name: 'March'},
-            {name: 'April'},
-            {name: 'May'},
-            {name: 'June'},
-            {name: 'July'},
-            {name: 'August'},
-            {name: 'September'},
-            {name: 'October'},
-            {name: 'November'},
-            {name: 'December'},
-        ];
-        
-        $scope.myType =  $scope.types[0];
-        
-        $scope.startOfOccurenceSelected;
-        
-        $scope.endOfOccurenceSelected;
 
         $scope.goToMushroomList = function () {
             $window.location.href = '/mushroomhunter-web/#/mushroom';
