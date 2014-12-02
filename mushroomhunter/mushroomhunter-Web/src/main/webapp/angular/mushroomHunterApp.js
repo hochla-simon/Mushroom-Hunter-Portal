@@ -18,7 +18,7 @@ var app = angular.module('mushroomHunterApp', [
 app.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.
-                //říká, že když do URL zadám http://localhost:8080/mushroomhunter-web/#/homepage
+                //říká, že když do URL zadám http://localhost:8080/pa165/#/homepage
                 //tak mi angular do stránky vloží obsah z angular/homepage/homepage.html
                 //Vnitřek homepage.html bude obládán kontrolerem MainCtrl
                 when('/homepage', {
@@ -75,10 +75,6 @@ app.config(['$routeProvider',
                 when('/mushroom/detail/:mushroomId', {
                     templateUrl: 'angular/mushroom/mushroomDetail.html',
                     controller: 'MushroomDetailCtrl'
-                }).
-                        when('/index2.jsp', {
-                    templateUrl: 'index2.jsp',
-                    controller: 'CreateVisitCtrl'
                 }).
                 otherwise({
                     redirectTo: '/homepage'

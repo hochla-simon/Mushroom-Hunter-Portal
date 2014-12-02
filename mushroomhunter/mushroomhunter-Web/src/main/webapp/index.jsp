@@ -73,22 +73,22 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="/mushroomhunter-web/#/homepage">{{ 'HOME' | translate }}</a>
+                            <a href="/pa165/#/homepage">{{ 'HOME' | translate }}</a>
                         </li>
                         <li>
-                            <a href="/mushroomhunter-web/#/location">{{ 'LLOCATION' | translate }}</a>
+                            <a href="/pa165/#/location">{{ 'LLOCATION' | translate }}</a>
                         </li>
                         <li>
-                            <a href="/mushroomhunter-web/#/mushroom">{{ 'LMUSH' | translate }}</a>
+                            <a href="/pa165/#/mushroom">{{ 'LMUSH' | translate }}</a>
                         </li>
                         <li>
-                            <a href="/mushroomhunter-web/#/visit">{{ 'LVISIT' | translate }}</a>
+                            <a href="/pa165/#/visit">{{ 'LVISIT' | translate }}</a>
                         </li>
                         <li>
-                            <a href="/mushroomhunter-web/#/hunter">{{ 'LHUNTER' | translate }}</a>
+                            <a href="/pa165/#/hunter">{{ 'LHUNTER' | translate }}</a>
                         </li>
                         <li>
-                            <a href="/mushroomhunter-web/#/contact">{{ 'CONTACT' | translate }}</a>
+                            <a href="/pa165/#/contact">{{ 'CONTACT' | translate }}</a>
                         </li>
                     </ul>
                 </div>

@@ -18,15 +18,15 @@ locationControllers.controller('LocationListCtrl', ['$scope', '$window', '$log',
         };
 
         $scope.showLocationDetail = function (locationId) {
-            $window.location.href = '/mushroomhunter-web/#/location/detail/' + locationId;
+            $window.location.href = '/pa165/#/location/detail/' + locationId;
         };
         
         $scope.goToCreateLocation = function () {
-            $window.location.href = '/mushroomhunter-web/#/location/create';
+            $window.location.href = '/pa165/#/location/create';
         };
         
         $scope.goToHomePage = function () {
-            $window.location.href = '/mushroomhunter-web/';
+            $window.location.href = '/pa165/';
         };
     }]);
 
@@ -43,7 +43,7 @@ locationControllers.controller('LocationDetailCtrl', ['$scope', '$routeParams', 
                 });
 
         $scope.goToLocationList = function () {
-            $window.location.href = '/mushroomhunter-web/#/location';
+            $window.location.href = '/pa165/#/location';
         };
 
         $scope.updateLocation = function (location) {
@@ -83,7 +83,7 @@ locationControllers.controller('LocationCreateCtrl', ['$scope', '$routeParams', 
         };
 
         $scope.goToLocationList = function () {
-            $window.location.href = '/mushroomhunter-web/#/location';
+            $window.location.href = '/pa165/#/location';
         };
 
         $scope.createLocation = function () {
@@ -99,7 +99,7 @@ locationControllers.controller('LocationCreateCtrl', ['$scope', '$routeParams', 
         };
         
         $scope.showLocationDetail = function (locationId) {
-            $window.location.href = '/mushroomhunter-web/#/location/detail/' + locationId;
+            $window.location.href = '/pa165/#/location/detail/' + locationId;
         };
     }]);
 //

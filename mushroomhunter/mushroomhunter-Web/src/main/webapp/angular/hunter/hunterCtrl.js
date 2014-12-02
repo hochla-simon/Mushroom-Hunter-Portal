@@ -18,15 +18,15 @@ hunterControllers.controller('HunterListCtrl', ['$scope', '$window', 'HunterServ
         };
 
         $scope.showHunterDetail = function (hunterId) {
-            $window.location.href = '/mushroomhunter-web/#/hunter/detail/' + hunterId;
+            $window.location.href = '/pa165/#/hunter/detail/' + hunterId;
         };
 		
 		$scope.goToCreateHunter = function () {
-            $window.location.href = '/mushroomhunter-web/#/hunter/create';
+            $window.location.href = '/pa165/#/hunter/create';
         };
         
         $scope.goToHomePage = function () {
-            $window.location.href = '/mushroomhunter-web/';
+            $window.location.href = '/pa165/';
         };
     }]);
 
@@ -41,7 +41,7 @@ hunterControllers.controller('HunterDetailCtrl', ['$scope', '$routeParams',  '$w
                 });
 
         $scope.goToHunterList = function () {
-            $window.location.href = '/mushroomhunter-web/#/hunter';
+            $window.location.href = '/pa165/#/hunter';
         };
 		
 		 $scope.updateHunter = function (hunter) {
@@ -81,7 +81,7 @@ hunterControllers.controller('HunterCreateCtrl', ['$scope', '$routeParams', '$wi
         };
 
         $scope.goToHunterList = function () {
-            $window.location.href = '/mushroomhunter-web/#/hunter';
+            $window.location.href = '/pa165/#/hunter';
         };
 
         $scope.createHunter = function () {
@@ -97,7 +97,7 @@ hunterControllers.controller('HunterCreateCtrl', ['$scope', '$routeParams', '$wi
         };
         
         $scope.showHunterDetail = function (hunterId) {
-            $window.location.href = '/mushroomhunter-web/#/hunter/detail/' + hunterId;
+            $window.location.href = '/pa165/#/hunter/detail/' + hunterId;
         };
     }]);
 //

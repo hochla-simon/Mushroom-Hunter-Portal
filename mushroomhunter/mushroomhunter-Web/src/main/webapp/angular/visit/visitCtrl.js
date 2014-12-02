@@ -18,15 +18,15 @@ visitControllers.controller('VisitListCtrl', ['$scope', '$window', '$log', 'Visi
         };
 
         $scope.showVisitDetail = function (visitId) {
-            $window.location.href = '/mushroomhunter-web/#/visit/detail/' + visitId;
+            $window.location.href = '/pa165/#/visit/detail/' + visitId;
         };
 
         $scope.goToCreateVisit = function () {
-            $window.location.href = '/mushroomhunter-web/#/visit/create';
+            $window.location.href = '/pa165/#/visit/create';
         };
 
         $scope.goToHomePage = function () {
-            $window.location.href = '/mushroomhunter-web/';
+            $window.location.href = '/pa165/';
         };
     }]);
 
@@ -47,11 +47,11 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
         $scope.locations = LocationService("").query();
 
         $scope.goToCreateLocation = function () {
-            $window.location.href = '/mushroomhunter-web/#/location/create';
+            $window.location.href = '/pa165/#/location/create';
         };
 
         $scope.goToVisitList = function () {
-            $window.location.href = '/mushroomhunter-web/#/visit';
+            $window.location.href = '/pa165/#/visit';
         };
 
         $scope.createVisit = function () {
@@ -68,7 +68,7 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
         };
 
         $scope.showVisitDetail = function (visitId) {
-            $window.location.href = '/mushroomhunter-web/#/visit/detail/' + visitId;
+            $window.location.href = '/pa165/#/visit/detail/' + visitId;
         };
 
         $scope.today = function () {
@@ -123,7 +123,7 @@ visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$wind
                 });
 
         $scope.goToVisitList = function () {
-            $window.location.href = '/mushroomhunter-web/#/visit';
+            $window.location.href = '/pa165/#/visit';
         };
 
         $scope.updateVisit = function (visit) {

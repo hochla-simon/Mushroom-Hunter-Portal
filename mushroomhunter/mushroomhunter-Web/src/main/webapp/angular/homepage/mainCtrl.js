@@ -3,24 +3,24 @@ var mainControllers = angular.module('mainControllers', []);
 mainControllers.controller('MainCtrl', [ '$scope', '$window', function ($scope, $window) {
 
     $scope.goToLocationList = function () {
-        $window.location.href = '/mushroomhunter-web/#/location';
+        $window.location.href = '/pa165/#/location';
     };
 
     //For test only
     $scope.goToLocationDetail = function () {
-        $window.location.href = '/mushroomhunter-web/#/location/10';
+        $window.location.href = '/pa165/#/location/10';
     };
     
     $scope.goToVisitList = function () {
-        $window.location.href = '/mushroomhunter-web/#/visit';
+        $window.location.href = '/pa165/#/visit';
     };
 
     $scope.goToHunterList = function () {
-        $window.location.href = '/mushroomhunter-web/#/hunter';
+        $window.location.href = '/pa165/#/hunter';
     };
 
  $scope.goToMushroomList = function () {
-       $window.location.href = '/mushroomhunter-web/#/mushroom';
+       $window.location.href = '/pa165/#/mushroom';
     };
 
 

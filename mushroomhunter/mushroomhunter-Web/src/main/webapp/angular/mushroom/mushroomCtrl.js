@@ -49,15 +49,15 @@ mushroomControllers.controller('MushroomListCtrl', ['$scope', '$window', '$log',
         };
 
         $scope.showMushroomDetail = function (mushroomId) {
-            $window.location.href = '/mushroomhunter-web/#/mushroom/detail/' + mushroomId;
+            $window.location.href = '/pa165/#/mushroom/detail/' + mushroomId;
         };
         
         $scope.goToCreateMushroom = function () {
-            $window.location.href = '/mushroomhunter-web/#/mushroom/create';
+            $window.location.href = '/pa165/#/mushroom/create';
         };
         
         $scope.goToHomePage = function () {
-            $window.location.href = '/mushroomhunter-web/';
+            $window.location.href = '/pa165/';
         };
     }]);
 
@@ -95,7 +95,7 @@ mushroomControllers.controller('MushroomDetailCtrl', ['$scope', '$routeParams', 
    // $scope.SelectType.mushType = 1;
             
         $scope.goToMushroomList = function () {
-            $window.location.href = '/mushroomhunter-web/#/mushroom';
+            $window.location.href = '/pa165/#/mushroom';
         };
 
         $scope.updateMushroom = function (mushroom) {
@@ -136,7 +136,7 @@ mushroomControllers.controller('MushroomCreateCtrl', ['$scope', '$routeParams', 
         };
 
         $scope.goToMushroomList = function () {
-            $window.location.href = '/mushroomhunter-web/#/mushroom';
+            $window.location.href = '/pa165/#/mushroom';
         };
 
         $scope.createMushroom = function () {
@@ -152,7 +152,7 @@ mushroomControllers.controller('MushroomCreateCtrl', ['$scope', '$routeParams', 
         };
         
         $scope.showMushroomDetail = function (mushroomId) {
-            $window.location.href = '/mushroomhunter-web/#/mushroom/detail/' + mushroomId;
+            $window.location.href = '/pa165/#/mushroom/detail/' + mushroomId;
         };
     }]);
 //
