@@ -4,7 +4,7 @@ var visitControllers = angular.module('visitControllers', []);
 //  VISIT LIST CONTROLLER
 //
 visitControllers.controller('VisitListCtrl', ['$scope', '$window', '$log', 'VisitService', function ($scope, $window, $log, VisitService) {
-        
+
         $scope.visits = VisitService("").query();
 
         $scope.refreshVisits = function () {
@@ -20,35 +20,36 @@ visitControllers.controller('VisitListCtrl', ['$scope', '$window', '$log', 'Visi
         $scope.showVisitDetail = function (visitId) {
             $window.location.href = '/mushroomhunter-web/#/visit/detail/' + visitId;
         };
-        
+
         $scope.goToCreateVisit = function () {
             $window.location.href = '/mushroomhunter-web/#/visit/create';
         };
-        
+
         $scope.goToHomePage = function () {
             $window.location.href = '/mushroomhunter-web/';
         };
     }]);
 
+//visitControllers.controller
 
 //
 //  CREATE NEW VISIT CONTROLLER
 //
-visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', 'LocationService', function ($scope, $routeParams, $window, $log, VisitService, LocationService) {
+visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', 'LocationService', 'datepickerPopupConfig', function ($scope, $routeParams, $window, $log, VisitService, LocationService, datepickerPopupConfig) {
         $scope.visit = {
-            "id":null,
+            "id": null,
             "hunter": null,
             "date": null,
             "location": null,
-            "foundMushrooms":null
-        }; 
-        
+            "foundMushrooms": null
+        };
+
         $scope.locations = LocationService("").query();
-        
+
         $scope.goToCreateLocation = function () {
             $window.location.href = '/mushroomhunter-web/#/location/create';
         };
-        
+
         $scope.goToVisitList = function () {
             $window.location.href = '/mushroomhunter-web/#/visit';
         };
@@ -65,17 +66,54 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
                         $log.error("An error occurred on server! Visit cannot be created.");
                     });
         };
-        
+
         $scope.showVisitDetail = function (visitId) {
             $window.location.href = '/mushroomhunter-web/#/visit/detail/' + visitId;
         };
+
+        $scope.today = function () {
+            $scope.dt = new Date();
+        };
+        $scope.today();
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+
+        // Disable weekend selection
+        $scope.disabled = function (date, mode) {
+            return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
+        };
+
+        $scope.toggleMin = function () {
+            $scope.minDate = $scope.minDate ? null : new Date();
+        };
+        $scope.toggleMin();
+
+        $scope.open = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope.opened = true;
+        };
+
+        $scope.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1
+        };
+
+        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+        $scope.format = $scope.formats[0];
+        
+        datepickerPopupConfig.currentText = 'Aujourd\'hui';
+
     }]);
 
 //
 //  VISIT DETAIL CONTROLLER
 //
 visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', function ($scope, $routeParams, $window, $log, VisitService) {
-             
+
         $scope.visit = VisitService($routeParams.visitId).getVisitDetail(
                 function (data, status, headers, config) {
                     $log.info("Visit detail loaded.");

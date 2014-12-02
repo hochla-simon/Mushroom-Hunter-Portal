@@ -11,7 +11,8 @@ var app = angular.module('mushroomHunterApp', [
     'mushroomServices',
     'hunterControllers',
     'hunterServices',
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'ui.bootstrap',
 ]);
 
 app.config(['$routeProvider',
@@ -74,6 +75,10 @@ app.config(['$routeProvider',
                 when('/mushroom/detail/:mushroomId', {
                     templateUrl: 'angular/mushroom/mushroomDetail.html',
                     controller: 'MushroomDetailCtrl'
+                }).
+                        when('/index2.jsp', {
+                    templateUrl: 'index2.jsp',
+                    controller: 'CreateVisitCtrl'
                 }).
                 otherwise({
                     redirectTo: '/homepage'
