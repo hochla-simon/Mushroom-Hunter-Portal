@@ -31,23 +31,21 @@
     
     <tx:annotation-driven transaction-manager="transactionManager"/>
     
-    <jdbc:embedded-database id="dataSource" type="DERBY" />
-    
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="TestPU"/>
-        <property name="dataSource" ref="dataSource"/>
-    </bean>    
-    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
-    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
+    
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+    
+    <jdbc:embedded-database id="dataSource" type="DERBY" />
+    
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="dataSource"/>
     </bean>
     
-<!--<bean id="myEmf" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="ApplicationPU"/>
-    </bean>-->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="PU"/>
+    </bean>    
     
 </beans>

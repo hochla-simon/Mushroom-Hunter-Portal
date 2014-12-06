@@ -40,7 +40,7 @@ public class HunterDaoImplTest {
     @Before
     public void setUp() {
         hunterDaoImpl = new HunterDaoImpl();
-        em = Persistence.createEntityManagerFactory("TestPU").createEntityManager();
+        em = Persistence.createEntityManagerFactory("PU").createEntityManager();
         em.getTransaction().begin();
         ReflectionTestUtils.setField(this.hunterDaoImpl, "em", em);
     }

@@ -29,8 +29,6 @@ public class LocationServiceImpl implements LocationService {
     LocationConverter locationConverter;
     @Autowired
     MushroomConverter mushroomConverter;
-    @PersistenceContext
-    private EntityManager em;
 
     public LocationServiceImpl() {
     }

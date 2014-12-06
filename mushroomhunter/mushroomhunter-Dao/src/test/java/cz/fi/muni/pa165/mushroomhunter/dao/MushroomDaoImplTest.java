@@ -42,7 +42,7 @@ public class MushroomDaoImplTest {
     @Before
     public void setUp() {
         mushroomDao = new MushroomDaoImpl();
-        em = Persistence.createEntityManagerFactory("TestPU").createEntityManager();
+        em = Persistence.createEntityManagerFactory("PU").createEntityManager();
         em.getTransaction().begin();
         ReflectionTestUtils.setField(this.mushroomDao, "em", em);
     }

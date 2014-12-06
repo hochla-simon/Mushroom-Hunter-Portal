@@ -28,29 +28,13 @@
 ">
     <context:component-scan base-package="cz.fi.muni.pa165.mushroomhunter"/>
     <context:annotation-config/>
-    
-    <tx:annotation-driven transaction-manager="transactionManager"/>
-    
-    <jdbc:embedded-database id="dataSource" type="DERBY" />
-    
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="TestPU"/>
-        <property name="dataSource" ref="dataSource"/>
-    </bean>    
+
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory"/>
-    </bean>
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
+
     <bean id="mapper" class="org.dozer.DozerBeanMapper"></bean>
     <bean id="hunterDao" class="cz.fi.muni.pa165.mushroomhunter.dao.HunterDaoImpl"></bean>
     <bean id="locationDao" class="cz.fi.muni.pa165.mushroomhunter.dao.LocationDaoImpl"></bean>
     <bean id="mushroomDao" class="cz.fi.muni.pa165.mushroomhunter.dao.MushroomDaoImpl"></bean>
     <bean id="visitDao" class="cz.fi.muni.pa165.mushroomhunter.dao.VisitDaoImpl"></bean>
-
-
-
 </beans>

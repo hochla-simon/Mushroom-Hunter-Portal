@@ -40,7 +40,7 @@ public class VisitDaoImplTest {
     private Mushroom mushroom2;
     private Location location;
     
-    private EntityManager em;
+    private EntityManager em = null;
     /**
      * Initializes stuff before every test.
      */
@@ -51,7 +51,7 @@ public class VisitDaoImplTest {
         hunterDao = new HunterDaoImpl();
         locationDao = new LocationDaoImpl();
         
-        em = Persistence.createEntityManagerFactory("TestPU").createEntityManager();
+        em = Persistence.createEntityManagerFactory("PU").createEntityManager();
         em.getTransaction().begin();
         ReflectionTestUtils.setField(this.visitDao, "em", em);
         ReflectionTestUtils.setField(this.mushroomDao, "em", em);

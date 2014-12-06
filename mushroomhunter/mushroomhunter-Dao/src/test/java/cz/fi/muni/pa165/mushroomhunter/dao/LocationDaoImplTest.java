@@ -48,7 +48,7 @@ public class LocationDaoImplTest
     @Before
     public void setUp() {
         locDimpl = new LocationDaoImpl();
-        em = Persistence.createEntityManagerFactory("TestPU").createEntityManager();
+        em = Persistence.createEntityManagerFactory("PU").createEntityManager();
         em.getTransaction().begin();
         ReflectionTestUtils.setField(this.locDimpl, "em", em);
 
