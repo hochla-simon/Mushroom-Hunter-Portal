@@ -76,6 +76,10 @@ app.config(['$routeProvider',
                     templateUrl: 'angular/mushroom/mushroomDetail.html',
                     controller: 'MushroomDetailCtrl'
                 }).
+                        when('/index2.jsp', {
+                    templateUrl: 'index2.jsp',
+                    controller: 'CreateVisitCtrl'
+                }).
                 otherwise({
                     redirectTo: '/homepage'
                 });
@@ -142,7 +146,11 @@ app.config(function($translateProvider) {
     
     EDIBLE: 'Edible',
     INEDIBLE: 'Inedble',
-    POISONOUS: 'Poisonous'    
+    POISONOUS: 'Poisonous',
+    
+    CLEAR: 'Clear',
+    TODAY: 'Today',
+    CLOSE: 'Close'  
   })
   .translations('cs', {
     WELCOMETO: 'Vitejte na',
@@ -150,7 +158,7 @@ app.config(function($translateProvider) {
     MEMBERS: 'Clenove tymu',
     TASKDES: 'Popis ulohy',
     PROJECT: 'Projekt',
-    PROJDES: 'Tato aplikace je skolnim projektem, jehoz cilem je vytvoreni jednoducheho portalu houvbaru, kde si houbari mohou vymenovat informace o mistech bohatych ci chudych na urcity druh hub. Houbar ma krestni jmeno, prijmeni, prezdivku, misto ma jmeno, popis, neblizsi mesto, navsteva je relace mezi houbarem a mistem, ma datum navstevy a popis. Houba ma jmeno, typ, zacatek a konec vyskytu.',
+    PROJDES: 'Tato aplikace je skolnim projektem, jehoz cilem je vytvoreni jednoducheho portalu houbaru, kde si houbari mohou vymenovat informace o mistech bohatych ci chudych na urcity druh hub. Houbar ma krestni jmeno, prijmeni, prezdivku, misto ma jmeno, popis, neblizsi mesto, navsteva je relace mezi houbarem a mistem, ma datum navstevy a popis. Houba ma jmeno, typ, zacatek a konec vyskytu.',
     COURSENAME: 'Vyvoj programovych systemu v jazyce Java',
     HOME: 'Uvodni stranka',
     LLOCATION: 'Seznam mist',
@@ -204,7 +212,11 @@ app.config(function($translateProvider) {
     
     EDIBLE: 'Jedla',
     INEDIBLE: 'Nejedla',
-    POISONOUS: 'Jedovata'
+    POISONOUS: 'Jedovata',
+    
+    CLEAR: 'Vymazat',
+    TODAY: 'Dnes',
+    CLOSE: 'Zavrit'
     
     
     

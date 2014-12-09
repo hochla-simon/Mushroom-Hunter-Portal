@@ -71,7 +71,9 @@
                         {{ 'ENDOFO' | translate }}
                     </td>
                     <td>
-                        {{mushroom.endOfOccurence | date:'dd.MM.yyyy'}}<input type="date" id="exampleInput" name="input" ng-model="mushroom.endOfOccurence" ng-change="updateMushroom(mushroom)"
+                        {{mushroom.endOfOccurence | date:'dd.MM.yyyy'}}
+                        
+                        <input type="date" id="exampleInput" name="input" ng-model="mushroom.endOfOccurence" ng-change="updateMushroom(mushroom)"
        placeholder="yyyy-MM-dd" required />
    <span class="error" ng-show="input.$error.required">
        Required!</span>

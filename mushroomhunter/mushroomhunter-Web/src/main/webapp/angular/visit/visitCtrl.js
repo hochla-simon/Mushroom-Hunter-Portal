@@ -17,13 +17,13 @@ visitControllers.controller('VisitListCtrl', ['$scope', '$window', '$log', 'Visi
             });
         };
 
-        $scope.showVisitDetail = function (visitId) {
+    $scope.showVisitDetail = function (visitId) {
             $window.location.href = '/pa165/#/visit/detail/' + visitId;
-        };
+           };
 
         $scope.goToCreateVisit = function () {
             $window.location.href = '/pa165/#/visit/create';
-        };
+                };
 
         $scope.goToHomePage = function () {
             $window.location.href = '/pa165/';
@@ -35,7 +35,8 @@ visitControllers.controller('VisitListCtrl', ['$scope', '$window', '$log', 'Visi
 //
 //  CREATE NEW VISIT CONTROLLER
 //
-visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', 'LocationService', 'datepickerPopupConfig', function ($scope, $routeParams, $window, $log, VisitService, LocationService, datepickerPopupConfig) {
+visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', 'LocationService', 'datepickerPopupConfig', '$translate', function ($scope, $routeParams, $window, $log, VisitService, LocationService, datepickerPopupConfig, $translate) {
+         $translate(['TODAY', 'CLEAR', 'CLOSE']).then(function (translations) {
         $scope.visit = {
             "id": null,
             "hunter": null,
@@ -57,6 +58,7 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
         $scope.createVisit = function () {
             $log.info("Creating new visit");
             $scope.visit.location = $scope.location;
+            alert($scope.visit.date);
             VisitService("").create($scope.visit,
                     function (data, status, headers, config) {
                         $log.info("Visit created");
@@ -72,12 +74,12 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
         };
 
         $scope.today = function () {
-            $scope.dt = new Date();
+            $scope.visit.date = new Date();
         };
         $scope.today();
 
         $scope.clear = function () {
-            $scope.dt = null;
+            $scope.visit.date = null;
         };
 
         // Disable weekend selection
@@ -105,14 +107,18 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
         $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
         $scope.format = $scope.formats[0];
         
-        datepickerPopupConfig.currentText = 'Aujourd\'hui';
-
+        datepickerPopupConfig.currentText = translations.TODAY;
+        datepickerPopupConfig.clearText = translations.CLEAR;
+        datepickerPopupConfig.closeText = translations.CLOSE;
+});
     }]);
 
 //
 //  VISIT DETAIL CONTROLLER
 //
-visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', function ($scope, $routeParams, $window, $log, VisitService) {
+//visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', function ($scope, $routeParams, $window, $log, VisitService) {
+visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', 'LocationService', 'datepickerPopupConfig', '$translate', function ($scope, $routeParams, $window, $log, VisitService, LocationService, datepickerPopupConfig, $translate) {
+         $translate(['TODAY', 'CLEAR', 'CLOSE']).then(function (translations) {
 
         $scope.visit = VisitService($routeParams.visitId).getVisitDetail(
                 function (data, status, headers, config) {
@@ -148,6 +154,44 @@ visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$wind
                         $log.error("An error occurred on server! Visit cannot be deleted.");
                     });
         };
+        $scope.today = function () {
+            $scope.visit.date = new Date();
+        };
+        $scope.today();
+
+        $scope.clear = function () {
+            $scope.visit.date = null;
+        };
+
+        // Disable weekend selection
+        $scope.disabled = function (date, mode) {
+            return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
+        };
+
+        $scope.toggleMin = function () {
+            $scope.minDate = $scope.minDate ? null : new Date();
+        };
+        $scope.toggleMin();
+
+        $scope.open = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope.opened = true;
+        };
+
+        $scope.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1
+        };
+
+        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+        $scope.format = $scope.formats[0];
+        
+        datepickerPopupConfig.currentText = translations.TODAY;
+        datepickerPopupConfig.clearText = translations.CLEAR;
+        datepickerPopupConfig.closeText = translations.CLOSE;
+        });
     }]);
 
 //
