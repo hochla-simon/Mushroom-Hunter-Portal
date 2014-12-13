@@ -2,7 +2,6 @@ package cz.fi.muni.pa165.mushroomhunter.dao;
 
 import cz.fi.muni.pa165.mushroomhunter.entity.Hunter;
 import java.util.List;
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Repository;
  * 
  * @author Lukáš Valach
  */
-@Stateless
 @Repository
 public class HunterDaoImpl implements HunterDao {
 

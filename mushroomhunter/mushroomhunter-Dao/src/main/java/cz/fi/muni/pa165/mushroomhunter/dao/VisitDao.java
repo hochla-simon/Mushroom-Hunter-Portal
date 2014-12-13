@@ -4,16 +4,12 @@ import cz.fi.muni.pa165.mushroomhunter.entity.Hunter;
 import cz.fi.muni.pa165.mushroomhunter.entity.Location;
 import cz.fi.muni.pa165.mushroomhunter.entity.Visit;
 import java.util.List;
-import javax.ejb.Local;
-import org.springframework.stereotype.Repository;
 
 /**
  * The interface of a data object for the entity Visit.
  * 
  * @author Radim Cejka 
  */
-@Local
-@Repository
 public interface VisitDao {
     
     /**

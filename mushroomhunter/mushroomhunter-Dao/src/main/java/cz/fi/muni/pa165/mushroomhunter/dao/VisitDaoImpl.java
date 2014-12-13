@@ -4,7 +4,6 @@ import cz.fi.muni.pa165.mushroomhunter.entity.Hunter;
 import cz.fi.muni.pa165.mushroomhunter.entity.Location;
 import cz.fi.muni.pa165.mushroomhunter.entity.Visit;
 import java.util.List;
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Repository;
  * 
  * @author Radim Cejka
  */
-@Stateless
 @Repository
 public class VisitDaoImpl implements VisitDao {
 

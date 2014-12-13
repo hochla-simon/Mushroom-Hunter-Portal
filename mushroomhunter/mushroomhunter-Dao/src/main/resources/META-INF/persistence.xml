@@ -10,7 +10,7 @@
       <property name="hibernate.connection.password" value="pa165"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect"/>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
-      <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
     </properties>
   </persistence-unit>
 </persistence>

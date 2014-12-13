@@ -4,16 +4,12 @@ import cz.fi.muni.pa165.mushroomhunter.entity.Location;
 import cz.fi.muni.pa165.mushroomhunter.entity.Mushroom;
 import java.util.List;
 import java.util.Map;
-import javax.ejb.Local;
-import org.springframework.stereotype.Repository;
 
 /**
  * The interface of a data object for the entity Location.
  *
  * @author Roman Smékal
  */
-@Local
-@Repository
 public interface LocationDao {
 
     /**

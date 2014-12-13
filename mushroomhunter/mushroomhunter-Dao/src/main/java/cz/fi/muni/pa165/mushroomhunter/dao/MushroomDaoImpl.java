@@ -5,7 +5,6 @@ import cz.fi.muni.pa165.mushroomhunter.entity.Mushroom;
 import cz.fi.muni.pa165.mushroomhunter.entity.Type;
 import java.util.Date;
 import java.util.List;
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Repository;
  *
  * @author Simon Hochla
  */
-@Stateless
 @Repository
 public class MushroomDaoImpl implements MushroomDao {
 
