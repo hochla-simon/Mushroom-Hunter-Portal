@@ -5,8 +5,7 @@
  */
 package cz.fi.muni.pa165.mushroomhunter.converter;
 
-import cz.fi.muni.pa165.mushroomhunter.dto.VisitDto;
-import cz.fi.muni.pa165.mushroomhunter.entity.Hunter;
+import cz.fi.muni.pa165.mushroomhunter.api.dto.VisitDto;
 import cz.fi.muni.pa165.mushroomhunter.entity.Visit;
 import java.util.ArrayList;
 import java.util.Iterator;

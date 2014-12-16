@@ -1,12 +1,13 @@
 package cz.fi.muni.pa165.mushroomhunter.service;
 
-import cz.fi.muni.pa165.mushroomhunter.dto.LocationDto;
+import cz.fi.muni.pa165.mushroomhunter.api.service.VisitService;
+import cz.fi.muni.pa165.mushroomhunter.api.dto.LocationDto;
 import cz.fi.muni.pa165.mushroomhunter.converter.HunterConverter;
 import cz.fi.muni.pa165.mushroomhunter.converter.LocationConverter;
 import cz.fi.muni.pa165.mushroomhunter.converter.VisitConverter;
 import cz.fi.muni.pa165.mushroomhunter.dao.VisitDao;
-import cz.fi.muni.pa165.mushroomhunter.dto.HunterDto;
-import cz.fi.muni.pa165.mushroomhunter.dto.VisitDto;
+import cz.fi.muni.pa165.mushroomhunter.api.dto.HunterDto;
+import cz.fi.muni.pa165.mushroomhunter.api.dto.VisitDto;
 import cz.fi.muni.pa165.mushroomhunter.entity.Visit;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

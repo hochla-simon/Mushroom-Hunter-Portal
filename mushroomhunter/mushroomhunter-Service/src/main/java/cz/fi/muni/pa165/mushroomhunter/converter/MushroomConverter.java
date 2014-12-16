@@ -1,6 +1,6 @@
 package cz.fi.muni.pa165.mushroomhunter.converter;
 
-import cz.fi.muni.pa165.mushroomhunter.dto.MushroomDto;
+import cz.fi.muni.pa165.mushroomhunter.api.dto.MushroomDto;
 import cz.fi.muni.pa165.mushroomhunter.entity.Mushroom;
 import java.util.ArrayList;
 import java.util.List;

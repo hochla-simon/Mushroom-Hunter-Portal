@@ -4,7 +4,7 @@
  */
 package cz.fi.muni.pa165.mushroomhunter.service;
 
-import cz.fi.muni.pa165.mushroomhunter.dto.HunterDto;
+import cz.fi.muni.pa165.mushroomhunter.api.dto.HunterDto;
 import cz.fi.muni.pa165.mushroomhunter.converter.HunterConverter;
 import cz.fi.muni.pa165.mushroomhunter.dao.HunterDaoImpl;
 import cz.fi.muni.pa165.mushroomhunter.entity.Hunter;

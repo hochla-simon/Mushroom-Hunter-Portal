@@ -4,10 +4,11 @@
  */
 package cz.fi.muni.pa165.mushroomhunter.service;
 
+import cz.fi.muni.pa165.mushroomhunter.api.service.HunterService;
 import cz.fi.muni.pa165.mushroomhunter.converter.HunterConverter;
 
 import cz.fi.muni.pa165.mushroomhunter.dao.HunterDao;
-import cz.fi.muni.pa165.mushroomhunter.dto.HunterDto;
+import cz.fi.muni.pa165.mushroomhunter.api.dto.HunterDto;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,11 +26,7 @@ public class HunterServiceImpl implements HunterService{
     @Autowired
     private HunterConverter hunterConverter;
     
-   
-    @Override
-    public void setDao(HunterDao dao) {
-    hunterDao = dao;
-}
+  
     
       /**
     * Saves hunter into database.

@@ -4,11 +4,12 @@
  */
 package cz.fi.muni.pa165.mushroomhunter.service;
 
+import cz.fi.muni.pa165.mushroomhunter.api.service.LocationService;
 import cz.fi.muni.pa165.mushroomhunter.converter.LocationConverter;
 import cz.fi.muni.pa165.mushroomhunter.converter.MushroomConverter;
 import cz.fi.muni.pa165.mushroomhunter.dao.LocationDao;
-import cz.fi.muni.pa165.mushroomhunter.dto.LocationDto;
-import cz.fi.muni.pa165.mushroomhunter.dto.MushroomDto;
+import cz.fi.muni.pa165.mushroomhunter.api.dto.LocationDto;
+import cz.fi.muni.pa165.mushroomhunter.api.dto.MushroomDto;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

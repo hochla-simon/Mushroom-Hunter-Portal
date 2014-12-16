@@ -6,12 +6,12 @@ import cz.fi.muni.pa165.mushroomhunter.converter.MushroomConverter;
 import cz.fi.muni.pa165.mushroomhunter.converter.VisitConverter;
 import cz.fi.muni.pa165.mushroomhunter.dao.MushroomDaoImpl;
 import cz.fi.muni.pa165.mushroomhunter.dao.VisitDaoImpl;
-import cz.fi.muni.pa165.mushroomhunter.dto.LocationDto;
-import cz.fi.muni.pa165.mushroomhunter.dto.MushroomDto;
-import cz.fi.muni.pa165.mushroomhunter.dto.VisitDto;
+import cz.fi.muni.pa165.mushroomhunter.api.dto.LocationDto;
+import cz.fi.muni.pa165.mushroomhunter.api.dto.MushroomDto;
+import cz.fi.muni.pa165.mushroomhunter.api.dto.VisitDto;
 import cz.fi.muni.pa165.mushroomhunter.entity.Location;
 import cz.fi.muni.pa165.mushroomhunter.entity.Mushroom;
-import cz.fi.muni.pa165.mushroomhunter.entity.Type;
+import cz.fi.muni.pa165.mushroomhunter.api.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -139,14 +139,6 @@ public class MushroomServiceImplTest {
         verify(mushroomDao).findByName("Mochomurka");
     }
     
-    /**
-     * Test of findByType method, of class MushroomServiceImpl.
-     */
-    @Test
-    public void testFindMushroomByType() {
-        mushroomServiceImpl.findByType(Type.POISONOUS);
-        verify(mushroomDao).findByType(Type.POISONOUS);
-    }
     
     /**
      * Test of findByOccurenceDate method, of class MushroomServiceImpl.

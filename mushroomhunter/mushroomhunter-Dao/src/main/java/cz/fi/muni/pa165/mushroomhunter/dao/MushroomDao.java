@@ -2,7 +2,7 @@ package cz.fi.muni.pa165.mushroomhunter.dao;
 
 import cz.fi.muni.pa165.mushroomhunter.entity.Location;
 import cz.fi.muni.pa165.mushroomhunter.entity.Mushroom;
-import cz.fi.muni.pa165.mushroomhunter.entity.Type;
+import cz.fi.muni.pa165.mushroomhunter.api.Type;
 import java.util.Date;
 import java.util.List;
 

@@ -7,7 +7,7 @@
     <artifactId>mushroomhunter</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  <groupId>cz.fi.muni.pa165.mushroomhunter.Service</groupId>
+  <groupId>cz.fi.muni.pa165.mushroomhunter.service</groupId>
   <artifactId>mushroomhunter-Service</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>mushroomhunter-Service</name>
@@ -25,6 +25,13 @@
       <version>1.0-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
+    
+     <dependency>
+      <groupId>cz.fi.muni.pa165.mushroomhunter.api</groupId>
+      <artifactId>mushroomhunter-Api</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    
     
     <dependency>
         <groupId>net.sf.dozer</groupId>

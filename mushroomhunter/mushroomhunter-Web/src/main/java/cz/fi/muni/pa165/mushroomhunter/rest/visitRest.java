@@ -1,9 +1,9 @@
 package cz.fi.muni.pa165.mushroomhunter.rest;
 
-import cz.fi.muni.pa165.mushroomhunter.dto.LocationDto;
-import cz.fi.muni.pa165.mushroomhunter.dto.VisitDto;
-import cz.fi.muni.pa165.mushroomhunter.service.LocationService;
-import cz.fi.muni.pa165.mushroomhunter.service.VisitService;
+import cz.fi.muni.pa165.mushroomhunter.api.dto.LocationDto;
+import cz.fi.muni.pa165.mushroomhunter.api.dto.VisitDto;
+import cz.fi.muni.pa165.mushroomhunter.api.service.LocationService;
+import cz.fi.muni.pa165.mushroomhunter.api.service.VisitService;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

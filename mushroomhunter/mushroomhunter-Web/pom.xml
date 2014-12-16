@@ -25,10 +25,15 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>cz.fi.muni.pa165.mushroomhunter.Service</groupId>
+            <groupId>cz.fi.muni.pa165.mushroomhunter.service</groupId>
             <artifactId>mushroomhunter-Service</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+      <groupId>cz.fi.muni.pa165.mushroomhunter.api</groupId>
+      <artifactId>mushroomhunter-Api</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-servlet-api</artifactId>

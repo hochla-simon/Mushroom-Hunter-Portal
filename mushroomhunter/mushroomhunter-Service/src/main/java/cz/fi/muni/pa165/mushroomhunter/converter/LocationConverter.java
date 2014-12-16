@@ -5,7 +5,7 @@
  */
 package cz.fi.muni.pa165.mushroomhunter.converter;
 
-import cz.fi.muni.pa165.mushroomhunter.dto.LocationDto;
+import cz.fi.muni.pa165.mushroomhunter.api.dto.LocationDto;
 import cz.fi.muni.pa165.mushroomhunter.entity.Location;
 import java.util.ArrayList;
 import java.util.HashMap;
