@@ -6,6 +6,10 @@
 package cz.fi.muni.pa165.mushroomhunter.api.dto;
 
 import java.util.Objects;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -20,16 +24,21 @@ public class LocationDto {
     /**
      * The name of the location.
      */
+    @NotBlank
+    @Length(min = 1, max = 20)
     private String name;
 
     /**
      * The description of the location.
      */
+    @NotNull
+    @Length(max = 200)
     private String description;
     
     /**
      * The city near the location.
      */
+    @Length(max = 20)
     private String nearCity;
     
     /**

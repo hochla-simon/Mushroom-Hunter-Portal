@@ -20,11 +20,11 @@ locationControllers.controller('LocationListCtrl', ['$scope', '$window', '$log',
         $scope.showLocationDetail = function (locationId) {
             $window.location.href = '/pa165/#/location/detail/' + locationId;
         };
-        
+
         $scope.goToCreateLocation = function () {
             $window.location.href = '/pa165/#/location/create';
         };
-        
+
         $scope.goToHomePage = function () {
             $window.location.href = '/pa165/';
         };
@@ -34,9 +34,13 @@ locationControllers.controller('LocationListCtrl', ['$scope', '$window', '$log',
 //  LOCATION DETAIL CONTROLLER
 //
 locationControllers.controller('LocationDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'LocationService', function ($scope, $routeParams, $window, $log, LocationService) {
+        $scope.validationErrors = {};
+
         $scope.location = LocationService($routeParams.locationId).getLocationDetail(
                 function (data, status, headers, config) {
                     $log.info("Location detail loaded.");
+                    $scope.location = data;
+                    $scope.locationBackup = angular.copy($scope.location);
                 },
                 function (data, status, headers, config) {
                     $log.error("An error occurred on server! Detail of location cannot be loaded.");
@@ -51,9 +55,11 @@ locationControllers.controller('LocationDetailCtrl', ['$scope', '$routeParams', 
             LocationService("").update(location,
                     function (data, status, headers, config) {
                         $log.info("Location updated");
+                        $scope.validationErrors = {};
                     },
                     function (data, status, headers, config) {
                         $log.error("An error occurred on server! Location cannot be updated.");
+                        $scope.validationErrors = data.data;
                     });
         };
 
@@ -74,12 +80,16 @@ locationControllers.controller('LocationDetailCtrl', ['$scope', '$routeParams', 
 //  CREATE NEW LOCATION CONTROLLER
 //
 locationControllers.controller('LocationCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'LocationService', function ($scope, $routeParams, $window, $log, LocationService) {
+        $scope.validationErrors = {
+            "fieldErrors": []
+        }
+
         $scope.location = {
-            "id":null,
-            "name":"",
-            "description": null,
-            "nearCity": null,
-            "mushroomOccurence":null
+            "id": null,
+            "name": "",
+            "description": "",
+            "nearCity": "",
+            "mushroomOccurence": null
         };
 
         $scope.goToLocationList = function () {
@@ -91,13 +101,15 @@ locationControllers.controller('LocationCreateCtrl', ['$scope', '$routeParams', 
             LocationService("").create($scope.location,
                     function (data, status, headers, config) {
                         $log.info("Location created");
+                        $scope.validationErrors = {};
                         $scope.showLocationDetail(data);
                     },
                     function (data, status, headers, config) {
                         $log.error("An error occurred on server! Location cannot be created.");
+                        $scope.validationErrors = data.data;
                     });
         };
-        
+
         $scope.showLocationDetail = function (locationId) {
             $window.location.href = '/pa165/#/location/detail/' + locationId;
         };
@@ -112,9 +124,9 @@ locationServices.factory('LocationService', ['$resource', function ($resource) {
                 query: {method: 'GET', isArray: true},
                 getLocationWithMushroomOccurence: {url: 'rest/location/withMushroomOccurence' + ':param', method: 'GET', isArray: true},
                 getLocationDetail: {method: 'GET', isArray: false},
-                create: {method: 'POST', isArray:true},
-                update: {method: 'PUT', isArray:false},
-                delete: {method: 'DELETE', isArray:false}
+                create: {method: 'POST', isArray: true},
+                update: {method: 'PUT', isArray: false},
+                delete: {method: 'DELETE', isArray: false}
             });
         };
     }])

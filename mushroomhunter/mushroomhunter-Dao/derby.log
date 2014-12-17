@@ -1,11 +1,11 @@
 ----------------------------------------------------------------
-Tue Dec 16 15:16:28 CET 2014:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-014a-5375-0f1c-000003badd88 
-on database directory memory:C:\Users\RaD\Documents\GitHub\Mushroom-Hunter-Portal\mushroomhunter\mushroomhunter-Dao\testDB with class loader sun.misc.Launcher$AppClassLoader@20d75cf7 
-Loaded from file:/C:/Users/RaD/.m2/repository/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar
+Tue Dec 16 23:21:37 CET 2014:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-014a-5531-3b5d-000008480000 
+on database directory memory:C:\Skola\git-repository\Mushroom-Hunter-Portal\mushroomhunter\mushroomhunter-Dao\testDB with class loader sun.misc.Launcher$AppClassLoader@3af4d6b3 
+Loaded from file:/C:/Users/Admin/.m2/repository/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.7.0_40-b43
-user.dir=C:\Users\RaD\Documents\GitHub\Mushroom-Hunter-Portal\mushroomhunter\mushroomhunter-Dao
+java.runtime.version=1.7.0_17-b02
+user.dir=C:\Skola\git-repository\Mushroom-Hunter-Portal\mushroomhunter\mushroomhunter-Dao
 os.name=Windows 7
 os.arch=amd64
 os.version=6.1
