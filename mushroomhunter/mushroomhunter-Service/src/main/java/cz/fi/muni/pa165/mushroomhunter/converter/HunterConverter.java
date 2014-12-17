@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.fi.muni.pa165.mushroomhunter.converter;
 
 import cz.fi.muni.pa165.mushroomhunter.api.dto.HunterDto;
@@ -27,7 +22,7 @@ public class HunterConverter {
     /**
      * Convert Hunter DTO to Hunter entity.
      *
-     * @param Hunter DTO
+     * @param hunterDto DTO
      * @return Hunter entity
      */
     public Hunter hunterDtoToEntity(HunterDto hunterDto) {
@@ -36,7 +31,7 @@ public class HunterConverter {
 /**
      * Convert Hunter entity to Hunter DTO.
      *
-     * @param Hunter entity
+     * @param hunter entity
      * @return Hunter Dto
      */
     public HunterDto hunterEntityToDto(Hunter hunter) {
@@ -46,7 +41,7 @@ public class HunterConverter {
     /**
      * Convert Hunter entity List to Hunter DTO List.
      *
-     * @param Hunter entities list
+     * @param hunterList entities list
      * @return Hunter Dto list
      */
     public List<HunterDto> hunterEntityToDtoList(List<Hunter> hunterList) {

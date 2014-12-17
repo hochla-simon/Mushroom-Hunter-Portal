@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Tue Dec 16 23:21:37 CET 2014:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-014a-5531-3b5d-000008480000 
-on database directory memory:C:\Skola\git-repository\Mushroom-Hunter-Portal\mushroomhunter\mushroomhunter-Dao\testDB with class loader sun.misc.Launcher$AppClassLoader@3af4d6b3 
-Loaded from file:/C:/Users/Admin/.m2/repository/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar
+Wed Dec 17 02:24:23 CET 2014:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-014a-55d8-8f1b-0000064189c0 
+on database directory memory:D:\Java\Projekt16\Mushroom-Hunter-Portal\mushroomhunter\mushroomhunter-Dao\testDB with class loader sun.misc.Launcher$AppClassLoader@6bc7c054 
+Loaded from file:/C:/Users/roman_000/.m2/repository/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.7.0_17-b02
-user.dir=C:\Skola\git-repository\Mushroom-Hunter-Portal\mushroomhunter\mushroomhunter-Dao
-os.name=Windows 7
+java.runtime.version=1.8.0_20-b26
+user.dir=D:\Java\Projekt16\Mushroom-Hunter-Portal\mushroomhunter\mushroomhunter-Dao
+os.name=Windows 8.1
 os.arch=amd64
-os.version=6.1
+os.version=6.3
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

@@ -20,18 +20,18 @@ hunterControllers.controller('HunterListCtrl', ['$scope', '$window', 'HunterServ
         $scope.showHunterDetail = function (hunterId) {
             $window.location.href = '/pa165/#/hunter/detail/' + hunterId;
         };
-		
-		$scope.goToCreateHunter = function () {
+
+        $scope.goToCreateHunter = function () {
             $window.location.href = '/pa165/#/hunter/create';
         };
-        
+
         $scope.goToHomePage = function () {
             $window.location.href = '/pa165/';
         };
     }]);
 
 
-hunterControllers.controller('HunterDetailCtrl', ['$scope', '$routeParams',  '$window', '$log', 'HunterService', function ($scope, $routeParams, $window, $log, HunterService) {
+hunterControllers.controller('HunterDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'HunterService', function ($scope, $routeParams, $window, $log, HunterService) {
         $scope.hunter = HunterService($routeParams.hunterId).getHunterDetail(
                 function (data, status, headers, config) {
                     $log.info("Hunter detail loaded.");
@@ -43,8 +43,8 @@ hunterControllers.controller('HunterDetailCtrl', ['$scope', '$routeParams',  '$w
         $scope.goToHunterList = function () {
             $window.location.href = '/pa165/#/hunter';
         };
-		
-		 $scope.updateHunter = function (hunter) {
+
+        $scope.updateHunter = function (hunter) {
             $log.info("Saving hunter with ID: " + hunter.id);
             HunterService("").update(hunter,
                     function (data, status, headers, config) {
@@ -73,11 +73,11 @@ hunterControllers.controller('HunterDetailCtrl', ['$scope', '$routeParams',  '$w
 //
 hunterControllers.controller('HunterCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'HunterService', function ($scope, $routeParams, $window, $log, HunterService) {
         $scope.hunter = {
-            "id":null,
-            "firstName":"",
+            "id": null,
+            "firstName": "",
             "Surname": null,
             "description": null,
-            "nick":null
+            "nick": null
         };
 
         $scope.goToHunterList = function () {
@@ -95,7 +95,7 @@ hunterControllers.controller('HunterCreateCtrl', ['$scope', '$routeParams', '$wi
                         $log.error("An error occurred on server! Hunter cannot be created.");
                     });
         };
-        
+
         $scope.showHunterDetail = function (hunterId) {
             $window.location.href = '/pa165/#/hunter/detail/' + hunterId;
         };
@@ -109,7 +109,7 @@ hunterServices.factory('HunterService', ['$resource', function ($resource) {
             return $resource('rest/hunter/' + hunter + ":param", {}, {
                 query: {method: 'GET', isArray: true},
                 getHunterDetail: {method: 'GET', isArray: false},
-                create: {method: 'POST', isArray:true},
+                create: {method: 'POST', isArray: true},
                 update: {method: 'PUT'},
                 delete: {method: 'DELETE'}
             });

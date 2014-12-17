@@ -62,7 +62,7 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
             VisitService("").create($scope.visit,
                     function (data, status, headers, config) {
                         $log.info("Visit created");
-                        $scope.showLocationDetail(data);
+                        $scope.showVisitDetail(data);
                     },
                     function (data, status, headers, config) {
                         $log.error("An error occurred on server! Visit cannot be created.");

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.fi.muni.pa165.mushroomhunter.service;
 
 import cz.fi.muni.pa165.mushroomhunter.api.service.LocationService;
@@ -11,8 +7,6 @@ import cz.fi.muni.pa165.mushroomhunter.dao.LocationDao;
 import cz.fi.muni.pa165.mushroomhunter.api.dto.LocationDto;
 import cz.fi.muni.pa165.mushroomhunter.api.dto.MushroomDto;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +31,7 @@ public class LocationServiceImpl implements LocationService {
     /**
      * Saves location into database.
      *
-     * @param location The location to be saved.
+     * @param locationDto The location to be saved.
      * @return ID of the saved location.
      */
     @Transactional
@@ -51,7 +45,7 @@ public class LocationServiceImpl implements LocationService {
     /**
      * Updates given location in database.
      *
-     * @param location The location to be updated.
+     * @param locationDto The location to be updated.
      * @return Updated location.
      */
     @Transactional
@@ -63,7 +57,7 @@ public class LocationServiceImpl implements LocationService {
     /**
      * Deletes given location from the database.
      *
-     * @param location The location to be deleted.
+     * @param locationDto The location to be deleted.
      */
     @Transactional
     @Override
@@ -98,7 +92,7 @@ public class LocationServiceImpl implements LocationService {
     /**
      * Finds all locations where the given mushroom occurs.
      *
-     * @param mushroom The mushroom according to which the search is performed.
+     * @param mushroomDto The mushroom according to which the search is performed.
      * @return The list of all locations with the occurence of given mushroom.
      */
     @Transactional

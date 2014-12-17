@@ -24,7 +24,7 @@ public class LocationConverter {
 
     /**
      * Convert Location DTO to Location entity.
-     * @param Location DTO
+     * @param locationDto DTO
      * @return Location entity
      */
     public Location locationDtoToEntity(LocationDto locationDto) {
@@ -36,7 +36,7 @@ public class LocationConverter {
     
      /**
      * Convert Location entity to Location DTO.
-     * @param Location entity
+     * @param location entity
      * @return Location DTO
      */
     public LocationDto locationEntityToDto(Location location) {

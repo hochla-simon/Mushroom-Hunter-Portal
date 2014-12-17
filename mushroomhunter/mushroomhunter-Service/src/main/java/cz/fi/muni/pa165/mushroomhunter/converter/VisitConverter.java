@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.fi.muni.pa165.mushroomhunter.converter;
 
 import cz.fi.muni.pa165.mushroomhunter.api.dto.VisitDto;
@@ -27,7 +22,7 @@ public class VisitConverter {
     /**
      * Convert Visit DTO to Visit entity.
      *
-     * @param Visit DTO
+     * @param dto Visit dto
      * @return Visit entity
      */
     public Visit visitDtoToEntity(VisitDto dto) {
@@ -37,7 +32,7 @@ public class VisitConverter {
     /**
      * Convert Visit entity to Visit DTO.
      *
-     * @param Visit entity
+     * @param entity Visit entity
      * @return Visit Dto
      */
     public VisitDto visitEntityToDto(Visit entity) {
