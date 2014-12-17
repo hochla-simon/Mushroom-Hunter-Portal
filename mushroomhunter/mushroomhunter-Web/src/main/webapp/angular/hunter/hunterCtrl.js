@@ -110,8 +110,8 @@ hunterServices.factory('HunterService', ['$resource', function ($resource) {
                 query: {method: 'GET', isArray: true},
                 getHunterDetail: {method: 'GET', isArray: false},
                 create: {method: 'POST', isArray: true},
-                update: {method: 'PUT'},
-                delete: {method: 'DELETE'}
+                update: {method: 'PUT', isArray: false},
+                delete: {method: 'DELETE', isArray: false}
             });
         };
     }])

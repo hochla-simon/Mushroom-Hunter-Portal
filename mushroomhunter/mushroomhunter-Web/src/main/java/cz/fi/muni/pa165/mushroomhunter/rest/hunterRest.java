@@ -50,7 +50,7 @@ public class hunterRest {
     }
 
     @RequestMapping(value = "{hunterId}", method = RequestMethod.DELETE)
-    public void deleteHunter(@RequestBody Long hunterId) {
+    public void deleteHunter(@PathVariable Long hunterId) {
 	HunterDto hunter = hunterService.find(hunterId);
         hunterService.delete(hunter);
     }

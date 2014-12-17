@@ -39,12 +39,18 @@ public class VisitConverter {
         return mapper.map(entity, VisitDto.class);
     }
 
+     /**
+     * Convert list of Visit entities to list of Visit DTO objects
+     *
+     * @param visits List<Visit>
+     * @return visitDtoList List<VisitDto>
+     */
     public List<VisitDto> visitEntityToDtoList(List<Visit> visits) {
-        List<VisitDto> visitDaoList = new ArrayList<>();
+        List<VisitDto> visitDtoList = new ArrayList<>();
         Iterator<Visit> iterator = visits.iterator();
         while (iterator.hasNext()) {
-            visitDaoList.add(this.visitEntityToDto(iterator.next()));
+            visitDtoList.add(this.visitEntityToDto(iterator.next()));
         }
-        return visitDaoList;
+        return visitDtoList;
     }
 }

@@ -30,7 +30,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  *
- * @author Simon
+ * @author Simon Hochla
  */
 @RunWith(MockitoJUnitRunner.class)
 @ContextConfiguration(locations = {"/applicationContext.xml"})
@@ -126,6 +126,14 @@ public class LocationServiceImplTest {
        verify(locationDao).findAll();
     }
     
+    /**
+     * A method used to create the Location's DTO object.
+     *
+     * @param name Location's name string.
+     * @param description Location's description.
+     * @param nearCity Name of city near to location.
+     * @return Created location with the given attributes.
+     */
     public LocationDto createLocation() {
         LocationDto locationDto = new LocationDto();
         
@@ -136,6 +144,15 @@ public class LocationServiceImplTest {
         return locationDto;
     }
     
+     /**
+     * A method used to create the Mushroom's DTO object.
+     *
+     * @param name Mushroom's name string.
+     * @param startOfOcc Date Mushroom's start of occurence.
+     * @param enDate Date Mushroom's end of occurence.
+     * @param type Type Mushroom's type.
+     * @return Created mushroom with the given attributes.
+     */
      public MushroomDto createMushroom(String name, Date startOfOcc, Date enDate, Type type) {
         MushroomDto m = new MushroomDto();
         m.setName(name);

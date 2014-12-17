@@ -25,7 +25,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 /**
  * Unit tests of the Visit's DAO class.
  * 
- * @author Simon
+ * @author Simon Hochla
  */
 public class VisitDaoImplTest {
     
@@ -106,7 +106,6 @@ public class VisitDaoImplTest {
         hunterDao.save(hunter);
         visitDao.save(visit);
         locationDao.save(location);
-        
     }
     
     /**
