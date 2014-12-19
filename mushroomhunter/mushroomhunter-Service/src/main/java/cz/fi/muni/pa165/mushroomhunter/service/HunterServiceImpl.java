@@ -58,32 +58,6 @@ public class HunterServiceImpl implements HunterService {
         return hunterConverter.hunterEntityToDto(hunterDao.find(id));
     }
     
-    @Transactional
-    @Override
-    public List<HunterDto> findByName(String firstName) {
-        if (firstName == null) {
-            throw new NullPointerException();
-        }
-        return hunterConverter.hunterEntityToDtoList(hunterDao.findByName(firstName));
-    }
-    
-    @Transactional
-    @Override
-    public List<HunterDto> findBySurname(String surname) {
-        if (surname == null) {
-            throw new NullPointerException();
-        }
-        return hunterConverter.hunterEntityToDtoList(hunterDao.findBySurname(surname));
-    }
-    
-    @Transactional
-    @Override
-    public List<HunterDto> findByNick(String nick) {
-        if (nick == null) {
-            throw new NullPointerException();
-        }
-        return hunterConverter.hunterEntityToDtoList(hunterDao.findByNick(nick));
-    }
     
     @Transactional
     @Override

@@ -95,33 +95,6 @@ public class HunterServiceImplTest {
     }
 
     /**
-     * Test of findByName method, of class HunterServiceImpl.
-     */
-    @Test
-    public void testFindByName() {
-        hunterService.findByName(hunterDto.getFirstName());
-        verify(hunterDao).findByName(hunterDto.getFirstName());
-    }
-
-    /**
-     * Test of findBySurname method, of class HunterServiceImpl.
-     */
-    @Test
-    public void testFindBySurname() {
-        hunterService.findBySurname(hunterDto.getSurname());
-        verify(hunterDao).findBySurname(hunterDto.getSurname());
-    }
-
-    /**
-     * Test of findByNick method, of class HunterServiceImpl.
-     */
-    @Test
-    public void testFindByNick() {
-        hunterService.findByNick(hunterDto.getNick());
-        verify(hunterDao).findByNick(hunterDto.getNick());
-    }
-
-    /**
      * Test of findAll method, of class HunterServiceImpl.
      */
     @Test

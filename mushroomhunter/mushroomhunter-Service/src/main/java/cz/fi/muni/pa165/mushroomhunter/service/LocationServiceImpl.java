@@ -53,25 +53,7 @@ public class LocationServiceImpl implements LocationService {
     public LocationDto find(long id) {
             return locationConverter.locationEntityToDto(locationDao.find(id));
     }
-    
-    @Transactional
-    @Override
-    public List<LocationDto> findByNearCity(String nearCity) {
-            return locationConverter.locationEntityToDtoList(locationDao.findByNearCity(nearCity));
-    }
-    
-    @Transactional
-    @Override
-    public List<LocationDto> findByMushroom(MushroomDto mushroomDto) {
-            return locationConverter.locationEntityToDtoList(locationDao.findByMushroom(mushroomConverter.mushroomDtoToEntity(mushroomDto)));
-    }
-    
-    @Transactional
-    @Override
-    public List<LocationDto> findByOccurence(boolean ascending) {
-            return locationConverter.locationEntityToDtoList(locationDao.findByOccurence(ascending));
-    }
-    
+        
     @Transactional
     @Override
     public List<LocationDto> findByOccurenceWithSumOfMushrooms(boolean ascending) {

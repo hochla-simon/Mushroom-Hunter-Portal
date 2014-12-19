@@ -78,29 +78,7 @@ public class MushroomServiceImpl implements MushroomService {
             return mushroomConverter.mushroomEntityToDto(mushroomDao.find(id));
     }
 
-    @Transactional
-    @Override
-    public List<MushroomDto> findByName(String name) {
-            return mushroomConverter.mushroomEntityToDtoList(mushroomDao.findByName(name));
-    }
-
-    @Transactional
-    @Override
-    public List<MushroomDto> findByLocation(LocationDto locationDto) {
-            return mushroomConverter.mushroomEntityToDtoList(mushroomDao.findByLocation(locationConverter.locationDtoToEntity(locationDto)));
-    }
-
-    @Transactional
-    @Override
-    public List<MushroomDto> findByType(Type type) {
-            return mushroomConverter.mushroomEntityToDtoList(mushroomDao.findByType(type));
-    }
-    
-    @Transactional
-    @Override
-    public List<MushroomDto> findByOccurenceDate(Date startOfOccurence, Date endOfOccurence) {
-            return mushroomConverter.mushroomEntityToDtoList(mushroomDao.findByOccurenceDate(startOfOccurence, endOfOccurence));
-    }
+   
 
     @Transactional
     @Override

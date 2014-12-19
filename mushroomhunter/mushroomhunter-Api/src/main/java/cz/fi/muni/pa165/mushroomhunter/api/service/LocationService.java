@@ -8,7 +8,7 @@ package cz.fi.muni.pa165.mushroomhunter.api.service;
 import cz.fi.muni.pa165.mushroomhunter.api.dto.LocationDto;
 import cz.fi.muni.pa165.mushroomhunter.api.dto.MushroomDto;
 import java.util.List;
-import org.springframework.transaction.annotation.Transactional;
+
 
 /**
  *
@@ -21,7 +21,6 @@ public interface LocationService {
      *
      * @param location The location to be deleted.
      */
-    @Transactional
     void delete(LocationDto locationDto);
 
     /**
@@ -30,7 +29,6 @@ public interface LocationService {
      * @param id The ID of the searched location.
      * @return The found location.
      */
-    @Transactional
     LocationDto find(long id);
 
     /**
@@ -38,28 +36,9 @@ public interface LocationService {
      *
      * @return The list of all locations.
      */
-    @Transactional
     List<LocationDto> findAll();
 
     /**
-     * Finds all locations where the given mushroom occurs.
-     *
-     * @param mushroom The mushroom according to which the search is performed.
-     * @return The list of all locations with the occurence of given mushroom.
-     */
-    @Transactional
-    List<LocationDto> findByMushroom(MushroomDto mushroomDto);
-
-    /**
-     * Finds all the locations near the given city.
-     *
-     * @param nearCity String with near city name.
-     * @return The list of all locations near the given city.
-     */
-    @Transactional
-    List<LocationDto> findByNearCity(String nearCity);
-
-    /**
      * This method is used to get a list of locations ordered by the quantity of
      * mushroom occurence.
      *
@@ -68,19 +47,6 @@ public interface LocationService {
      * @return The list of all locations sorted in ascending/descending order by
      * the quantity of mushroom occurence.
      */
-    @Transactional
-    List<LocationDto> findByOccurence(boolean ascending);
-
-    /**
-     * This method is used to get a list of locations ordered by the quantity of
-     * mushroom occurence.
-     *
-     * @param ascending True, if the list should be ordered ascending, false
-     * otherwise.
-     * @return The list of all locations sorted in ascending/descending order by
-     * the quantity of mushroom occurence.
-     */
-    @Transactional
     List<LocationDto> findByOccurenceWithSumOfMushrooms(boolean ascending);
 
     /**
@@ -89,7 +55,6 @@ public interface LocationService {
      * @param location The location to be saved.
      * @return ID of the saved location.
      */
-    @Transactional
     long save(LocationDto locationDto);
 
     /**
@@ -98,7 +63,6 @@ public interface LocationService {
      * @param location The location to be updated.
      * @return Updated location.
      */
-    @Transactional
     LocationDto update(LocationDto locationDto);
     
 }

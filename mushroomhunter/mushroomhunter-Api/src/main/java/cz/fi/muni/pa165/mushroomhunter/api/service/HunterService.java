@@ -38,30 +38,6 @@ public interface HunterService {
     public HunterDto find(long id);
 
     /**
-     * Finds a hunter by firstName.
-     * 
-     * @param firstName The firstName of the searched hunter.
-     * @return The found hunter.
-     */
-    public List<HunterDto> findByName(String firstName);
-
-    /**
-     * Finds a hunter by surname.
-     * 
-     * @param surname The surname of the searched hunter.
-     * @return The found hunter.
-     */
-    public List<HunterDto> findBySurname(String surname);
-    
-    /**
-     * Finds a hunter by nick.
-     * 
-     * @param nick The nick of the searched hunter.
-     * @return The found hunter
-     */
-    public List<HunterDto> findByNick(String nick);
-
-    /**
      * Finds all hunters in the database.
      * 
      * @return The list of all hunters.

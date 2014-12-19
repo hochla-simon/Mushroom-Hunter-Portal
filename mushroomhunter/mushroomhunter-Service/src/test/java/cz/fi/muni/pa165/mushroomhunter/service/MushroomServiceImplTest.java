@@ -1,22 +1,12 @@
 package cz.fi.muni.pa165.mushroomhunter.service;
 
-import cz.fi.muni.pa165.mushroomhunter.converter.HunterConverter;
 import cz.fi.muni.pa165.mushroomhunter.converter.LocationConverter;
 import cz.fi.muni.pa165.mushroomhunter.converter.MushroomConverter;
-import cz.fi.muni.pa165.mushroomhunter.converter.VisitConverter;
 import cz.fi.muni.pa165.mushroomhunter.dao.MushroomDaoImpl;
-import cz.fi.muni.pa165.mushroomhunter.dao.VisitDaoImpl;
-import cz.fi.muni.pa165.mushroomhunter.api.dto.LocationDto;
 import cz.fi.muni.pa165.mushroomhunter.api.dto.MushroomDto;
-import cz.fi.muni.pa165.mushroomhunter.api.dto.VisitDto;
-import cz.fi.muni.pa165.mushroomhunter.entity.Location;
 import cz.fi.muni.pa165.mushroomhunter.entity.Mushroom;
 import cz.fi.muni.pa165.mushroomhunter.api.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
@@ -128,37 +118,5 @@ public class MushroomServiceImplTest {
     public void testFindAllMushrooms() {
         mushroomServiceImpl.findAll();
         verify(mushroomDao).findAll();
-    }
-    
-    /**
-     * Test of findByName method, of class MushroomServiceImpl.
-     */
-    @Test
-    public void testFindMushroomByName() {
-        mushroomServiceImpl.findByName("Mochomurka");
-        verify(mushroomDao).findByName("Mochomurka");
-    }
-    
-    
-    /**
-     * Test of findByOccurenceDate method, of class MushroomServiceImpl.
-     */
-    @Test
-    public void testFindMushroomByOccurenceDate() {
-        mushroomServiceImpl.findByOccurenceDate(new Date(1, 4, 1), new Date(2, 8, 1));
-        verify(mushroomDao).findByOccurenceDate(new Date(1, 4, 1), new Date(2, 8, 1));
-    }
-    
-    /**
-     * Test of findByLocation method, of class MushroomServiceImpl.
-     */
-    @Test
-    public void testFindMushroomByLocation() {
-        LocationDto locationDto = new LocationDto();
-        locationDto.setDescription("Near by lake, right side of dirty road");
-        locationDto.setNearCity("Nova ves");
-        locationDto.setName("Hribova u vody");
-        mushroomServiceImpl.findByLocation(locationDto);
-        verify(mushroomDao).findByLocation(locationConverter.locationDtoToEntity(locationDto));
     }
 }

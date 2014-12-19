@@ -12,21 +12,13 @@ import cz.fi.muni.pa165.mushroomhunter.api.dto.MushroomDto;
 import cz.fi.muni.pa165.mushroomhunter.api.Type;
 import cz.fi.muni.pa165.mushroomhunter.service.LocationServiceImpl;
 import java.util.Date;
-import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
 import static org.mockito.Mockito.verify;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  *
@@ -86,35 +78,6 @@ public class LocationServiceImplTest {
        lsi.save(locationDto);
        lsi.find(locationDto.getId());
        verify(locationDao).find(locationDto.getId());
-    }
-
-    /**
-     * Test of findByNearCity method, of class LocationServiceImpl.
-     */
-    @Test
-    public void testFindByNearCity() {
-       lsi.findByNearCity("Brno");
-       verify(locationDao).findByNearCity("Brno");
-    }
-
-    /**
-     * Test of findByMushroom method, of class LocationServiceImpl.
-     */
-    @Test
-    public void testFindByMushroom() {
-        LocationDto locationDto = this.createLocation();
-         MushroomDto mushroomDto = this.createMushroom("Mochomurka", new Date(1, 4, 1), new Date(1, 8, 1), Type.POISONOUS);
-        lsi.findByMushroom(mushroomDto);
-        verify(locationDao).findByMushroom(mc.mushroomDtoToEntity(mushroomDto));
-    }
-
-    /**
-     * Test of findByOccurence method, of class LocationServiceImpl.
-     */
-    @Test
-    public void testFindByOccurence() {
-        lsi.findByOccurence(true);
-        verify(locationDao).findByOccurence(true);
     }
 
     /**
