@@ -5,17 +5,19 @@ var locationControllers = angular.module('locationControllers', []);
 //
 locationControllers.controller('LocationListCtrl', ['$scope', '$window', '$log', 'LocationService', function ($scope, $window, $log, LocationService) {
 
-        $scope.locations = LocationService("").query();
+        $scope.locations = {};
 
         $scope.refreshLocations = function () {
             LocationService("").getLocationWithMushroomOccurence(
                     function (data, status, headers, config) {
-                        $scope.messages = data;
+                        $scope.locations = data;
                         $log.info("List of location loaded.");
                     }, function (data, status, headers, config) {
                 $log.error("An error occurred on server! List of location cannot be loaded.");
             });
         };
+        
+        $scope.refreshLocations();
 
         $scope.showLocationDetail = function (locationId) {
             $window.location.href = '/pa165/#/location/detail/' + locationId;
