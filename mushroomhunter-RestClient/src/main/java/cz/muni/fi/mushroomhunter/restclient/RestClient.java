@@ -25,6 +25,7 @@ import org.springframework.web.client.RestTemplate;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import org.springframework.web.client.HttpStatusCodeException;
 
 /**
  *
@@ -168,19 +169,17 @@ public class RestClient extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addComponent(jLabel5)
                             .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(comboBoxMushroomType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(comboBoxMushroomStartOfOccurence, javax.swing.GroupLayout.Alignment.TRAILING, 0, 176, Short.MAX_VALUE)
+                                .addComponent(comboBoxMushroomEndOfOccurence, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(bMushroomUpdate)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(bMushroomDelete))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(comboBoxMushroomEndOfOccurence, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tfMushroomName)
-                                    .addComponent(comboBoxMushroomStartOfOccurence, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(comboBoxMushroomType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(tfMushroomName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(340, 340, 340))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -366,7 +365,7 @@ public class RestClient extends javax.swing.JFrame {
             lMessageLocations.setText("Location cannot be longer than 20 characters.");
             return;
         }
-        if (tfLocationDescription.getText().trim().length() > 20) {
+        if (tfLocationDescription.getText().trim().length() > 200) {
             lMessageLocations.setText("Location cannot be longer than 200 characters.");
             return;
         }
@@ -385,7 +384,7 @@ public class RestClient extends javax.swing.JFrame {
             lMessageLocations.setText("Location name cannot be empty.");
             return;
         }
-        if (tfLocationName.getText().trim().length() > 20) {
+        if (tfLocationName.getText().trim().length() > 200) {
             lMessageLocations.setText("Location cannot be longer than 20 characters.");
             return;
         }
@@ -596,6 +595,12 @@ public class RestClient extends javax.swing.JFrame {
 
         @Override
         protected void done() {
+            try {
+                get();
+            } catch (Exception e) {
+                lMessageMushrooms.setText("ERROR: server is unavailable.");
+                return;
+            }
             DefaultTableModel model = (DefaultTableModel) tblLocation.getModel();
             model.addRow(new Object[]{tfLocationName.getText(), tfLocationDescription.getText(), tfLocationNearCity.getText()});
         }
@@ -633,6 +638,12 @@ public class RestClient extends javax.swing.JFrame {
 
         @Override
         protected void done() {
+            try {
+                get();
+            } catch (Exception e) {
+                lMessageMushrooms.setText("ERROR: server is unavailable.");
+                return;
+            }
             DefaultTableModel model = (DefaultTableModel) tblLocation.getModel();
             try {
                 model.setValueAt(tfLocationName.getText(), get(), 0);
@@ -659,6 +670,12 @@ public class RestClient extends javax.swing.JFrame {
         }
 
         protected void done() {
+            try {
+                get();
+            } catch (Exception e) {
+                lMessageMushrooms.setText("ERROR: server is unavailable.");
+                return;
+            }
             DefaultTableModel model = (DefaultTableModel) tblLocation.getModel();
             try {
                 model.removeRow(get());
@@ -681,6 +698,12 @@ public class RestClient extends javax.swing.JFrame {
 
         @Override
         protected void done() {
+            try {
+                get();
+            } catch (Exception e) {
+                lMessageMushrooms.setText("ERROR: server is unavailable.");
+                return;
+            }
             try {
                 List<LocationDto> list = get();
                 DefaultTableModel model = (DefaultTableModel) tblLocation.getModel();
@@ -772,6 +795,12 @@ public class RestClient extends javax.swing.JFrame {
 
         @Override
         protected void done() {
+            try {
+                get();
+            } catch (Exception e) {
+                lMessageMushrooms.setText("ERROR: server is unavailable.");
+                return;
+            }
             DefaultTableModel model = (DefaultTableModel) tblMushroom.getModel();
             model.addRow(new Object[]{tfMushroomName.getText(), comboBoxMushroomType.getSelectedItem().toString(), comboBoxMushroomStartOfOccurence.getSelectedItem().toString(), comboBoxMushroomEndOfOccurence.getSelectedItem().toString()});
         }
@@ -817,6 +846,12 @@ public class RestClient extends javax.swing.JFrame {
 
         @Override
         protected void done() {
+            try {
+                get();
+            } catch (Exception e) {
+                lMessageMushrooms.setText("ERROR: server is unavailable.");
+                return;
+            }
             DefaultTableModel model = (DefaultTableModel) tblMushroom.getModel();
             try {
                 model.setValueAt(tfMushroomName.getText(), get(), 0);
@@ -844,6 +879,12 @@ public class RestClient extends javax.swing.JFrame {
         }
 
         protected void done() {
+            try {
+                get();
+            } catch (Exception e) {
+                lMessageMushrooms.setText("ERROR: server is unavailable.");
+                return;
+            }
             DefaultTableModel model = (DefaultTableModel) tblMushroom.getModel();
             try {
                 model.removeRow(get());
@@ -867,7 +908,17 @@ public class RestClient extends javax.swing.JFrame {
         @Override
         protected void done() {
             try {
+                get();
+            } catch (Exception e) {
+                lMessageMushrooms.setText("ERROR: server is unavailable.");
+                return;
+            }
+            try {
                 List<MushroomDto> list = get();
+                if (list == null) {
+                     lMessageMushrooms.setText("ERROR: server is unavailable.");
+                     return;
+                }
                 DefaultTableModel model = (DefaultTableModel) tblMushroom.getModel();
                 model.setRowCount(0);
                 for (int i = 0; i < list.size(); i++) {
@@ -896,8 +947,9 @@ public class RestClient extends javax.swing.JFrame {
     //Send GET to URL and get array of objects
     private List<MushroomDto> getMushroomList() throws RestClientException {
         RestTemplate restTemplate = new RestTemplate();
+        MushroomDto[] mushroomDtoArray = null;
         ResponseEntity<MushroomDto[]> responseEntity = restTemplate.getForEntity("http://localhost:8080/pa165/rest/mushroom/", MushroomDto[].class);
-        MushroomDto[] mushroomDtoArray = responseEntity.getBody();
+        mushroomDtoArray = responseEntity.getBody();
         List<MushroomDto> mushroomDtoList = new ArrayList<>();
         mushroomDtoList.addAll(Arrays.asList(mushroomDtoArray));
         return mushroomDtoList;
