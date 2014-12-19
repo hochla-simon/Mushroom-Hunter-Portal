@@ -39,12 +39,11 @@ public class visitRest {
     
     @RequestMapping(method = RequestMethod.POST)
     public List<Long> createVisit(@RequestBody VisitDto visit) {
-        if(visit.getLocation() != null) {
-            System.out.println("obsahuje lokaci");
+        if(visit.getFoundMushrooms() != null) {
+            System.out.println("obsahuje mapu");
         } else {
-            System.out.println("neobsahuje lokaci");
+            System.out.println("neobsahuje mapu");
         }
-        
         List<Long> resultList = new ArrayList<>();
         resultList.add(visitService.saveVisit(visit));
         return resultList;

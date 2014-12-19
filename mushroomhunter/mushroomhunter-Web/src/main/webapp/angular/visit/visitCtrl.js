@@ -17,13 +17,13 @@ visitControllers.controller('VisitListCtrl', ['$scope', '$window', '$log', 'Visi
             });
         };
 
-    $scope.showVisitDetail = function (visitId) {
+        $scope.showVisitDetail = function (visitId) {
             $window.location.href = '/pa165/#/visit/detail/' + visitId;
-           };
+        };
 
         $scope.goToCreateVisit = function () {
             $window.location.href = '/pa165/#/visit/create';
-                };
+        };
 
         $scope.goToHomePage = function () {
             $window.location.href = '/pa165/';
@@ -35,82 +35,118 @@ visitControllers.controller('VisitListCtrl', ['$scope', '$window', '$log', 'Visi
 //
 //  CREATE NEW VISIT CONTROLLER
 //
-visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', 'LocationService', 'datepickerPopupConfig', '$translate', function ($scope, $routeParams, $window, $log, VisitService, LocationService, datepickerPopupConfig, $translate) {
-         $translate(['TODAY', 'CLEAR', 'CLOSE']).then(function (translations) {
-        $scope.visit = {
-            "id": null,
-            "hunter": null,
-            "date": null,
-            "location": null,
-            "foundMushrooms": null
-        };
+visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', 'LocationService', 'MushroomService', 'HunterService', 'datepickerPopupConfig', '$translate', function ($scope, $routeParams, $window, $log, VisitService, LocationService, MushroomService, HunterService, datepickerPopupConfig, $translate) {
+        $translate(['TODAY', 'CLEAR', 'CLOSE']).then(function (translations) {
+            $scope.visit = {
+                "id": null,
+                "hunter": null,
+                "date": null,
+                "location": null,
+                "foundMushrooms": null
+            };
 
-        $scope.locations = LocationService("").query();
+            $scope.hunters = HunterService("").query();
 
-        $scope.goToCreateLocation = function () {
-            $window.location.href = '/pa165/#/location/create';
-        };
+            $scope.locations = LocationService("").query();
 
-        $scope.goToVisitList = function () {
-            $window.location.href = '/pa165/#/visit';
-        };
+            $scope.mushrooms = MushroomService("").query();
 
-        $scope.createVisit = function () {
-            $log.info("Creating new visit");
-            $scope.visit.location = $scope.location;
-            alert($scope.visit.date);
-            VisitService("").create($scope.visit,
-                    function (data, status, headers, config) {
-                        $log.info("Visit created");
-                        $scope.showVisitDetail(data);
-                    },
-                    function (data, status, headers, config) {
-                        $log.error("An error occurred on server! Visit cannot be created.");
-                    });
-        };
+            $scope.goToCreateLocation = function () {
+                $window.location.href = '/pa165/#/location/create';
+            };
 
-        $scope.showVisitDetail = function (visitId) {
-            $window.location.href = '/pa165/#/visit/detail/' + visitId;
-        };
+            $scope.goToVisitList = function () {
+                $window.location.href = '/pa165/#/visit';
+            };
 
-        $scope.today = function () {
-            $scope.visit.date = new Date();
-        };
-        $scope.today();
+            $scope.createVisit = function () {
+                $log.info("Creating new visit");
+                $scope.visit.location = $scope.location;
+                $scope.visit.hunter = $scope.hunter;
+                //$scope.visit.foundMushrooms = $scope.mushroomItems;
+                //angular.forEach($scope.mushroomItems, function (item) {
+                //    $scope.mush
+                //});
+                alert($scope.visit.date);
+                VisitService("").create($scope.visit,
+                        function (data, status, headers, config) {
+                            $log.info("Visit created");
+                            $scope.showVisitDetail(data);
+                        },
+                        function (data, status, headers, config) {
+                            $log.error("An error occurred on server! Visit cannot be created.");
+                        });
+            };
 
-        $scope.clear = function () {
-            $scope.visit.date = null;
-        };
+            $scope.showVisitDetail = function (visitId) {
+                $window.location.href = '/pa165/#/visit/detail/' + visitId;
+            };
 
-        // Disable weekend selection
-        $scope.disabled = function (date, mode) {
-            return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
-        };
+            $scope.mushroomItems = [];
+            
+            $scope.mushroomMap = [];
 
-        $scope.toggleMin = function () {
-            $scope.minDate = $scope.minDate ? null : new Date();
-        };
-        $scope.toggleMin();
+            $scope.addMushroomItem = function () {
 
-        $scope.open = function ($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
+                $scope.mushroomItems.push({
+                    name: $scope.mushroom,
+                    amount: $scope.mushroomsAmount
+                });
 
-            $scope.opened = true;
-        };
+                // Clear input fields after push
+                $scope.mushroom = "";
+                $scope.mushroomsAmount = "";
 
-        $scope.dateOptions = {
-            formatYear: 'yy',
-            startingDay: 1
-        };
+            };
 
-        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-        $scope.format = $scope.formats[0];
-        
-        datepickerPopupConfig.currentText = translations.TODAY;
-        datepickerPopupConfig.clearText = translations.CLEAR;
-        datepickerPopupConfig.closeText = translations.CLOSE;
-});
+            // Remove selected mushroom from the list
+            $scope.removeItem = function (index) {
+                $scope.mushroomItems.splice(index, 1);
+            };
+
+            // Get total count of found mushrooms
+            $scope.getTotalMushrooms = function () {
+                return $scope.mushroomItems.length;
+            };
+
+            $scope.today = function () {
+                $scope.visit.date = new Date();
+            };
+            $scope.today();
+
+            $scope.clear = function () {
+                $scope.visit.date = null;
+            };
+
+            // Disable weekend selection
+            //$scope.disabled = function (date, mode) {
+            //    return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
+            //};
+
+            $scope.toggleMin = function () {
+                $scope.minDate = $scope.minDate ? null : new Date();
+            };
+            $scope.toggleMin();
+
+            $scope.open = function ($event) {
+                $event.preventDefault();
+                $event.stopPropagation();
+
+                $scope.opened = true;
+            };
+
+            $scope.dateOptions = {
+                formatYear: 'yy',
+                startingDay: 1
+            };
+
+            $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+            $scope.format = $scope.formats[0];
+
+            datepickerPopupConfig.currentText = translations.TODAY;
+            datepickerPopupConfig.clearText = translations.CLEAR;
+            datepickerPopupConfig.closeText = translations.CLOSE;
+        });
     }]);
 
 //
@@ -118,82 +154,71 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
 //
 //visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', function ($scope, $routeParams, $window, $log, VisitService) {
 visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', 'LocationService', 'datepickerPopupConfig', '$translate', function ($scope, $routeParams, $window, $log, VisitService, LocationService, datepickerPopupConfig, $translate) {
-         $translate(['TODAY', 'CLEAR', 'CLOSE']).then(function (translations) {
+        $translate(['TODAY', 'CLEAR', 'CLOSE']).then(function (translations) {
 
-        $scope.visit = VisitService($routeParams.visitId).getVisitDetail(
-                function (data, status, headers, config) {
-                    $log.info("Visit detail loaded.");
-                },
-                function (data, status, headers, config) {
-                    $log.error("An error occurred on server! Detail of visit cannot be loaded.");
-                });
-
-        $scope.goToVisitList = function () {
-            $window.location.href = '/pa165/#/visit';
-        };
-
-        $scope.updateVisit = function (visit) {
-            $log.info("Saving visit with ID: " + visit.id);
-            VisitService("").update(visit,
+            $scope.visit = VisitService($routeParams.visitId).getVisitDetail(
                     function (data, status, headers, config) {
-                        $log.info("Visit updated");
+                        $log.info("Visit detail loaded.");
                     },
                     function (data, status, headers, config) {
-                        $log.error("An error occurred on server! Visit cannot be updated.");
+                        $log.error("An error occurred on server! Detail of visit cannot be loaded.");
                     });
-        };
+            $scope.goToVisitList = function () {
+                $window.location.href = '/pa165/#/visit';
+            };
+            $scope.updateVisit = function (visit) {
+                $log.info("Saving visit with ID: " + visit.id);
+                VisitService("").update(visit,
+                        function (data, status, headers, config) {
+                            $log.info("Visit updated");
+                        },
+                        function (data, status, headers, config) {
+                            $log.error("An error occurred on server! Visit cannot be updated.");
+                        });
+            };
+            $scope.deleteVisit = function (visit) {
+                $log.info("Deleting location with ID: " + visit.id);
+                VisitService(visit.id).delete(
+                        function (data, status, headers, config) {
+                            $log.info("Visit deleted");
+                            $scope.goToVisitList();
+                        },
+                        function (data, status, headers, config) {
+                            $log.error("An error occurred on server! Visit cannot be deleted.");
+                        });
+            };
 
-        $scope.deleteVisit = function (visit) {
-            $log.info("Deleting location with ID: " + visit.id);
-            VisitService(visit.id).delete(
-                    function (data, status, headers, config) {
-                        $log.info("Visit deleted");
-                        $scope.goToVisitList();
-                    },
-                    function (data, status, headers, config) {
-                        $log.error("An error occurred on server! Visit cannot be deleted.");
-                    });
-        };
-        $scope.today = function () {
-            $scope.visit.date = new Date();
-        };
-        $scope.today();
-
-        $scope.clear = function () {
-            $scope.visit.date = null;
-        };
-
-        // Disable weekend selection
-        $scope.disabled = function (date, mode) {
-            return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
-        };
-
-        $scope.toggleMin = function () {
-            $scope.minDate = $scope.minDate ? null : new Date();
-        };
-        $scope.toggleMin();
-
-        $scope.open = function ($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-
-            $scope.opened = true;
-        };
-
-        $scope.dateOptions = {
-            formatYear: 'yy',
-            startingDay: 1
-        };
-
-        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-        $scope.format = $scope.formats[0];
-        
-        datepickerPopupConfig.currentText = translations.TODAY;
-        datepickerPopupConfig.clearText = translations.CLEAR;
-        datepickerPopupConfig.closeText = translations.CLOSE;
+            $scope.today = function () {
+                $scope.visit.date = new Date();
+            };
+            $scope.today();
+            $scope.clear = function () {
+                $scope.visit.date = null;
+            };
+            // Disable weekend selection
+            //$scope.disabled = function (date, mode) {
+            //   return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
+            //};
+            $scope.toggleMin = function () {
+                $scope.minDate = $scope.minDate ? null : new Date();
+            };
+            $scope.toggleMin();
+            $scope.open = function ($event) {
+                $event.preventDefault();
+                $event.stopPropagation();
+                $scope.opened = true;
+            };
+            $scope.dateOptions = {
+                formatYear: 'yy',
+                startingDay: 1
+            };
+            $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+            $scope.format = $scope.formats[0];
+            datepickerPopupConfig.currentText = translations.TODAY;
+            datepickerPopupConfig.clearText = translations.CLEAR;
+            datepickerPopupConfig.closeText = translations.CLOSE;
         });
     }]);
-
 //
 //  VISIT SERVICES
 //

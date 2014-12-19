@@ -42,13 +42,69 @@
                             </p>
                         </td>
                     </tr>
-
+                    <tr>
+                        <td>
+                            Nalezená houba
+                        </td>
+                        <td>
+                            Houba: <select ng-model="mushroom" ng-options="mushroom.id + mushroom.name for mushroom in mushrooms track by mushroom.name"></select> Počet: <input value="" type="number" placeholder="Počet" ng-model="mushroomsAmount">
+                            <button type="button" class="btn btn-success" ng-click="addMushroomItem()">
+                                Přidat do seznamu
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Lokace
+                        </td>
+                        <td>
+                            <select ng-model="location" ng-options="location.id + location.name for location in locations track by location.name" ></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Hunter
+                        </td>
+                        <td>
+                            <select ng-model="hunter" ng-options="hunter.id + hunter.nick for hunter in hunters track by hunter.nick" ></select>
+                        </td>
+                    </tr>
                 </table>
+                <h2 class="intro-text text-center">
+                    <strong>Seznam nalezených hub {{getTotalMushrooms()}}</strong>
+                </h2>
+                <table align="center" style="width:1000px" class="table table-striped table-bordered table-hover table-condensed">
+                    <thead>
+                        <tr style="background-color: #a68a88; font-weight: bold">
+                            <td>
+                                Houba
+                            </td>
+                            <td>
+                                Počet
+                            </td>
+                            <td style="width: 10%">
+                                Odebrat
+                            </td>
+                        </tr>
+                    </thead>
+                    <tr ng-repeat="mushroomItem in mushroomItems">
+                        <td>{{mushroomItem.name.name}}</td>
+                        <td>
+                            {{mushroomItem.amount}}
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger" ng-click="removeItem($index)">
+                        Odebrat
+                    </button>
+                        </td>
+                    </tr>
+                </table>
+                <br />
                 <center>
                     <button type="button" class="btn btn-success" ng-click="createVisit()">
                         {{ 'CREATEVISIT' | translate }}
                     </button>
-                    <button type="button" class="btn btn-info" ng-click="goToVisitList()">
+                    <button type="button" class="btn btn-info"  ng-click="goToVisitList()">
                         {{ 'BACKTOVL' | translate }}
                     </button>
                 </center>
@@ -57,3 +113,4 @@
     </div>
 </div>
 <!-- /.container -->
+
