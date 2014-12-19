@@ -8,6 +8,7 @@ package cz.muni.fi.mushroomhunter.restclient;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import cz.fi.muni.pa165.mushroomhunter.api.dto.LocationDto;
+import cz.fi.muni.pa165.mushroomhunter.api.dto.MushroomDto;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,6 +22,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  *
@@ -33,12 +37,12 @@ public class RestClient extends javax.swing.JFrame {
      */
     public RestClient() {
         initComponents();
-        
+
         allLocationsSwingWorker = new AllLocationsSwingWorker();
         allLocationsSwingWorker.execute();
-        
-        bLocationDelete.setEnabled(false);
-        bLocationUpdate.setEnabled(false);
+
+        allMushroomsSwingWorker = new AllMushroomsSwingWorker();
+        allMushroomsSwingWorker.execute();
     }
 
     /**
@@ -57,15 +61,15 @@ public class RestClient extends javax.swing.JFrame {
         bMushroomDelete = new javax.swing.JButton();
         bMushroomUpdate = new javax.swing.JButton();
         bMushroomCreate = new javax.swing.JButton();
-        tfLocationNearCity1 = new javax.swing.JTextField();
-        tfLocationDescription1 = new javax.swing.JTextField();
-        tfLocationName1 = new javax.swing.JTextField();
+        tfMushroomName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         lMessageMushrooms = new javax.swing.JLabel();
+        comboBoxMushroomStartOfOccurence = new javax.swing.JComboBox();
+        comboBoxMushroomEndOfOccurence = new javax.swing.JComboBox();
+        comboBoxMushroomType = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLocation = new javax.swing.JTable();
@@ -91,16 +95,22 @@ public class RestClient extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
+        tblMushroom.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMushroomMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblMushroom);
 
         bMushroomDelete.setText("Delete mushroom");
+        bMushroomDelete.setEnabled(false);
         bMushroomDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bMushroomDeleteActionPerformed(evt);
@@ -108,6 +118,7 @@ public class RestClient extends javax.swing.JFrame {
         });
 
         bMushroomUpdate.setText("Update mushroom");
+        bMushroomUpdate.setEnabled(false);
         bMushroomUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bMushroomUpdateActionPerformed(evt);
@@ -121,9 +132,9 @@ public class RestClient extends javax.swing.JFrame {
             }
         });
 
-        tfLocationName1.addActionListener(new java.awt.event.ActionListener() {
+        tfMushroomName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfLocationName1ActionPerformed(evt);
+                tfMushroomNameActionPerformed(evt);
             }
         });
 
@@ -137,6 +148,12 @@ public class RestClient extends javax.swing.JFrame {
 
         lMessageMushrooms.setForeground(java.awt.Color.red);
 
+        comboBoxMushroomStartOfOccurence.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--choose month--", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
+
+        comboBoxMushroomEndOfOccurence.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--choose month--", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
+
+        comboBoxMushroomType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--choose type--", "EDIBLE", "INEDIBLE", "POISONOUS" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -146,65 +163,61 @@ public class RestClient extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(bMushroomCreate)
+                            .addComponent(bMushroomCreate)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(bMushroomUpdate)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(bMushroomUpdate)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(bMushroomDelete))
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(tfLocationName1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                                        .addComponent(tfLocationDescription1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(tfLocationNearCity1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING))))
-                            .addComponent(lMessageMushrooms, javax.swing.GroupLayout.PREFERRED_SIZE, 779, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel5)
-                        .addComponent(jLabel6)
-                        .addComponent(jLabel8))
-                    .addContainerGap(700, Short.MAX_VALUE)))
+                                .addComponent(bMushroomDelete))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(comboBoxMushroomEndOfOccurence, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(tfMushroomName)
+                                    .addComponent(comboBoxMushroomStartOfOccurence, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(comboBoxMushroomType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(340, 340, 340))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lMessageMushrooms, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tfLocationName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(tfLocationDescription1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(tfLocationNearCity1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bMushroomCreate)
-                    .addComponent(bMushroomUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bMushroomDelete))
-                .addGap(18, 18, 18)
-                .addComponent(lMessageMushrooms, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(17, 17, 17)
                     .addComponent(jLabel4)
-                    .addGap(12, 12, 12)
+                    .addComponent(tfMushroomName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addGap(12, 12, 12)
+                    .addComponent(comboBoxMushroomType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addGap(12, 12, 12)
+                    .addComponent(comboBoxMushroomStartOfOccurence, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addContainerGap(363, Short.MAX_VALUE)))
+                    .addComponent(comboBoxMushroomEndOfOccurence, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bMushroomUpdate)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(bMushroomCreate)
+                        .addComponent(bMushroomDelete)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lMessageMushrooms, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Manage mushrooms", jPanel1);
@@ -252,6 +265,7 @@ public class RestClient extends javax.swing.JFrame {
         });
 
         bLocationUpdate.setText("Update location");
+        bLocationUpdate.setEnabled(false);
         bLocationUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bLocationUpdateActionPerformed(evt);
@@ -259,6 +273,7 @@ public class RestClient extends javax.swing.JFrame {
         });
 
         bLocationDelete.setText("Delete location");
+        bLocationDelete.setEnabled(false);
         bLocationDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bLocationDeleteActionPerformed(evt);
@@ -274,30 +289,27 @@ public class RestClient extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jLabel2))
-                                    .addGap(18, 18, 18))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
                                     .addComponent(jLabel3)
-                                    .addGap(28, 28, 28)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(tfLocationNearCity)
-                                .addComponent(tfLocationDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-                                .addComponent(tfLocationName)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(bLocationCreate)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(bLocationUpdate)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(bLocationDelete)))
-                    .addComponent(lMessageLocations, javax.swing.GroupLayout.PREFERRED_SIZE, 779, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tfLocationNearCity)
+                                    .addComponent(tfLocationDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                                    .addComponent(tfLocationName)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(bLocationCreate)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(bLocationUpdate)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(bLocationDelete)))
+                        .addGap(0, 366, Short.MAX_VALUE))
+                    .addComponent(lMessageLocations, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -315,16 +327,16 @@ public class RestClient extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(tfLocationNearCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bLocationCreate)
-                    .addComponent(bLocationUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bLocationDelete))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(bLocationDelete)
+                    .addComponent(bLocationUpdate))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lMessageLocations, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Manage locations", jPanel2);
@@ -368,13 +380,29 @@ public class RestClient extends javax.swing.JFrame {
 
     private void bLocationUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLocationUpdateActionPerformed
         lMessageLocations.setText("");
-        DefaultTableModel model = (DefaultTableModel) tblLocation.getModel();
+        
+        if (tfLocationName.getText().trim().equals("")) {
+            lMessageLocations.setText("Location name cannot be empty.");
+            return;
+        }
+        if (tfLocationName.getText().trim().length() > 20) {
+            lMessageLocations.setText("Location cannot be longer than 20 characters.");
+            return;
+        }
+        if (tfLocationDescription.getText().trim().length() > 20) {
+            lMessageLocations.setText("Location cannot be longer than 200 characters.");
+            return;
+        }
+        if (tfLocationNearCity.getText().trim().length() > 20) {
+            lMessageLocations.setText("Location cannot be longer than 20 characters.");
+            return;
+        }
+        
         if (tblLocation.getSelectedRow() == -1) {
             if (tblLocation.getRowCount() == 0) {
                 lMessageLocations.setText("There are no locations to be updated.");
-            }
-            else  {
-                lMessageLocations.setText("Please select signle location.");
+            } else {
+                lMessageLocations.setText("Please select single location.");
             }
         } else {
             locationUpdateSwingWorker = new LocationUpdateSwingWorker();
@@ -387,14 +415,11 @@ public class RestClient extends javax.swing.JFrame {
         bLocationUpdate.setEnabled(false);
 
         //lMessage.setText(texts.getString("errTableEmpty"));
-
-        DefaultTableModel model = (DefaultTableModel) tblLocation.getModel();
         if (tblLocation.getSelectedRow() == -1) {
             if (tblLocation.getRowCount() == 0) {
                 lMessageLocations.setText("There are no locations to be deleted.");
-            }
-            else  {
-                lMessageLocations.setText("Please select signle location.");
+            } else {
+                lMessageLocations.setText("Please select single location.");
             }
         } else {
             locationDeleteSwingWorker = new LocationDeleteSwingWorker();
@@ -406,31 +431,101 @@ public class RestClient extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfLocationNameActionPerformed
 
-    private void bMushroomDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMushroomDeleteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bMushroomDeleteActionPerformed
-
-    private void bMushroomUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMushroomUpdateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bMushroomUpdateActionPerformed
-
-    private void bMushroomCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMushroomCreateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bMushroomCreateActionPerformed
-
-    private void tfLocationName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfLocationName1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfLocationName1ActionPerformed
 
     private void tblLocationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLocationMouseClicked
         bLocationDelete.setEnabled(true);
         bLocationUpdate.setEnabled(true);
-        
+
         DefaultTableModel model = (DefaultTableModel) tblLocation.getModel();
         tfLocationName.setText(model.getValueAt(tblLocation.getSelectedRow(), 0).toString());
         tfLocationDescription.setText(model.getValueAt(tblLocation.getSelectedRow(), 1).toString());
         tfLocationNearCity.setText(model.getValueAt(tblLocation.getSelectedRow(), 2).toString());
     }//GEN-LAST:event_tblLocationMouseClicked
+
+    private void tfMushroomNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfMushroomNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfMushroomNameActionPerformed
+
+    private void bMushroomCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMushroomCreateActionPerformed
+        lMessageMushrooms.setText("");
+        if (tfMushroomName.getText().trim().equals("")) {
+            lMessageMushrooms.setText("Mushroom name cannot be empty.");
+            return;
+        }
+        if (comboBoxMushroomType.getSelectedItem().equals("--choose type--")) {
+            lMessageMushrooms.setText("Mushroom type cannot be empty.");
+            return;
+        }
+        if (comboBoxMushroomStartOfOccurence.getSelectedItem().equals("--choose month--")) {
+            lMessageMushrooms.setText("Mushroom start of occurence cannot be empty.");
+            return;
+        }
+        if (comboBoxMushroomEndOfOccurence.getSelectedItem().equals("--choose month--")) {
+            lMessageMushrooms.setText("Mushroom end of occurence cannot be empty.");
+            return;
+        }
+        mushroomCreateSwingWorker = new MushroomCreateSwingWorker();
+        mushroomCreateSwingWorker.execute();
+    }//GEN-LAST:event_bMushroomCreateActionPerformed
+
+    private void bMushroomUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMushroomUpdateActionPerformed
+        lMessageMushrooms.setText("");
+        
+        if (tfMushroomName.getText().trim().equals("")) {
+            lMessageMushrooms.setText("Mushroom name cannot be empty.");
+            return;
+        }
+        if (comboBoxMushroomType.getSelectedItem().equals("--choose type--")) {
+            lMessageMushrooms.setText("Mushroom type cannot be empty.");
+            return;
+        }
+        if (comboBoxMushroomStartOfOccurence.getSelectedItem().equals("--choose month--")) {
+            lMessageMushrooms.setText("Mushroom start of occurence cannot be empty.");
+            return;
+        }
+        if (comboBoxMushroomEndOfOccurence.getSelectedItem().equals("--choose month--")) {
+            lMessageMushrooms.setText("Mushroom end of occurence cannot be empty.");
+            return;
+        }
+        
+        if (tblMushroom.getSelectedRow() == -1) {
+            if (tblMushroom.getRowCount() == 0) {
+                lMessageMushrooms.setText("There are no mushrooms to be updated.");
+            } else {
+                lMessageMushrooms.setText("Please select single mushroom.");
+            }
+        } else {
+            mushroomUpdateSwingWorker = new MushroomUpdateSwingWorker();
+            mushroomUpdateSwingWorker.execute();
+        }
+    }//GEN-LAST:event_bMushroomUpdateActionPerformed
+
+    private void bMushroomDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMushroomDeleteActionPerformed
+        bMushroomDelete.setEnabled(false);
+        bMushroomUpdate.setEnabled(false);
+
+        if (tblMushroom.getSelectedRow() == -1) {
+            if (tblMushroom.getRowCount() == 0) {
+                lMessageMushrooms.setText("There are no mushrooms to be deleted.");
+            } else {
+                lMessageMushrooms.setText("Please select single mushroom.");
+            }
+        } else {
+            mushroomDeleteSwingWorker = new MushroomDeleteSwingWorker();
+            mushroomDeleteSwingWorker.execute();
+        }
+    }//GEN-LAST:event_bMushroomDeleteActionPerformed
+
+    private void tblMushroomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMushroomMouseClicked
+        bMushroomDelete.setEnabled(true);
+        bMushroomUpdate.setEnabled(true);
+
+        DefaultTableModel model = (DefaultTableModel) tblMushroom.getModel();
+        tfMushroomName.setText(model.getValueAt(tblMushroom.getSelectedRow(), 0).toString());
+        comboBoxMushroomType.setSelectedItem(model.getValueAt(tblMushroom.getSelectedRow(), 1).toString());
+        comboBoxMushroomStartOfOccurence.setSelectedItem(model.getValueAt(tblMushroom.getSelectedRow(), 2).toString());
+        comboBoxMushroomEndOfOccurence.setSelectedItem(model.getValueAt(tblMushroom.getSelectedRow(), 3).toString());
+    }//GEN-LAST:event_tblMushroomMouseClicked
 
     /**
      * @param args the command line arguments
@@ -468,12 +563,12 @@ public class RestClient extends javax.swing.JFrame {
             }
         });
     }
-    
-private static List<Long> locationIDs = new ArrayList<>();
-    
-private LocationCreateSwingWorker locationCreateSwingWorker;
-    
- private class LocationCreateSwingWorker extends SwingWorker<Void,Void> {
+
+    private static List<Long> locationIDs = new ArrayList<>();
+
+    private LocationCreateSwingWorker locationCreateSwingWorker;
+
+    private class LocationCreateSwingWorker extends SwingWorker<Void, Void> {
 
         @Override
         protected Void doInBackground() throws Exception {
@@ -481,7 +576,7 @@ private LocationCreateSwingWorker locationCreateSwingWorker;
             locationDto.setName(tfLocationName.getText());
             locationDto.setDescription(tfLocationDescription.getText());
             locationDto.setNearCity(tfLocationNearCity.getText());
-            
+
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             List<MediaType> mediaTypeList = new ArrayList<MediaType>();
@@ -494,7 +589,7 @@ private LocationCreateSwingWorker locationCreateSwingWorker;
 
             RestTemplate restTemplate = new RestTemplate();
             Long[] result = restTemplate.postForObject("http://localhost:8080/pa165/rest/location", request, Long[].class);
-            
+
             locationIDs.add(result[0]);
             return null;
         }
@@ -502,13 +597,14 @@ private LocationCreateSwingWorker locationCreateSwingWorker;
         @Override
         protected void done() {
             DefaultTableModel model = (DefaultTableModel) tblLocation.getModel();
-            model.addRow(new Object[]{tfLocationName.getText(), tfLocationDescription.getText(),tfLocationNearCity.getText()});
+            model.addRow(new Object[]{tfLocationName.getText(), tfLocationDescription.getText(), tfLocationNearCity.getText()});
         }
     }
-   
- private LocationUpdateSwingWorker locationUpdateSwingWorker;
+
+    private LocationUpdateSwingWorker locationUpdateSwingWorker;
 
     private class LocationUpdateSwingWorker extends SwingWorker<Integer, Void> {
+
         @Override
         protected Integer doInBackground() throws Exception {
             DefaultTableModel model = (DefaultTableModel) tblLocation.getModel();
@@ -518,7 +614,7 @@ private LocationCreateSwingWorker locationCreateSwingWorker;
             locationDto.setName(tfLocationName.getText());
             locationDto.setDescription(tfLocationDescription.getText());
             locationDto.setNearCity(tfLocationNearCity.getText());
-            
+
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             List<MediaType> mediaTypeList = new ArrayList<MediaType>();
@@ -534,6 +630,7 @@ private LocationCreateSwingWorker locationCreateSwingWorker;
             LocationDto updatedLocation = newlocation.getBody();
             return selectedRow;
         }
+
         @Override
         protected void done() {
             DefaultTableModel model = (DefaultTableModel) tblLocation.getModel();
@@ -548,10 +645,11 @@ private LocationCreateSwingWorker locationCreateSwingWorker;
             }
         }
     }
-    
+
     private LocationDeleteSwingWorker locationDeleteSwingWorker;
 
     private class LocationDeleteSwingWorker extends SwingWorker<Integer, Void> {
+
         protected Integer doInBackground() throws Exception {
             int selectedRow = tblLocation.getSelectedRow();
             RestTemplate restTemplate = new RestTemplate();
@@ -559,6 +657,7 @@ private LocationCreateSwingWorker locationCreateSwingWorker;
             locationIDs.remove(selectedRow);
             return selectedRow;
         }
+
         protected void done() {
             DefaultTableModel model = (DefaultTableModel) tblLocation.getModel();
             try {
@@ -570,10 +669,11 @@ private LocationCreateSwingWorker locationCreateSwingWorker;
             }
         }
     }
-    
+
     private AllLocationsSwingWorker allLocationsSwingWorker;
 
     private class AllLocationsSwingWorker extends SwingWorker<List<LocationDto>, Void> {
+
         @Override
         protected List<LocationDto> doInBackground() throws Exception {
             return getLocationList();
@@ -596,13 +696,13 @@ private LocationCreateSwingWorker locationCreateSwingWorker;
             }
         }
     }
-    
+
     private LocationDto getLocationDetail(Long locationId) throws RestClientException {
         RestTemplate restTemplate = new RestTemplate();
         LocationDto location = restTemplate.getForObject("http://localhost:8080/pa165/rest/location/" + locationId, LocationDto.class);
         return location;
     }
-    
+
     //Send GET to URL and get array of objects
     private List<LocationDto> getLocationList() throws RestClientException {
         RestTemplate restTemplate = new RestTemplate();
@@ -612,7 +712,7 @@ private LocationCreateSwingWorker locationCreateSwingWorker;
         locationDtoList.addAll(Arrays.asList(locationDtoArray));
         return locationDtoList;
     }
-    
+
     //Send GET to URL and get array of objects
     private void getLocationListWithOccurence() throws RestClientException {
         RestTemplate restTemplate = new RestTemplate();
@@ -627,7 +727,182 @@ private LocationCreateSwingWorker locationCreateSwingWorker;
             System.out.println("Mushroom occurence: " + location.getMushroomOccurence());
         }
     }
-    
+
+    private static List<Long> mushroomIDs = new ArrayList<>();
+
+    private MushroomCreateSwingWorker mushroomCreateSwingWorker;
+
+    private class MushroomCreateSwingWorker extends SwingWorker<Void, Void> {
+
+        @Override
+        protected Void doInBackground() throws Exception {
+            MushroomDto mushroomDto = new MushroomDto();
+            mushroomDto.setName(tfMushroomName.getText());
+            
+            mushroomDto.setType(cz.fi.muni.pa165.mushroomhunter.api.Type.valueOf(comboBoxMushroomType.getSelectedItem().toString()));
+
+            //to create date object only month is used, day and year are fixed values
+            String dateInString = comboBoxMushroomStartOfOccurence.getSelectedItem().toString() + " 1, 2000";
+
+            SimpleDateFormat formatter = new SimpleDateFormat("MMMM d, yyyy", new Locale("en_US"));
+
+            mushroomDto.setStartOfOccurence(formatter.parse(dateInString));
+
+            //to create date object only month is used, day and year are fixed values
+            dateInString = comboBoxMushroomEndOfOccurence.getSelectedItem().toString() + " 1, 2000";
+            mushroomDto.setEndOfOccurence(formatter.parse(dateInString));
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            List<MediaType> mediaTypeList = new ArrayList<>();
+            mediaTypeList.add(MediaType.ALL);
+            headers.setAccept(mediaTypeList);
+
+            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+            String json = ow.writeValueAsString(mushroomDto);
+            HttpEntity request = new HttpEntity(json, headers);
+
+            RestTemplate restTemplate = new RestTemplate();
+            Long[] result = restTemplate.postForObject("http://localhost:8080/pa165/rest/mushroom", request, Long[].class);
+
+            System.out.println("Id of the created mushroom: " + result[0]);
+            mushroomIDs.add(result[0]);
+            return null;
+        }
+
+        @Override
+        protected void done() {
+            DefaultTableModel model = (DefaultTableModel) tblMushroom.getModel();
+            model.addRow(new Object[]{tfMushroomName.getText(), comboBoxMushroomType.getSelectedItem().toString(), comboBoxMushroomStartOfOccurence.getSelectedItem().toString(), comboBoxMushroomEndOfOccurence.getSelectedItem().toString()});
+        }
+    }
+
+    private MushroomUpdateSwingWorker mushroomUpdateSwingWorker;
+
+    private class MushroomUpdateSwingWorker extends SwingWorker<Integer, Void> {
+
+        @Override
+        protected Integer doInBackground() throws Exception {
+            DefaultTableModel model = (DefaultTableModel) tblMushroom.getModel();
+            int selectedRow = tblMushroom.getSelectedRow();
+
+            MushroomDto mushroomDto = getMushroomDetail(mushroomIDs.get(selectedRow));
+            mushroomDto.setName(tfMushroomName.getText());
+
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MMMM-yyyy", new Locale("en_US"));
+
+            //to create date object only month is used, day and year are fixed values
+            String dateInString = "01-" + comboBoxMushroomStartOfOccurence.getSelectedItem().toString() + "-2000";
+            mushroomDto.setStartOfOccurence(formatter.parse(dateInString));
+
+            //to create date object only month is used, day and year are fixed values
+            dateInString = "01-" + comboBoxMushroomEndOfOccurence.getSelectedItem().toString() + "-2000";
+            mushroomDto.setEndOfOccurence(formatter.parse(dateInString));
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            List<MediaType> mediaTypeList = new ArrayList<MediaType>();
+            mediaTypeList.add(MediaType.APPLICATION_JSON);
+            headers.setAccept(mediaTypeList);
+
+            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+            String json = ow.writeValueAsString(mushroomDto);
+            HttpEntity request = new HttpEntity(json, headers);
+
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<MushroomDto> newmushroom = restTemplate.exchange("http://localhost:8080/pa165/rest/mushroom", HttpMethod.PUT, request, MushroomDto.class);
+            MushroomDto updatedMushroom = newmushroom.getBody();
+            return selectedRow;
+        }
+
+        @Override
+        protected void done() {
+            DefaultTableModel model = (DefaultTableModel) tblMushroom.getModel();
+            try {
+                model.setValueAt(tfMushroomName.getText(), get(), 0);
+                model.setValueAt(comboBoxMushroomType.getSelectedItem().toString(), get(), 1);
+                model.setValueAt(comboBoxMushroomStartOfOccurence.getSelectedItem().toString(), get(), 2);
+                model.setValueAt(comboBoxMushroomEndOfOccurence.getSelectedItem().toString(), get(), 3);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private MushroomDeleteSwingWorker mushroomDeleteSwingWorker;
+
+    private class MushroomDeleteSwingWorker extends SwingWorker<Integer, Void> {
+
+        protected Integer doInBackground() throws Exception {
+            int selectedRow = tblMushroom.getSelectedRow();
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.delete("http://localhost:8080/pa165/rest/mushroom/" + mushroomIDs.get(selectedRow));
+            mushroomIDs.remove(selectedRow);
+            return selectedRow;
+        }
+
+        protected void done() {
+            DefaultTableModel model = (DefaultTableModel) tblMushroom.getModel();
+            try {
+                model.removeRow(get());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private AllMushroomsSwingWorker allMushroomsSwingWorker;
+
+    private class AllMushroomsSwingWorker extends SwingWorker<List<MushroomDto>, Void> {
+
+        @Override
+        protected List<MushroomDto> doInBackground() throws Exception {
+            return getMushroomList();
+        }
+
+        @Override
+        protected void done() {
+            try {
+                List<MushroomDto> list = get();
+                DefaultTableModel model = (DefaultTableModel) tblMushroom.getModel();
+                model.setRowCount(0);
+                for (int i = 0; i < list.size(); i++) {
+                    mushroomIDs.add(list.get(i).getId());
+
+                    SimpleDateFormat MMMMFormat = new SimpleDateFormat("MMMM", new Locale("en_US"));
+                    String startOfOccurence = MMMMFormat.format(list.get(i).getStartOfOccurence());
+                    String endOfOccurence = MMMMFormat.format(list.get(i).getEndOfOccurence());
+
+                    model.addRow(new Object[]{list.get(i).getName(), list.get(i).getType().toString(), startOfOccurence, endOfOccurence});
+                }
+            } catch (ExecutionException ex) {
+
+            } catch (InterruptedException ex) {
+                throw new RuntimeException("Operation interrupted", ex);
+            }
+        }
+    }
+
+    private MushroomDto getMushroomDetail(Long mushroomId) throws RestClientException {
+        RestTemplate restTemplate = new RestTemplate();
+        MushroomDto mushroom = restTemplate.getForObject("http://localhost:8080/pa165/rest/mushroom/" + mushroomId, MushroomDto.class);
+        return mushroom;
+    }
+
+    //Send GET to URL and get array of objects
+    private List<MushroomDto> getMushroomList() throws RestClientException {
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<MushroomDto[]> responseEntity = restTemplate.getForEntity("http://localhost:8080/pa165/rest/mushroom/", MushroomDto[].class);
+        MushroomDto[] mushroomDtoArray = responseEntity.getBody();
+        List<MushroomDto> mushroomDtoList = new ArrayList<>();
+        mushroomDtoList.addAll(Arrays.asList(mushroomDtoArray));
+        return mushroomDtoList;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bLocationCreate;
     private javax.swing.JButton bLocationDelete;
@@ -635,6 +910,9 @@ private LocationCreateSwingWorker locationCreateSwingWorker;
     private javax.swing.JButton bMushroomCreate;
     private javax.swing.JButton bMushroomDelete;
     private javax.swing.JButton bMushroomUpdate;
+    private javax.swing.JComboBox comboBoxMushroomEndOfOccurence;
+    private javax.swing.JComboBox comboBoxMushroomStartOfOccurence;
+    private javax.swing.JComboBox comboBoxMushroomType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -647,16 +925,13 @@ private LocationCreateSwingWorker locationCreateSwingWorker;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel lMessageLocations;
     private javax.swing.JLabel lMessageMushrooms;
     private javax.swing.JTable tblLocation;
     private javax.swing.JTable tblMushroom;
     private javax.swing.JTextField tfLocationDescription;
-    private javax.swing.JTextField tfLocationDescription1;
     private javax.swing.JTextField tfLocationName;
-    private javax.swing.JTextField tfLocationName1;
     private javax.swing.JTextField tfLocationNearCity;
-    private javax.swing.JTextField tfLocationNearCity1;
+    private javax.swing.JTextField tfMushroomName;
     // End of variables declaration//GEN-END:variables
 }

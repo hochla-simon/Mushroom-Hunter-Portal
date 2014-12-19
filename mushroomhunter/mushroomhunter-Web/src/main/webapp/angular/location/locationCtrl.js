@@ -5,8 +5,14 @@ var locationControllers = angular.module('locationControllers', []);
 //
 locationControllers.controller('LocationListCtrl', ['$scope', '$window', '$log', 'LocationService', function ($scope, $window, $log, LocationService) {
 
+        //Table will be ordered by location name by default
+        $scope.orderByField = 'name';
+        //Table will be ordered ascending by default
+        $scope.reverseSort = false;
+        //Array of locations will be stored here
         $scope.locations = {};
 
+        //Refresh location list
         $scope.refreshLocations = function () {
             LocationService("").getLocationWithMushroomOccurence(
                     function (data, status, headers, config) {
@@ -16,7 +22,8 @@ locationControllers.controller('LocationListCtrl', ['$scope', '$window', '$log',
                 $log.error("An error occurred on server! List of location cannot be loaded.");
             });
         };
-        
+
+        //Call refresh function after app start
         $scope.refreshLocations();
 
         $scope.showLocationDetail = function (locationId) {
@@ -30,13 +37,36 @@ locationControllers.controller('LocationListCtrl', ['$scope', '$window', '$log',
         $scope.goToHomePage = function () {
             $window.location.href = '/pa165/';
         };
+
+        
+        //Sort table by field(column) or switch asc/desc ordering
+        $scope.sortByField = function (field) {
+            //Switch between asc/desc ordering after click on column according which the table is already sorted.
+            if ($scope.orderByField == field) {
+                $scope.reverseSort = !$scope.reverseSort;
+            }
+            //Set column according which the table will be sorted
+            $scope.orderByField = field;
+        };
+
+        //Set apropriatry icon to indicate ordering
+        $scope.getOrderIcon = function (field) {
+            if ($scope.orderByField == field) {
+                if ($scope.reverseSort) {
+                    return 'glyphicon glyphicon-sort-by-attributes-alt';
+                }
+                else {
+                    return 'glyphicon glyphicon-sort-by-attributes';
+                }
+            }
+        };
     }]);
 
 //
 //  LOCATION DETAIL CONTROLLER
 //
 locationControllers.controller('LocationDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'LocationService', function ($scope, $routeParams, $window, $log, LocationService) {
-        $scope.validationErrors = {};
+        $scope.errorMessages = {};
 
         $scope.location = LocationService($routeParams.locationId).getLocationDetail(
                 function (data, status, headers, config) {
@@ -57,11 +87,11 @@ locationControllers.controller('LocationDetailCtrl', ['$scope', '$routeParams', 
             LocationService("").update(location,
                     function (data, status, headers, config) {
                         $log.info("Location updated");
-                        $scope.validationErrors = {};
+                        $scope.errorMessages = {};
                     },
                     function (data, status, headers, config) {
                         $log.error("An error occurred on server! Location cannot be updated.");
-                        $scope.validationErrors = data.data;
+                        $scope.errorMessages = data.data;
                     });
         };
 
@@ -82,7 +112,7 @@ locationControllers.controller('LocationDetailCtrl', ['$scope', '$routeParams', 
 //  CREATE NEW LOCATION CONTROLLER
 //
 locationControllers.controller('LocationCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'LocationService', function ($scope, $routeParams, $window, $log, LocationService) {
-        $scope.validationErrors = {
+        $scope.errorMessages = {
             "fieldErrors": []
         }
 
@@ -103,12 +133,12 @@ locationControllers.controller('LocationCreateCtrl', ['$scope', '$routeParams', 
             LocationService("").create($scope.location,
                     function (data, status, headers, config) {
                         $log.info("Location created");
-                        $scope.validationErrors = {};
+                        $scope.errorMessages = {};
                         $scope.showLocationDetail(data);
                     },
                     function (data, status, headers, config) {
                         $log.error("An error occurred on server! Location cannot be created.");
-                        $scope.validationErrors = data.data;
+                        $scope.errorMessages = data.data;
                     });
         };
 
@@ -133,3 +163,5 @@ locationServices.factory('LocationService', ['$resource', function ($resource) {
         };
     }])
         ;
+
+
