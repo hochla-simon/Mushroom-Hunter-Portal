@@ -126,7 +126,7 @@ mushroomControllers.controller('MushroomDetailCtrl', ['$scope', '$routeParams', 
 //
 //  CREATE NEW MUSHROOM CONTROLLER
 //
-mushroomControllers.controller('MushroomCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'MushroomService', function ($scope, $routeParams, $window, $log, MushroomService) {
+mushroomControllers.controller('MushroomCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'MushroomService', 'datepickerPopupConfig', function ($scope, $routeParams, $window, $log, MushroomService, datepickerPopupConfig) {
         $scope.mushroom = {
             "id":null,
             "name":"",
@@ -134,6 +134,9 @@ mushroomControllers.controller('MushroomCreateCtrl', ['$scope', '$routeParams', 
             "startOfOccurence": null,
             "endOfOccurence":null
         };
+        
+       $scope.mushroom.startOfOccurence = new Date();
+       $scope.mushroom.endOfOccurence = new Date();
 
         $scope.goToMushroomList = function () {
             $window.location.href = '/pa165/#/mushroom';
@@ -153,6 +156,45 @@ mushroomControllers.controller('MushroomCreateCtrl', ['$scope', '$routeParams', 
         
         $scope.showMushroomDetail = function (mushroomId) {
             $window.location.href = '/pa165/#/mushroom/detail/' + mushroomId;
+            
+            
+             $scope.today = function () {
+                $scope.mushroom.startOfOccurence = new Date();
+            };
+            $scope.today();
+
+            $scope.clear = function () {
+                $scope.mushroom.startOfOccurence = null;
+            };
+
+            // Disable weekend selection
+            //$scope.disabled = function (date, mode) {
+            //    return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
+            //};
+
+            $scope.toggleMin = function () {
+                $scope.minDate = $scope.minDate ? null : new Date();
+            };
+            $scope.toggleMin();
+
+            $scope.open = function ($event) {
+                alert("kliknut popup");
+                $event.stopPropagation();
+
+                $scope.opened = true;
+            };
+
+            $scope.dateOptions = {
+                formatYear: 'yy',
+                startingDay: 1
+            };
+
+            $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+            $scope.format = $scope.formats[0];
+
+            datepickerPopupConfig.currentText = translations.TODAY;
+            datepickerPopupConfig.clearText = translations.CLEAR;
+            datepickerPopupConfig.closeText = translations.CLOSE;
         };
     }]);
 //

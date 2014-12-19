@@ -67,7 +67,6 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
                 //angular.forEach($scope.mushroomItems, function (item) {
                 //    $scope.mush
                 //});
-                alert($scope.visit.date);
                 VisitService("").create($scope.visit,
                         function (data, status, headers, config) {
                             $log.info("Visit created");

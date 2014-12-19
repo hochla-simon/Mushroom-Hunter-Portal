@@ -26,7 +26,7 @@
                             {{ 'NAME' | translate }}
                         </td>
                         <td>
-                            <span editable-text="mushroom.name" onbeforesave="">{{mushroom.name|| 'Set mushroom name' }}</span> 
+                            <span editable-text="mushroom.name" onbeforesave="">{{mushroom.name|| 'SETMUSHNAME' | translate }}</span> 
                         </td>
                     </tr>
                     <tr>
@@ -53,22 +53,11 @@
                             {{ 'STARTOFO' | translate }}
                         </td>
                         <td>
-                            <!--  <input class="form-control" ng-model="mushroom.startOfOccurence" name="date" bs-datepicker type="text"> -->
-                            <!--<div ng-controller="DateController">-->
-                            <input type="date" id="exampleInput" name="input" ng-model="mushroom.startOfOccurence"
-                                   placeholder="yyyy-MM-dd" required />
-                            <span class="error" ng-show="input.$error.required">
-                                Required!</span>
-                            <span class="error" ng-show="input.$error.date">
-                                Not a valid date!</span>
-                            <!--
-                             <tt>value = {{value | date: "yyyy-MM-dd"}}</tt><br/>
-                             <tt>myForm.input.$valid = {{myForm.input.$valid}}</tt><br/>
-                             <tt>myForm.input.$error = {{myForm.input.$error}}</tt><br/>
-                             <tt>myForm.$valid = {{myForm.$valid}}</tt><br/>
-                             <tt>myForm.$error.required = {{!!myForm.$error.required}}</tt><br/>
-                         
-                             </div> -->
+                          
+                                <datepicker ng-model="mushroom.startOfOccurence"  show-weeks="false" class="well well-sm" min-mode="month" max-mode="month" datepicker-mode="'month'"></datepicker>
+   
+                                
+                             
                         </td>
                     </tr>
                     <tr>
@@ -76,12 +65,8 @@
                             {{ 'ENDOFO' | translate }}
                         </td>
                         <td>
-                            <input type="date" id="exampleInput" name="input" ng-model="mushroom.endOfOccurence"
-                                   placeholder="yyyy-MM-dd" required />
-                            <span class="error" ng-show="input.$error.required">
-                                Required!</span>
-                            <span class="error" ng-show="input.$error.date">
-                                Not a valid date!</span>
+                                 <datepicker ng-model="mushroom.endOfOccurence"  show-weeks="false" class="well well-sm" min-mode="month" max-mode="month" datepicker-mode="'month'" ></datepicker>
+   
                         </td>
                     </tr>
                 </table>

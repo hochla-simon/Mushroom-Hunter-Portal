@@ -54,10 +54,10 @@
                             {{ mushroom.type | translate }}
                         </td>
                         <td>
-                            {{mushroom.startOfOccurence| date:'dd.MM.yyyy'}}
+                            {{mushroom.startOfOccurence| date:'MMMM'}}
                         </td>
                         <td>
-                            {{mushroom.endOfOccurence| date:'dd.MM.yyyy'}}
+                            {{mushroom.endOfOccurence| date:'MMMM'}}
                         </td>
                         <td>
                             <a href="" ng-click="showMushroomDetail(mushroom.id)">Detail</a>
@@ -65,7 +65,7 @@
                     </tr>
                 </table>
                 <div align="center">
-                    <input style="width:1000px" ng-model="searchText" class="form-control" id="exampleInputEmail1" placeholder="Filter mushrooms">
+                    <input style="width:1000px" ng-model="searchText" class="form-control" id="exampleInputEmail1" placeholder="{{ 'FILTERMUSH' | translate }}">
                 </div>
                 <br />
                 <center>

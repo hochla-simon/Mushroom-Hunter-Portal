@@ -35,7 +35,7 @@
                             {{ 'NICKNAME' | translate }}
                         </td>
                         <td>
-                            <span editable-text="hunter.nick" onbeforesave="" onaftersave="updateHunter(hunter)">{{hunter.nick}}</span> 
+                            <span editable-text="hunter.nick" onbeforesave="" onaftersave="updateHunter(hunter)">{{hunter.nick || 'SETHUNTERNICK' | translate }}</span> 
                         </td>
                     </tr>
                     <tr>
@@ -43,7 +43,7 @@
                             {{ 'FIRSTNAME' | translate }}
                         </td>
                         <td>
-                            <span editable-text="hunter.firstName" onbeforesave="" onaftersave="updateHunter(hunter)">{{hunter.firstName}}</span> 
+                            <span editable-text="hunter.firstName" onbeforesave="" onaftersave="updateHunter(hunter)">{{hunter.firstName || 'SETHUNTERNAME' | translate }}</span> 
                         </td>
                     </tr>
                     <tr>
@@ -51,7 +51,7 @@
                             {{ 'SURNAME' | translate }}
                         </td>
                         <td>
-                            <span editable-text="hunter.surname" onbeforesave="" onaftersave="updateHunter(hunter)">{{hunter.surname}}</span>
+                            <span editable-text="hunter.surname" onbeforesave="" onaftersave="updateHunter(hunter)">{{hunter.surname || 'SETHUNTERSURNAME' | translate }}</span>
                         </td>
                     </tr>
                     <tr>
@@ -59,7 +59,7 @@
                             {{ 'DESCRIPTION' | translate }}
                         </td>
                         <td>
-                            <span editable-text="hunter.description" onbeforesave="" onaftersave="updateHunter(hunter)">{{hunter.description}}</span>
+                            <span editable-text="hunter.description" onbeforesave="" onaftersave="updateHunter(hunter)">{{hunter.description || 'SETDESCRIPTION' | translate }}</span>
                         </td>
                     </tr>
                 </table>

@@ -39,7 +39,7 @@
                             {{ 'LOCNAME' | translate }}
                         </td>
                         <td>
-                            <span editable-text="location.name" onbeforesave="" onaftersave="updateLocation(location)">{{location.name}}</span> 
+                            <span editable-text="location.name" onbeforesave="" onaftersave="updateLocation(location)">{{location.name|| 'SETLOCATIONNAME' | translate}}</span> 
                         </td>
                     </tr>
                     <tr>
@@ -47,7 +47,7 @@
                             {{ 'DESCRIPTION' | translate }}
                         </td>
                         <td>
-                            <span editable-text="location.description" onbeforesave="" onaftersave="updateLocation(location)">{{location.description}}</span> 
+                            <span editable-text="location.description" onbeforesave="" onaftersave="updateLocation(location)">{{location.description|| 'SETDESCRIPTION' | translate}}</span> 
                         </td>
                     </tr>
                     <tr>
@@ -55,7 +55,7 @@
                             {{ 'NEARC' | translate }}
                         </td>
                         <td>
-                            <span editable-text="location.nearCity" onbeforesave="" onaftersave="updateLocation(location)">{{location.nearCity}}</span>
+                            <span editable-text="location.nearCity" onbeforesave="" onaftersave="updateLocation(location)">{{location.nearCity|| 'SETNEARCITY' | translate}}</span>
                         </td>
                     </tr>
                 </table>

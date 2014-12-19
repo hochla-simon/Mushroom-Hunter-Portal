@@ -12,7 +12,7 @@ var app = angular.module('mushroomHunterApp', [
     'hunterControllers',
     'hunterServices',
     'pascalprecht.translate',
-    'ui.bootstrap',
+    'ui.bootstrap'
 ]);
 
 app.config(['$routeProvider',
@@ -150,7 +150,21 @@ app.config(function($translateProvider) {
     
     CLEAR: 'Clear',
     TODAY: 'Today',
-    CLOSE: 'Close'  
+    CLOSE: 'Close',
+    
+    SETMUSHNAME: 'Set mushroom name',
+    SETHUNTERNAME: 'Set hunter first name',
+    SETHUNTERSURNAME: 'Set hunter surname',
+    SETHUNTERNICK: 'Set hunter nick',
+    SETLOCATIONNAME: 'Set location name',
+    SETDESCRIPTION: 'Set description',
+    SETNEARCITY: 'Set near city',
+    
+    FILTERMUSH: 'Filter mushrooms',
+    FILTERHUNTER: 'Filter hunters',
+    FILTERLOCATION: 'Filter locations',
+    FILTERVISIT: 'Filter visits'
+    
   })
   .translations('cs', {
     WELCOMETO: 'V\u00edtejte na',
@@ -216,8 +230,20 @@ app.config(function($translateProvider) {
     
     CLEAR: 'Vymazat',
     TODAY: 'Dnes',
-    CLOSE: 'Zav\u0159\u00edt'
+    CLOSE: 'Zav\u0159\u00edt',
     
+    SETMUSHNAME: 'Zadejte jm\u00e9no houby',
+    SETHUNTERNAME: 'Zadejte jm\u00e9no houba\u0159e',
+    SETHUNTERSURNAME: 'Zadejte p\u0159\u00edjmen\u00ed houba\u0159e',
+    SETHUNTERNICK: 'Zadejte p\u0159ezd\u00edvku houba\u0159e',
+    SETLOCATIONNAME: 'Zadejte jm\u00e9no m\u00edsta',
+    SETDESCRIPTION: 'Zadejte popis',
+    SETNEARCITY: 'Zadejte nejbli\u017e\u0161\u00ed m\u011bsto',
+    
+    FILTERMUSH: 'Filtr hub',
+    FILTERHUNTER: 'Filtr houba\u0159\u016f',
+    FILTERLOCATION: 'Filtr m\u00edst',
+    FILTERVISIT: 'Filtr n\u00e1v\u0161t\u011bv'
     
     
     
