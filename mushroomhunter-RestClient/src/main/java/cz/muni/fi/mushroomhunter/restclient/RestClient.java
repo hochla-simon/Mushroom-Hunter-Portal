@@ -915,10 +915,6 @@ public class RestClient extends javax.swing.JFrame {
             }
             try {
                 List<MushroomDto> list = get();
-                if (list == null) {
-                     lMessageMushrooms.setText("ERROR: server is unavailable.");
-                     return;
-                }
                 DefaultTableModel model = (DefaultTableModel) tblMushroom.getModel();
                 model.setRowCount(0);
                 for (int i = 0; i < list.size(); i++) {
@@ -947,9 +943,8 @@ public class RestClient extends javax.swing.JFrame {
     //Send GET to URL and get array of objects
     private List<MushroomDto> getMushroomList() throws RestClientException {
         RestTemplate restTemplate = new RestTemplate();
-        MushroomDto[] mushroomDtoArray = null;
         ResponseEntity<MushroomDto[]> responseEntity = restTemplate.getForEntity("http://localhost:8080/pa165/rest/mushroom/", MushroomDto[].class);
-        mushroomDtoArray = responseEntity.getBody();
+        MushroomDto[] mushroomDtoArray = responseEntity.getBody();
         List<MushroomDto> mushroomDtoList = new ArrayList<>();
         mushroomDtoList.addAll(Arrays.asList(mushroomDtoArray));
         return mushroomDtoList;

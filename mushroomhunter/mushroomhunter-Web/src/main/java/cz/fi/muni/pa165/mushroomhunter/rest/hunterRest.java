@@ -15,6 +15,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import javax.validation.Valid;
 /**
  *
  * @author Simon
@@ -38,14 +39,14 @@ public class hunterRest {
     }
     
     @RequestMapping(method = RequestMethod.POST)
-    public List<Long> createHunter(@RequestBody HunterDto hunter) {
+    public List<Long> createHunter(@RequestBody @Valid HunterDto hunter) {
   	List<Long> resultList = new ArrayList<>();
         resultList.add(hunterService.save(hunter));
         return resultList;
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public HunterDto updateHunter(@RequestBody HunterDto hunter) {
+    public HunterDto updateHunter(@RequestBody @Valid HunterDto hunter) {
         return hunterService.update(hunter);
     }
 

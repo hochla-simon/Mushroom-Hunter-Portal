@@ -31,10 +31,14 @@ hunterControllers.controller('HunterListCtrl', ['$scope', '$window', 'HunterServ
     }]);
 
 
-hunterControllers.controller('HunterDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'HunterService', function ($scope, $routeParams, $window, $log, HunterService) {
+hunterControllers.controller('HunterDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'HunterService',
+    function ($scope, $routeParams, $window, $log, HunterService) {
+        $scope.validationErrors = {};
         $scope.hunter = HunterService($routeParams.hunterId).getHunterDetail(
                 function (data, status, headers, config) {
                     $log.info("Hunter detail loaded.");
+                    $scope.location = data;
+                    $scope.locationBackup = angular.copy($scope.location);
                 },
                 function (data, status, headers, config) {
                     $log.error("An error occurred on server! Detail of hunter cannot be loaded.");
@@ -49,9 +53,11 @@ hunterControllers.controller('HunterDetailCtrl', ['$scope', '$routeParams', '$wi
             HunterService("").update(hunter,
                     function (data, status, headers, config) {
                         $log.info("Hunter updated");
+                        $scope.validationErrors = {};
                     },
                     function (data, status, headers, config) {
                         $log.error("An error occurred on server! Hunter cannot be updated.");
+                        $scope.validationErrors = data.data;
                     });
         };
 
@@ -72,12 +78,16 @@ hunterControllers.controller('HunterDetailCtrl', ['$scope', '$routeParams', '$wi
 //  CREATE NEW HUNTER CONTROLLER
 //
 hunterControllers.controller('HunterCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'HunterService', function ($scope, $routeParams, $window, $log, HunterService) {
+        $scope.validationErrors = {
+            "fieldErrors": []
+        }
+        
         $scope.hunter = {
             "id": null,
             "firstName": "",
-            "Surname": null,
-            "description": null,
-            "nick": null
+            "Surname": "",
+            "description": "",
+            "nick": ""
         };
 
         $scope.goToHunterList = function () {
@@ -89,10 +99,12 @@ hunterControllers.controller('HunterCreateCtrl', ['$scope', '$routeParams', '$wi
             HunterService("").create($scope.hunter,
                     function (data, status, headers, config) {
                         $log.info("Hunter created");
+                        $scope.validationErrors = {};
                         $scope.showHunterDetail(data);
                     },
                     function (data, status, headers, config) {
                         $log.error("An error occurred on server! Hunter cannot be created.");
+                        $scope.validationErrors = data.data;
                     });
         };
 
