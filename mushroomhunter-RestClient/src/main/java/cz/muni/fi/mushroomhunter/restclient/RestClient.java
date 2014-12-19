@@ -23,13 +23,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
-import org.springframework.web.client.HttpStatusCodeException;
 
 /**
  *
- * @author Lukáš Valach
+ * @author Simon Hochla
  */
 public class RestClient extends javax.swing.JFrame {
 
@@ -413,7 +411,6 @@ public class RestClient extends javax.swing.JFrame {
         bLocationDelete.setEnabled(false);
         bLocationUpdate.setEnabled(false);
 
-        //lMessage.setText(texts.getString("errTableEmpty"));
         if (tblLocation.getSelectedRow() == -1) {
             if (tblLocation.getRowCount() == 0) {
                 lMessageLocations.setText("There are no locations to be deleted.");
@@ -427,7 +424,6 @@ public class RestClient extends javax.swing.JFrame {
     }//GEN-LAST:event_bLocationDeleteActionPerformed
 
     private void tfLocationNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfLocationNameActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_tfLocationNameActionPerformed
 
 
@@ -442,7 +438,6 @@ public class RestClient extends javax.swing.JFrame {
     }//GEN-LAST:event_tblLocationMouseClicked
 
     private void tfMushroomNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfMushroomNameActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_tfMushroomNameActionPerformed
 
     private void bMushroomCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMushroomCreateActionPerformed
@@ -598,7 +593,7 @@ public class RestClient extends javax.swing.JFrame {
             try {
                 get();
             } catch (Exception e) {
-                lMessageMushrooms.setText("ERROR: server is unavailable.");
+                lMessageLocations.setText("ERROR: server is unavailable.");
                 return;
             }
             DefaultTableModel model = (DefaultTableModel) tblLocation.getModel();
@@ -622,7 +617,7 @@ public class RestClient extends javax.swing.JFrame {
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            List<MediaType> mediaTypeList = new ArrayList<MediaType>();
+            List<MediaType> mediaTypeList = new ArrayList<>();
             mediaTypeList.add(MediaType.APPLICATION_JSON);
             headers.setAccept(mediaTypeList);
 
@@ -631,8 +626,7 @@ public class RestClient extends javax.swing.JFrame {
             HttpEntity request = new HttpEntity(json, headers);
 
             RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<LocationDto> newlocation = restTemplate.exchange("http://localhost:8080/pa165/rest/location", HttpMethod.PUT, request, LocationDto.class);
-            LocationDto updatedLocation = newlocation.getBody();
+            restTemplate.exchange("http://localhost:8080/pa165/rest/location", HttpMethod.PUT, request, LocationDto.class);
             return selectedRow;
         }
 
@@ -641,7 +635,7 @@ public class RestClient extends javax.swing.JFrame {
             try {
                 get();
             } catch (Exception e) {
-                lMessageMushrooms.setText("ERROR: server is unavailable.");
+                lMessageLocations.setText("ERROR: server is unavailable.");
                 return;
             }
             DefaultTableModel model = (DefaultTableModel) tblLocation.getModel();
@@ -669,11 +663,12 @@ public class RestClient extends javax.swing.JFrame {
             return selectedRow;
         }
 
+        @Override
         protected void done() {
             try {
                 get();
             } catch (Exception e) {
-                lMessageMushrooms.setText("ERROR: server is unavailable.");
+                lMessageLocations.setText("ERROR: server is unavailable.");
                 return;
             }
             DefaultTableModel model = (DefaultTableModel) tblLocation.getModel();
@@ -701,16 +696,16 @@ public class RestClient extends javax.swing.JFrame {
             try {
                 get();
             } catch (Exception e) {
-                lMessageMushrooms.setText("ERROR: server is unavailable.");
+                lMessageLocations.setText("ERROR: server is unavailable.");
                 return;
             }
             try {
                 List<LocationDto> list = get();
                 DefaultTableModel model = (DefaultTableModel) tblLocation.getModel();
                 model.setRowCount(0);
-                for (int i = 0; i < list.size(); i++) {
-                    locationIDs.add(list.get(i).getId());
-                    model.addRow(new Object[]{list.get(i).getName(), list.get(i).getDescription(), list.get(i).getNearCity()});
+                for (LocationDto list1 : list) {
+                    locationIDs.add(list1.getId());
+                    model.addRow(new Object[]{list1.getName(), list1.getDescription(), list1.getNearCity()});
                 }
             } catch (ExecutionException ex) {
 
@@ -729,26 +724,12 @@ public class RestClient extends javax.swing.JFrame {
     //Send GET to URL and get array of objects
     private List<LocationDto> getLocationList() throws RestClientException {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<LocationDto[]> responseEntity = restTemplate.getForEntity("http://localhost:8080/pa165/rest/location/", LocationDto[].class);
+        ResponseEntity<LocationDto[]> responseEntity = restTemplate.getForEntity("http://localhost:8080/pa165/rest/location/", 
+                LocationDto[].class);
         LocationDto[] locationDtoArray = responseEntity.getBody();
         List<LocationDto> locationDtoList = new ArrayList<>();
         locationDtoList.addAll(Arrays.asList(locationDtoArray));
         return locationDtoList;
-    }
-
-    //Send GET to URL and get array of objects
-    private void getLocationListWithOccurence() throws RestClientException {
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<LocationDto[]> responseEntity = restTemplate.getForEntity("http://localhost:8080/pa165/rest/location/withMushroomOccurence", LocationDto[].class);
-        LocationDto[] locationDtoArray = responseEntity.getBody();
-        for (int i = 0; i < locationDtoArray.length; i++) {
-            LocationDto location = locationDtoArray[0];
-            System.out.println("Id:                 " + location.getId());
-            System.out.println("Name:               " + location.getName());
-            System.out.println("Description:        " + location.getDescription());
-            System.out.println("Near city:          " + location.getNearCity());
-            System.out.println("Mushroom occurence: " + location.getMushroomOccurence());
-        }
     }
 
     private static List<Long> mushroomIDs = new ArrayList<>();
@@ -802,7 +783,9 @@ public class RestClient extends javax.swing.JFrame {
                 return;
             }
             DefaultTableModel model = (DefaultTableModel) tblMushroom.getModel();
-            model.addRow(new Object[]{tfMushroomName.getText(), comboBoxMushroomType.getSelectedItem().toString(), comboBoxMushroomStartOfOccurence.getSelectedItem().toString(), comboBoxMushroomEndOfOccurence.getSelectedItem().toString()});
+            model.addRow(new Object[]{tfMushroomName.getText(), comboBoxMushroomType.getSelectedItem().toString(),
+                comboBoxMushroomStartOfOccurence.getSelectedItem().toString(), 
+                comboBoxMushroomEndOfOccurence.getSelectedItem().toString()});
         }
     }
 
@@ -839,8 +822,8 @@ public class RestClient extends javax.swing.JFrame {
             HttpEntity request = new HttpEntity(json, headers);
 
             RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<MushroomDto> newmushroom = restTemplate.exchange("http://localhost:8080/pa165/rest/mushroom", HttpMethod.PUT, request, MushroomDto.class);
-            MushroomDto updatedMushroom = newmushroom.getBody();
+            ResponseEntity<MushroomDto> newmushroom = 
+                    restTemplate.exchange("http://localhost:8080/pa165/rest/mushroom", HttpMethod.PUT, request, MushroomDto.class);
             return selectedRow;
         }
 
@@ -924,7 +907,8 @@ public class RestClient extends javax.swing.JFrame {
                     String startOfOccurence = MMMMFormat.format(list.get(i).getStartOfOccurence());
                     String endOfOccurence = MMMMFormat.format(list.get(i).getEndOfOccurence());
 
-                    model.addRow(new Object[]{list.get(i).getName(), list.get(i).getType().toString(), startOfOccurence, endOfOccurence});
+                    model.addRow(new Object[]{list.get(i).getName(), list.get(i).getType().toString(), 
+                        startOfOccurence, endOfOccurence});
                 }
             } catch (ExecutionException ex) {
 
@@ -936,14 +920,16 @@ public class RestClient extends javax.swing.JFrame {
 
     private MushroomDto getMushroomDetail(Long mushroomId) throws RestClientException {
         RestTemplate restTemplate = new RestTemplate();
-        MushroomDto mushroom = restTemplate.getForObject("http://localhost:8080/pa165/rest/mushroom/" + mushroomId, MushroomDto.class);
+        MushroomDto mushroom = 
+                restTemplate.getForObject("http://localhost:8080/pa165/rest/mushroom/" + mushroomId, MushroomDto.class);
         return mushroom;
     }
 
     //Send GET to URL and get array of objects
     private List<MushroomDto> getMushroomList() throws RestClientException {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<MushroomDto[]> responseEntity = restTemplate.getForEntity("http://localhost:8080/pa165/rest/mushroom/", MushroomDto[].class);
+        ResponseEntity<MushroomDto[]> responseEntity = 
+                restTemplate.getForEntity("http://localhost:8080/pa165/rest/mushroom/", MushroomDto[].class);
         MushroomDto[] mushroomDtoArray = responseEntity.getBody();
         List<MushroomDto> mushroomDtoList = new ArrayList<>();
         mushroomDtoList.addAll(Arrays.asList(mushroomDtoArray));

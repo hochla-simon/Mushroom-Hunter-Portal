@@ -1,9 +1,6 @@
-//Skupina controllerů pro hunter, angulární aplikace (mushroomHunterApp.js) na ní má závislost
 var hunterControllers = angular.module('hunterControllers', []);
 
-//Controller pro zobrazení listu lokací (hunterList.html)
 hunterControllers.controller('HunterListCtrl', ['$scope', '$window', 'HunterService', function ($scope, $window, HunterService) {
-//Objekt zapsaný v JSONu
 
         $scope.hunters = HunterService("").query();
 
@@ -74,9 +71,6 @@ hunterControllers.controller('HunterDetailCtrl', ['$scope', '$routeParams', '$wi
         };
     }]);
 
-//
-//  CREATE NEW HUNTER CONTROLLER
-//
 hunterControllers.controller('HunterCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'HunterService', function ($scope, $routeParams, $window, $log, HunterService) {
         $scope.validationErrors = {
             "fieldErrors": []
@@ -112,9 +106,7 @@ hunterControllers.controller('HunterCreateCtrl', ['$scope', '$routeParams', '$wi
             $window.location.href = '/pa165/#/hunter/detail/' + hunterId;
         };
     }]);
-//
-//  HUNTER SERVICES
-//
+
 var hunterServices = angular.module('hunterServices', ['ngResource']);
 hunterServices.factory('HunterService', ['$resource', function ($resource) {
         return function (hunter) {
