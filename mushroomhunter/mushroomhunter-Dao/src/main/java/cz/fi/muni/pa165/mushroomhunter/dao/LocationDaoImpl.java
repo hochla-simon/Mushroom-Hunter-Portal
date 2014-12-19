@@ -99,8 +99,12 @@ public class LocationDaoImpl implements LocationDao {
         Map<Location, Integer> resultMap = new HashMap<Location, Integer>();
         for (Object[] location : locationWihtMushroomsList) {
             {
-                Integer sumOfMushrooms = new Integer((int) (long) location[0]);
-
+                Integer sumOfMushrooms = 0;
+                try{
+                    sumOfMushrooms = new Integer((int) (long) location[0]);
+                }catch (Exception e) {
+                    System.err.println("Sum of mushroom occurence can't be cast to Integer, value \"0\" will be used instead.");
+                }
                 Location l = new Location();
                 l.setId((Long) location[1]);
                 l.setName((String) location[2]);

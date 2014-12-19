@@ -7,7 +7,7 @@
             </div>
         </div>
     </div>
-    <div class="alert alert-danger" role="alert" ng-repeat="fieldError in validationErrors.fieldErrors">
+    <div class="alert alert-danger" role="alert" ng-repeat="fieldError in errorMessages.fieldErrors">
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         <span class="sr-only">Error:</span>
         {{fieldError.field}} - {{fieldError.message}}
