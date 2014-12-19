@@ -30,9 +30,7 @@ public class LocationConverter {
      */
     public Location locationDtoToEntity(LocationDto locationDto) {
         Mapper mapper = new DozerBeanMapper();
-        Location location
-                = mapper.map(locationDto, Location.class);
-        return location;
+        return mapper.map(locationDto, Location.class);
     }
 
     /**
@@ -43,9 +41,7 @@ public class LocationConverter {
      */
     public LocationDto locationEntityToDto(Location location) {
         Mapper mapper = new DozerBeanMapper();
-        LocationDto locationDto
-                = mapper.map(location, LocationDto.class);
-        return locationDto;
+        return mapper.map(location, LocationDto.class);
     }
 
     /**

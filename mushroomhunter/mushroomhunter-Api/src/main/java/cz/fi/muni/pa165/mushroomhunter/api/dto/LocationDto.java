@@ -6,7 +6,6 @@
 package cz.fi.muni.pa165.mushroomhunter.api.dto;
 
 import java.util.Objects;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;

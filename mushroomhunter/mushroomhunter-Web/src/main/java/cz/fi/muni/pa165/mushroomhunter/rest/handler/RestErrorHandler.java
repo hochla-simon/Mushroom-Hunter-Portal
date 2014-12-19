@@ -52,9 +52,13 @@ public class RestErrorHandler {
         return dto;
     }
  
+    /**
+     * Return localized error message
+     * @param fieldError
+     * @return localized error message
+     */
     private String resolveLocalizedErrorMessage(FieldError fieldError) {
         Locale currentLocale =  LocaleContextHolder.getLocale();
-        String localizedErrorMessage = messageSource.getMessage(fieldError, currentLocale); 
-        return localizedErrorMessage;
+        return messageSource.getMessage(fieldError, currentLocale); 
     }
 }

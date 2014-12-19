@@ -23,8 +23,7 @@ public class MushroomConverter {
      */
     public Mushroom mushroomDtoToEntity(MushroomDto mushroomDto) {
         Mapper mapper = new DozerBeanMapper();
-        Mushroom mushroom = mapper.map(mushroomDto, Mushroom.class);
-        return mushroom;
+        return mapper.map(mushroomDto, Mushroom.class);
     }
 
     /**
@@ -35,8 +34,7 @@ public class MushroomConverter {
      */
     public MushroomDto mushroomEntityToDto(Mushroom mushroom) {
         Mapper mapper = new DozerBeanMapper();
-        MushroomDto mushroomDto = mapper.map(mushroom, MushroomDto.class);
-        return mushroomDto;
+        return mapper.map(mushroom, MushroomDto.class);
     }
 
     /**
