@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>cz.fi.muni.pa165.mushroomhunter</groupId>
-  <artifactId>mushroomhunter</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>pom</packaging>
+    <groupId>cz.fi.muni.pa165.mushroomhunter</groupId>
+    <artifactId>mushroomhunter</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-  <name>mushroomhunter</name>
-  <url>http://maven.apache.org</url>
+    <name>mushroomhunter</name>
+    <url>http://maven.apache.org</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-     <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-     <spring.version>4.1.1.RELEASE</spring.version>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <spring.version>4.1.1.RELEASE</spring.version>
+    </properties>
 
-  <dependencies>
-	  <dependency>
+    <dependencies>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.10</version>
@@ -96,10 +96,25 @@
             <type>jar</type>
         </dependency>
 
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.7</version>
+            <type>jar</type>
+        </dependency>
         
-  </dependencies>
+        <!-- Sonar -->
+        <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+            <version>2.4</version>
+            <type>maven-plugin</type>
+        </dependency>
+        
+    </dependencies>
   
-   <build>
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -149,10 +164,10 @@
         </plugins>
     </build>
     
-  <modules>
-    <module>mushroomhunter-Dao</module>
-    <module>mushroomhunter-Service</module>
-    <module>mushroomhunter-Web</module>
-    <module>mushroomhunter-Api</module>
-  </modules>
+    <modules>
+        <module>mushroomhunter-Dao</module>
+        <module>mushroomhunter-Service</module>
+        <module>mushroomhunter-Web</module>
+        <module>mushroomhunter-Api</module>
+    </modules>
 </project>

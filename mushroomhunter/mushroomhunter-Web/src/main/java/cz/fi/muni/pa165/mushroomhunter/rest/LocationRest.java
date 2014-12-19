@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/location")
-public class locationRest {
+public class LocationRest {
 
     @Autowired
     LocationService locationService;

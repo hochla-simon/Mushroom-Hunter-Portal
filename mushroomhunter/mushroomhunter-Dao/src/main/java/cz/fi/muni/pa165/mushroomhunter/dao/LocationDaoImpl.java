@@ -10,6 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The implementation of a data object for the entity Location.
@@ -24,6 +26,8 @@ public class LocationDaoImpl implements LocationDao {
      */
     @PersistenceContext
     private EntityManager em;
+    
+    private static final Logger logger = LoggerFactory.getLogger(LocationDaoImpl.class);
 
     @Override
     public long save(Location location) {
@@ -103,7 +107,7 @@ public class LocationDaoImpl implements LocationDao {
                 try{
                     sumOfMushrooms = new Integer((int) (long) location[0]);
                 }catch (Exception e) {
-                    System.err.println("Sum of mushroom occurence can't be cast to Integer, value \"0\" will be used instead.");
+                    logger.error("Sum of mushroom occurence can't be cast to Integer, value \"0\" will be used instead.");
                 }
                 Location l = new Location();
                 l.setId((Long) location[1]);

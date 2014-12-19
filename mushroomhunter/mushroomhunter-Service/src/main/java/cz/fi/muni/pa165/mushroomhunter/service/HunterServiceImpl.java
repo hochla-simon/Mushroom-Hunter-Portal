@@ -28,8 +28,6 @@ public class HunterServiceImpl implements HunterService {
         if (hunterDto == null) {
             throw new NullPointerException();
         }
-
-        //return hunterDao.save(mapper.map(hunterDto, Hunter.class));
         return hunterDao.save(hunterConverter.hunterDtoToEntity(hunterDto));
 
     }

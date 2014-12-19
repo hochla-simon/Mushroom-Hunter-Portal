@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/mushroom")
-public class mushroomRest {
+public class MushroomRest {
 
     @Autowired
     MushroomService mushroomService;

@@ -1,11 +1,11 @@
 package cz.fi.muni.pa165.mushroomhunter.rest;
 
-import cz.fi.muni.pa165.mushroomhunter.api.dto.LocationDto;
 import cz.fi.muni.pa165.mushroomhunter.api.dto.VisitDto;
-import cz.fi.muni.pa165.mushroomhunter.api.service.LocationService;
 import cz.fi.muni.pa165.mushroomhunter.api.service.VisitService;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/visit")
-public class visitRest {
+public class VisitRest {
     
     @Autowired
     VisitService visitService;
+    
+    private static final Logger logger = LoggerFactory.getLogger(VisitRest.class);
     
     @RequestMapping(method = RequestMethod.GET)
     public List<VisitDto> getVisitList() {
@@ -40,9 +42,9 @@ public class visitRest {
     @RequestMapping(method = RequestMethod.POST)
     public List<Long> createVisit(@RequestBody VisitDto visit) {
         if(visit.getFoundMushrooms() != null) {
-            System.out.println("obsahuje mapu");
+            logger.info("obsahuje mapu");
         } else {
-            System.out.println("neobsahuje mapu");
+            logger.info("neobsahuje mapu");
         }
         List<Long> resultList = new ArrayList<>();
         resultList.add(visitService.saveVisit(visit));

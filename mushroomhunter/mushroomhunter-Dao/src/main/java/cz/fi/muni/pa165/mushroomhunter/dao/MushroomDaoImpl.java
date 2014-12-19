@@ -10,7 +10,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
-
 /**
  *
  * @author Simon Hochla
@@ -18,16 +17,16 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class MushroomDaoImpl implements MushroomDao {
 
-     /**
+    /**
      * Entity manager.
      */
     @PersistenceContext
     private EntityManager em;
-    
+
     @Override
     public long save(Mushroom mushroom) {
-       em.persist(mushroom);
-       return mushroom.getId();
+        em.persist(mushroom);
+        return mushroom.getId();
     }
 
     @Override
@@ -37,7 +36,7 @@ public class MushroomDaoImpl implements MushroomDao {
 
     @Override
     public void delete(Mushroom mushroom) {
-		if (!em.contains(mushroom)){
+        if (!em.contains(mushroom)) {
             mushroom = em.merge(mushroom);
         }
         em.remove(mushroom);
@@ -47,34 +46,34 @@ public class MushroomDaoImpl implements MushroomDao {
     public Mushroom find(long id) {
         final Query query = em.createQuery("SELECT m FROM Mushroom m WHERE id = :id");
         query.setParameter("id", id);
-        return (Mushroom)query.getSingleResult();
+        return (Mushroom) query.getSingleResult();
     }
 
     @Override
     public List<Mushroom> findAll() {
         final Query query = em.createQuery("SELECT m FROM Mushroom m");
-        return (List<Mushroom>)query.getResultList();
+        return (List<Mushroom>) query.getResultList();
     }
 
     @Override
     public List<Mushroom> findByName(String name) {
         final Query query = em.createQuery("SELECT m FROM Mushroom m WHERE name = :name");
         query.setParameter("name", name);
-        return (List<Mushroom>)query.getResultList();
+        return (List<Mushroom>) query.getResultList();
     }
 
     @Override
     public List<Mushroom> findByLocation(Location loc) {
         final Query query = em.createQuery("SELECT m FROM Mushroom m, Visit v WHERE m.id = (SELECT key(map) FROM v.foundMushrooms map WHERE v.location = :location)");
         query.setParameter("location", loc);
-        return (List<Mushroom>)query.getResultList();
+        return (List<Mushroom>) query.getResultList();
     }
 
     @Override
     public List<Mushroom> findByType(Type type) {
         final Query query = em.createQuery("SELECT m FROM Mushroom m WHERE type = :type");
         query.setParameter("type", type);
-        return (List<Mushroom>)query.getResultList();
+        return (List<Mushroom>) query.getResultList();
     }
 
     @Override
@@ -87,8 +86,8 @@ public class MushroomDaoImpl implements MushroomDao {
                 + "OR m.endOfOccurence BETWEEN :startOfOccurence AND :endOfOccurence");
         query.setParameter("startOfOccurence", startOfOccurence);
         query.setParameter("endOfOccurence", endOfOccurence);
-        
-        return (List<Mushroom>)query.getResultList();
+
+        return (List<Mushroom>) query.getResultList();
     }
-    
+
 }

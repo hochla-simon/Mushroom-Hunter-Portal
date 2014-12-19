@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class HunterConverter {
-    
+
     @Autowired
     private Mapper mapper;
 
@@ -27,8 +27,9 @@ public class HunterConverter {
      */
     public Hunter hunterDtoToEntity(HunterDto hunterDto) {
         return mapper.map(hunterDto, Hunter.class);
-                }
-/**
+    }
+
+    /**
      * Convert Hunter entity to Hunter DTO.
      *
      * @param hunter entity
@@ -46,8 +47,9 @@ public class HunterConverter {
      */
     public List<HunterDto> hunterEntityToDtoList(List<Hunter> hunterList) {
         List<HunterDto> hunterDaoList = new ArrayList<>();
-        for(Hunter hunter : hunterList)
-		hunterDaoList.add(this.hunterEntityToDto(hunter));
+        for (Hunter hunter : hunterList) {
+            hunterDaoList.add(this.hunterEntityToDto(hunter));
+        }
         return hunterDaoList;
     }
 }

@@ -22,14 +22,16 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/hunter")
-public class hunterRest {
+public class HunterRest {
     @Autowired
     HunterService hunterService;
     
     @RequestMapping(method = RequestMethod.GET)
     public List<HunterDto> getHunterList() {
 	List<HunterDto> hunterList = hunterService.findAll();
-        if (hunterList == null) hunterList = new ArrayList<>();
+        if (hunterList == null) {
+            hunterList = new ArrayList<>();
+        }
         return hunterList;
     }
     
