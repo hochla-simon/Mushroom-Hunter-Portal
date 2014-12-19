@@ -15,25 +15,35 @@
                         <tr style="background-color: #a68a88; font-weight: bold">
                             <td>
                                 ID
+                                <a href="" ng-click="predicate = 'id'; reverse=false">^</a> 
+               <a href="" ng-click="predicate = 'id'; reverse=true">v</a>
                             </td>
                             <td>
                                 {{ 'NAME' | translate }}
+                                <a href="" ng-click="predicate = 'name'; reverse=false">^</a> 
+               <a href="" ng-click="predicate = 'name'; reverse=true">v</a>
                             </td>
                             <td>
                                 {{ 'TYPE' | translate }}
+                                   <a href="" ng-click="predicate = 'type'; reverse=false">^</a> 
+               <a href="" ng-click="predicate = 'type'; reverse=true">v</a>
                             </td>
                             <td>
                                 {{ 'STARTOFO' | translate }}
+                                  <a href="" ng-click="predicate = 'startOfOccurence'; reverse=false">^</a> 
+               <a href="" ng-click="predicate = 'startOfOccurence'; reverse=true">v</a>
                             </td>
                             <td>
                                 {{ 'ENDOFO' | translate }}
+                                 <a href="" ng-click="predicate = 'endOfOccurence'; reverse=false">^</a> 
+               <a href="" ng-click="predicate = 'endOfOccurence'; reverse=true">v</a>
                             </td>
                             <td>
                                 {{ 'SHOWDETAIL' | translate }}
                             </td>
                         </tr>
                     </thead>
-                    <tr ng-repeat="mushroom in mushrooms| filter:searchText">
+                    <tr ng-repeat="mushroom in mushrooms  | orderBy:predicate:reverse | filter:searchText">
                         <td>
                             {{mushroom.id}}
                         </td>
