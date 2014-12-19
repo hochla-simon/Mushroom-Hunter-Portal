@@ -3,6 +3,9 @@ package cz.fi.muni.pa165.mushroomhunter.api.dto;
 import cz.fi.muni.pa165.mushroomhunter.api.Type;
 import java.util.Date;
 import java.util.Objects;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -17,11 +20,14 @@ public class MushroomDto {
     /**
      * The name of the mushroom.
      */
+    @NotBlank
+    @Length(min = 1, max = 40)
     private String name;
 
     /**
      * The type enum of the mushroom.
      */
+    @NotNull
     private Type type;
     
     /**

@@ -12,6 +12,7 @@ import cz.fi.muni.pa165.mushroomhunter.api.dto.MushroomDto;
 import cz.fi.muni.pa165.mushroomhunter.api.service.MushroomService;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,14 +43,14 @@ public class MushroomRest {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public List<Long> createMushroom(@RequestBody MushroomDto mushroom) {
+    public List<Long> createMushroom(@RequestBody @Valid MushroomDto mushroom) {
         List<Long> resultList = new ArrayList<>();
         resultList.add(mushroomService.save(mushroom));
         return resultList;
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public MushroomDto updateMushroom(@RequestBody MushroomDto mushroom) {
+    public MushroomDto updateMushroom(@RequestBody @Valid MushroomDto mushroom) {
         return mushroomService.update(mushroom);
     }
 

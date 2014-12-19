@@ -7,6 +7,11 @@
             </div>
         </div>
     </div>
+    <div class="alert alert-danger" role="alert" ng-repeat="fieldError in validationErrors.fieldErrors">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{fieldError.field}} - {{fieldError.message}}
+    </div>
     <div class="row">
         <div class="box">
             <div class="col-lg-12">
@@ -41,7 +46,7 @@
                                             ng-model="SelectType.mushType"
                                             ng-options="type.Key as type.Value for type in mushroomTypes"
                                         required >
-                                                 <option value="">-- choose type --</option>
+                                                 <option value="">{{ 'CHOOSETYPE' | translate }}</option>
                                     </select>
                                 </span>
 

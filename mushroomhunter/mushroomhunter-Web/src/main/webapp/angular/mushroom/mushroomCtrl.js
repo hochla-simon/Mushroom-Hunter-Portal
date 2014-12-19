@@ -10,9 +10,7 @@ mushroomControllers.controller('MushroomTypeCtrl', ['$scope', '$translate', func
     ];
     $scope.SelectType = {};
     
-    //Populate value here
     $scope.SelectType.mushType = $scope.mushroom.type;
-    //$scope.mushroom.type = $scope.SelectType.mushType;
   });
 }]);
 
@@ -72,10 +70,13 @@ mushroomControllers.controller('MushroomDetailCtrl', ['$scope', '$routeParams', 
         {Key: 'INEDIBLE', Value: translations.INEDIBLE},
         {Key: 'POISONOUS', Value: translations.POISONOUS}
     ];
+    $scope.validationErrors = {};
     
         $scope.mushroom = MushroomService($routeParams.mushroomId).getMushroomDetail(
                 function (data, status, headers, config) {
                     $log.info("Mushroom detail loaded.");
+                     $scope.location = data;
+                    $scope.locationBackup = angular.copy($scope.location);
                 },
                 function (data, status, headers, config) {
                     $log.error("An error occurred on server! Detail of mushroom cannot be loaded.");
@@ -84,16 +85,10 @@ mushroomControllers.controller('MushroomDetailCtrl', ['$scope', '$routeParams', 
     $scope.startDate = new Date($scope.mushroom.startOfOccurence);
     
     $scope.updateType = function(mushroom) {
-        //mushroom.type = $scope.SelectType.mushType;
         $scope.updateMushroom(mushroom);
-   // use $scope.selectedItem.code and $scope.selectedItem.name here
-   // for other stuff ...
+   
 };
     
-    //Populate value here
-    //$scope.SelectType.mushType =  $scope.mushroom.type;
-   // $scope.SelectType.mushType = 1;
-            
         $scope.goToMushroomList = function () {
             $window.location.href = '/pa165/#/mushroom';
         };
@@ -103,9 +98,11 @@ mushroomControllers.controller('MushroomDetailCtrl', ['$scope', '$routeParams', 
             MushroomService("").update(mushroom,
                     function (data, status, headers, config) {
                         $log.info("Mushroom updated");
+                        $scope.validationErrors = {};
                     },
                     function (data, status, headers, config) {
                         $log.error("An error occurred on server! Mushroom cannot be updated.");
+                        $scope.validationErrors = data.data;
                     });
         };
 
@@ -147,10 +144,12 @@ mushroomControllers.controller('MushroomCreateCtrl', ['$scope', '$routeParams', 
             MushroomService("").create($scope.mushroom,
                     function (data, status, headers, config) {
                         $log.info("Mushroom created");
+                        $scope.validationErrors = {};
                         $scope.showMushroomDetail(data);
                     },
                     function (data, status, headers, config) {
                         $log.error("An error occurred on server! Mushroom cannot be created.");
+                        $scope.validationErrors = data.data;
                     });
         };
         
@@ -166,11 +165,6 @@ mushroomControllers.controller('MushroomCreateCtrl', ['$scope', '$routeParams', 
             $scope.clear = function () {
                 $scope.mushroom.startOfOccurence = null;
             };
-
-            // Disable weekend selection
-            //$scope.disabled = function (date, mode) {
-            //    return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
-            //};
 
             $scope.toggleMin = function () {
                 $scope.minDate = $scope.minDate ? null : new Date();

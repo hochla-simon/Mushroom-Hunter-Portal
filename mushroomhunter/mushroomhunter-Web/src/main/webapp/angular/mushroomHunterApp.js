@@ -170,6 +170,7 @@ app.config(function($translateProvider) {
     SETLOCATIONNAME: 'Set location name',
     SETDESCRIPTION: 'Set description',
     SETNEARCITY: 'Set near city',
+    CHOOSETYPE: '-- choose type --',
     
     FILTERMUSH: 'Filter mushrooms',
     FILTERHUNTER: 'Filter hunters',
@@ -261,6 +262,7 @@ app.config(function($translateProvider) {
     SETLOCATIONNAME: 'Zadejte jm\u00e9no m\u00edsta',
     SETDESCRIPTION: 'Zadejte popis',
     SETNEARCITY: 'Zadejte nejbli\u017e\u0161\u00ed m\u011bsto',
+    CHOOSETYPE: '-- vyberte typ --',
     
     FILTERMUSH: 'Filtr hub',
     FILTERHUNTER: 'Filtr houba\u0159\u016f',
