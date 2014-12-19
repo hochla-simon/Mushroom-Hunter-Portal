@@ -5,6 +5,10 @@
 package cz.fi.muni.pa165.mushroomhunter.api.dto;
 
 import java.util.Objects;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -20,21 +24,28 @@ public class HunterDto {
     /**
      * The hunter's nick.
      */
+    @NotBlank
+    @Length(max = 20)
     private String nick;
 
     /**
      * The hunter's first name.
      */
+    @NotNull
+    @Length(max = 20)
     private String firstName;
 
     /**
      * The hunter's surname.
      */
+    @NotNull
+    @Length(max = 20)
     private String surname;
 
     /**
      * The description of the hunter.
      */
+    @Length(max = 200)
     private String description;
     
     /**
