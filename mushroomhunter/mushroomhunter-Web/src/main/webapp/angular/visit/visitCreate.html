@@ -10,14 +10,6 @@
     <div class="row">
         <div class="box">
             <div class="col-lg-12">
-                <center>
-                    Attach the existing location to the visit: <select ng-model="location" ng-options="location.id + location.name for location in locations track by location.name" ></select>
-                    Or <button type="button" class="btn btn-info" ng-click="goToCreateLocation()">
-                        Create new location
-                    </button>
-                </center>
-                <br />
-                <br />
                 <table align="center" style="width:1000px" class="table table-striped table-bordered table-hover table-condensed">
                     <thead>
                         <tr style="background-color: #a68a88; font-weight: bold">
@@ -44,46 +36,56 @@
                     </tr>
                     <tr>
                         <td>
-                            Nalezená houba
+                            {{ 'FOUNDMUSHROOM' | translate }}
                         </td>
                         <td>
-                            Houba: <select ng-model="mushroom" ng-options="mushroom.id + mushroom.name for mushroom in mushrooms track by mushroom.name"></select> Počet: <input value="" type="number" placeholder="Počet" ng-model="mushroomsAmount">
+                            {{ 'MUSHROOM' | translate }}: <select ng-model="mushroom" ng-options="mushroom.id + mushroom.name for mushroom in mushrooms track by mushroom.name"></select> {{ 'AMOUNT' | translate }}: <input value="" type="number" placeholder="Počet" ng-model="mushroomsAmount">
                             <button type="button" class="btn btn-success" ng-click="addMushroomItem()">
-                                Přidat do seznamu
+                                {{ 'ADDTOLIST' | translate }}
                             </button>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            Lokace
+                            {{ 'LOC' | translate }}
                         </td>
                         <td>
                             <select ng-model="location" ng-options="location.id + location.name for location in locations track by location.name" ></select>
+                            {{ 'OR' | translate }}
+                            <button type="button" class="btn btn-info" ng-click="goToCreateLocation()">
+                                {{ 'CREATENEWLOC' | translate }}
+                            </button>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            Hunter
+                            {{ 'HUNTER' | translate }}
                         </td>
                         <td>
                             <select ng-model="hunter" ng-options="hunter.id + hunter.nick for hunter in hunters track by hunter.nick" ></select>
+                            {{ 'OR' | translate }} 
+                            <button type="button" class="btn btn-info" ng-click="goToCreateHunter()">
+                                {{ 'CREATENEWHUNTER' | translate }}
+                            </button>
                         </td>
                     </tr>
                 </table>
+                <br />
                 <h2 class="intro-text text-center">
-                    <strong>Seznam nalezených hub {{getTotalMushrooms()}}</strong>
+                    <strong>{{ 'LISTOFFOUNDMUSHROOMS' | translate }}</strong>
                 </h2>
+                <center>({{ 'FOUNDTYPESAMOUNT' | translate }}: {{getTotalMushrooms()}})</center>
                 <table align="center" style="width:1000px" class="table table-striped table-bordered table-hover table-condensed">
                     <thead>
                         <tr style="background-color: #a68a88; font-weight: bold">
                             <td>
-                                Houba
+                                {{ 'MUSHROOM' | translate }}
                             </td>
                             <td>
-                                Počet
+                                {{ 'AMOUNT' | translate }}
                             </td>
                             <td style="width: 10%">
-                                Odebrat
+                                {{ 'REMOVE' | translate }}
                             </td>
                         </tr>
                     </thead>
@@ -93,9 +95,9 @@
                             {{mushroomItem.amount}}
                         </td>
                         <td>
-                            <button type="button" class="btn btn-danger" ng-click="removeItem($index)">
-                        Odebrat
-                    </button>
+                            <button type="button" class="btn btn-danger" ng-click="removeItem($index, mushroomItem.name.id, mushroomItem.amount)">
+                                {{ 'REMOVE' | translate }}
+                            </button>
                         </td>
                     </tr>
                 </table>

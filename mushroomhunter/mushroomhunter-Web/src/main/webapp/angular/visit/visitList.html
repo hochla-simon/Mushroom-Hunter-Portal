@@ -26,7 +26,10 @@
                                 {{ 'DATE' | translate }}
                             </td>
                             <td>
-                                {{ 'SHOWDETAIL' | translate }}
+                                Detail
+                            </td>
+                            <td>
+                                {{ 'DELETE' | translate }}
                             </td>
                         </tr>
                     </thead>
@@ -38,13 +41,16 @@
                             {{visit.location.name}}
                         </td>
                         <td>
-                            Franta
+                            {{visit.hunter.nick}}
                         </td>
                         <td>
                             {{visit.date| date:'fullDate'}}
                         </td>
                         <td>
-                            <a href="" ng-click="showVisitDetail(visit.id)"> Detail</a>
+                            <a href="" ng-click="showVisitDetail(visit.id)">Detail</a>
+                        </td>
+                        <td>
+                            <a href="" ng-click="deleteVisit(visit)">{{ 'DELETE' | translate }}</a>
                         </td>
                     </tr>
                 </table>

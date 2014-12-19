@@ -148,6 +148,16 @@ app.config(function($translateProvider) {
     INEDIBLE: 'Inedble',
     POISONOUS: 'Poisonous',
     
+    DELETE: 'Delete',
+    REMOVE: 'Remove',
+    AMOUNT: 'Amount',
+    LISTOFFOUNDMUSHROOMS: 'List of found mushrooms',
+    FOUNDTYPESAMOUNT: 'Number of found types',
+    MUSHROOM: 'Mushroom',
+    OR: 'Or',
+    FOUNDMUSHROOM: 'Found mushroom',
+    ADDTOLIST: 'Add to the list',
+    
     CLEAR: 'Clear',
     TODAY: 'Today',
     CLOSE: 'Close',
@@ -227,6 +237,16 @@ app.config(function($translateProvider) {
     EDIBLE: 'Jedl\u00e1',
     INEDIBLE: 'Nejedl\u00e1',
     POISONOUS: 'Jedovat\u00e1',
+    
+    DELETE: 'Smazat',
+    REMOVE: 'Odebrat',
+    AMOUNT: 'Mno\u017estv\u00ed',
+    LISTOFFOUNDMUSHROOMS: 'Seznam nalezen\u00fdch hub',
+    FOUNDTYPESAMOUNT: 'Po\u010det nalezen\u00fdch druh\u016f',
+    MUSHROOM: 'Houba',
+    OR: 'Nebo',
+    FOUNDMUSHROOM: 'Nalezen\u00e1 houba',
+    ADDTOLIST: 'P\u0159idat do seznamu',
     
     CLEAR: 'Vymazat',
     TODAY: 'Dnes',

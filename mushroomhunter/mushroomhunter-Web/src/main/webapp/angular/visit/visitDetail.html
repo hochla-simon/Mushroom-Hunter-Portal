@@ -34,7 +34,7 @@
                             {{ 'LOC' | translate }}
                         </td>
                         <td>
-                            {{visit.location.name}} 
+                            <a href="" ng-click="showLocationDetail(visit.location.id)">{{visit.location.name}}</a> 
                         </td>
                     </tr>
                     <tr>
@@ -42,7 +42,7 @@
                             {{ 'HUNTER' | translate }}
                         </td>
                         <td>
-                            <span editable-text="visit.hunter" onbeforesave="" onaftersave="updateVisit(visit)">Franta</span> 
+                            <a href="" ng-click="showLocationDetail(visit.hunter.id)">{{visit.hunter.nick}}</a> 
                         </td>
                     </tr>
                     <tr>
@@ -59,6 +59,28 @@
                         </td>
                     </tr>
                 </table>
+                <h2 class="intro-text text-center">
+                    <strong>{{ 'LISTOFFOUNDMUSHROOMS' | translate }}</strong>
+                </h2>
+                <table align="center" style="width:1000px" class="table table-striped table-bordered table-hover table-condensed">
+                    <thead>
+                        <tr style="background-color: #a68a88; font-weight: bold">
+                            <td>
+                                {{ 'MUSHROOM' | translate }}
+                            </td>
+                            <td>
+                                {{ 'AMOUNT' | translate }}
+                            </td>
+                        </tr>
+                    </thead>
+                    <tr ng-repeat='(key, value) in visit.foundMushrooms'>
+                        <td>{{key}}</td>
+                        <td>
+                            {{value}}
+                        </td>
+                    </tr>
+                </table>
+                <br />
                 <center>
                     <button type="button" class="btn btn-danger" ng-click="deleteVisit(visit)">
                         {{ 'DELETEVISIT' | translate }}

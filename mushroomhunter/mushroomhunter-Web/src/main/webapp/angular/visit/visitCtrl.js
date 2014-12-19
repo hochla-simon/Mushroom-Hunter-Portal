@@ -28,6 +28,20 @@ visitControllers.controller('VisitListCtrl', ['$scope', '$window', '$log', 'Visi
         $scope.goToHomePage = function () {
             $window.location.href = '/pa165/';
         };
+
+        $scope.deleteVisit = function (visit) {
+            $log.info("Deleting visit with ID: " + visit.id);
+            VisitService(visit.id).delete(
+                    function (data, status, headers, config) {
+                        $log.info("Visit deleted");
+                        $scope.goToVisitList();
+                    },
+                    function (data, status, headers, config) {
+                        $log.error("An error occurred on server! Visit cannot be deleted.");
+                    });
+            $scope.visits.splice(visit, 1);
+            $scope.$apply();
+        };
     }]);
 
 //visitControllers.controller
@@ -59,14 +73,22 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
                 $window.location.href = '/pa165/#/visit';
             };
 
+            var arr = {}; // {} will create an object
+
             $scope.createVisit = function () {
                 $log.info("Creating new visit");
                 $scope.visit.location = $scope.location;
                 $scope.visit.hunter = $scope.hunter;
+
+
+                $scope.visit.foundMushrooms = arr;
+
+
                 //$scope.visit.foundMushrooms = $scope.mushroomItems;
                 //angular.forEach($scope.mushroomItems, function (item) {
                 //    $scope.mush
                 //});
+
                 VisitService("").create($scope.visit,
                         function (data, status, headers, config) {
                             $log.info("Visit created");
@@ -82,8 +104,6 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
             };
 
             $scope.mushroomItems = [];
-            
-            $scope.mushroomMap = [];
 
             $scope.addMushroomItem = function () {
 
@@ -92,15 +112,21 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
                     amount: $scope.mushroomsAmount
                 });
 
+                if (arr[$scope.mushroom.id] == null) {
+                    arr[$scope.mushroom.id] = $scope.mushroomsAmount;
+                } else {
+                    arr[$scope.mushroom.id] = arr[$scope.mushroom.id] + $scope.mushroomsAmount;
+                }
+
                 // Clear input fields after push
-                $scope.mushroom = "";
                 $scope.mushroomsAmount = "";
 
             };
 
             // Remove selected mushroom from the list
-            $scope.removeItem = function (index) {
+            $scope.removeItem = function (index, id, amount) {
                 $scope.mushroomItems.splice(index, 1);
+                arr[id] = arr[id] - amount;
             };
 
             // Get total count of found mushrooms
@@ -123,7 +149,7 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
             //};
 
             $scope.toggleMin = function () {
-                $scope.minDate = $scope.minDate ? null : new Date();
+                //$scope.minDate = $scope.minDate ? null : new Date();
             };
             $scope.toggleMin();
 
@@ -151,10 +177,16 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
 //
 //  VISIT DETAIL CONTROLLER
 //
-//visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', function ($scope, $routeParams, $window, $log, VisitService) {
-visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', 'LocationService', 'datepickerPopupConfig', '$translate', function ($scope, $routeParams, $window, $log, VisitService, LocationService, datepickerPopupConfig, $translate) {
+visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', 'MushroomService', 'datepickerPopupConfig', '$translate', function ($scope, $routeParams, $window, $log, VisitService, MushroomService, datepickerPopupConfig, $translate) {
         $translate(['TODAY', 'CLEAR', 'CLOSE']).then(function (translations) {
-
+            
+            //$scope.mushrooms = MushroomService("").query();
+            
+            //$scope.getMushroomById = function (mushroomId) {
+            //    $scope.mushroom = MushroomService(4).getMushroomDetail();
+            //    return $scope.mushroom;
+            //};
+            
             $scope.visit = VisitService($routeParams.visitId).getVisitDetail(
                     function (data, status, headers, config) {
                         $log.info("Visit detail loaded.");
@@ -162,9 +194,11 @@ visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$wind
                     function (data, status, headers, config) {
                         $log.error("An error occurred on server! Detail of visit cannot be loaded.");
                     });
+
             $scope.goToVisitList = function () {
                 $window.location.href = '/pa165/#/visit';
             };
+
             $scope.updateVisit = function (visit) {
                 $log.info("Saving visit with ID: " + visit.id);
                 VisitService("").update(visit,
@@ -175,8 +209,13 @@ visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$wind
                             $log.error("An error occurred on server! Visit cannot be updated.");
                         });
             };
+
+            $scope.showHunterDetail = function (hunterId) {
+                $window.location.href = '/pa165/#/hunter/detail/' + hunterId;
+            };
+
             $scope.deleteVisit = function (visit) {
-                $log.info("Deleting location with ID: " + visit.id);
+                $log.info("Deleting visit with ID: " + visit.id);
                 VisitService(visit.id).delete(
                         function (data, status, headers, config) {
                             $log.info("Visit deleted");
@@ -185,6 +224,11 @@ visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$wind
                         function (data, status, headers, config) {
                             $log.error("An error occurred on server! Visit cannot be deleted.");
                         });
+            };
+            
+            
+            $scope.showLocationDetail = function (locationId) {
+                $window.location.href = '/pa165/#/location/detail/' + locationId;
             };
 
             $scope.today = function () {
@@ -199,7 +243,7 @@ visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$wind
             //   return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
             //};
             $scope.toggleMin = function () {
-                $scope.minDate = $scope.minDate ? null : new Date();
+                //$scope.minDate = $scope.minDate ? null : new Date();
             };
             $scope.toggleMin();
             $scope.open = function ($event) {
