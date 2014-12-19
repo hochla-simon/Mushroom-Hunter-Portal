@@ -27,7 +27,6 @@
           http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
 ">
     <context:component-scan base-package="cz.fi.muni.pa165.mushroomhunter"/>
-    <context:annotation-config/>
     
     <tx:annotation-driven transaction-manager="transactionManager"/>
     

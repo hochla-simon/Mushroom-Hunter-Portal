@@ -36,11 +36,14 @@
                         <td>
 
                             <div ng-controller="MushroomTypeCtrl">
-                                <select name="{{mushroom.type = SelectType.mushType}}" class="form-control"
-                                        ng-model="SelectType.mushType"
-                                        ng-options="type.Key as type.Value for type in mushroomTypes"
-                                        required ></select>
-
+                                <span class = "nullable">
+                                    <select name="{{mushroom.type = SelectType.mushType}}" class="form-control"
+                                            ng-model="SelectType.mushType"
+                                            ng-options="type.Key as type.Value for type in mushroomTypes"
+                                        required >
+                                                 <option value="">-- choose type --</option>
+                                    </select>
+                                </span>
 
                             </div>
                         </td>
