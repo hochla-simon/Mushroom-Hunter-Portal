@@ -8,6 +8,7 @@ package cz.fi.muni.pa165.mushroomhunter.api.dto;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -23,6 +24,7 @@ public class VisitDto {
     /**
      * The hunter who made the visit.
      */
+    @NotNull
     private HunterDto hunter;
     
     /**
@@ -33,6 +35,7 @@ public class VisitDto {
     /**
      * The location where the visit was made.
      */
+    @NotNull
     private LocationDto location;
     
     /**

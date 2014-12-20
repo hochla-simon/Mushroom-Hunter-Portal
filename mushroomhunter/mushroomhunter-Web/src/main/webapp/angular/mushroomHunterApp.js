@@ -157,6 +157,7 @@ app.config(function($translateProvider) {
     OR: 'Or',
     FOUNDMUSHROOM: 'Found mushroom',
     ADDTOLIST: 'Add to the list',
+    VISITFILTER: 'Filter visits',
     
     CLEAR: 'Clear',
     TODAY: 'Today',
@@ -247,6 +248,7 @@ app.config(function($translateProvider) {
     OR: 'Nebo',
     FOUNDMUSHROOM: 'Nalezen\u00e1 houba',
     ADDTOLIST: 'P\u0159idat do seznamu',
+    VISITFILTER: 'Filtr n\u00e1v\u0161t\u011bv',
     
     CLEAR: 'Vymazat',
     TODAY: 'Dnes',

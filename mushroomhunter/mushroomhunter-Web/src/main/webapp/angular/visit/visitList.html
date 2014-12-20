@@ -13,17 +13,21 @@
                 <table align="center" style="width:1000px" class="table table-striped table-bordered table-hover table-condensed">
                     <thead>
                         <tr style="background-color: #a68a88; font-weight: bold">
-                            <td>
+                            <td ng-click="sortByField('id')">
                                 ID
+                                <span  ng-class="getOrderIcon('id')" />
                             </td>
-                            <td>
+                            <td ng-click="sortByField('location.name')">
                                 {{ 'LOC' | translate }}
+                                <span  ng-class="getOrderIcon('location.name')" />
                             </td>
-                            <td>
+                            <td ng-click="sortByField('hunter.nick')">
                                 {{ 'HUNTER' | translate }}
+                                <span  ng-class="getOrderIcon('hunter.nick')" />
                             </td>
-                            <td>
+                            <td ng-click="sortByField('date')">
                                 {{ 'DATE' | translate }}
+                                <span  ng-class="getOrderIcon('date')" />
                             </td>
                             <td>
                                 Detail
@@ -33,7 +37,7 @@
                             </td>
                         </tr>
                     </thead>
-                    <tr ng-repeat="visit in visits">
+                    <tr ng-repeat="visit in visits | filter:searchText | orderBy:orderByField:reverseSort">
                         <td>
                             {{visit.id}}
                         </td>
@@ -44,7 +48,7 @@
                             {{visit.hunter.nick}}
                         </td>
                         <td>
-                            {{visit.date| date:'fullDate'}}
+                            {{visit.date | date:'fullDate'}}
                         </td>
                         <td>
                             <a href="" ng-click="showVisitDetail(visit.id)">Detail</a>
@@ -54,6 +58,10 @@
                         </td>
                     </tr>
                 </table>
+                <div align="center">
+                    <input style="width:1000px" ng-model="searchText" class="form-control" id="exampleInputEmail1" placeholder="{{ 'VISITFILTER' | translate }}">
+                </div>
+                <br />
                 <center>
                     <button type="button" class="btn btn-info" ng-click="goToCreateVisit()">
                         {{ 'CREATENEWVISIT' | translate }}

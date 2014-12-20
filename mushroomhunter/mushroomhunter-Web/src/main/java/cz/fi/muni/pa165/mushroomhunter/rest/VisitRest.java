@@ -4,6 +4,7 @@ import cz.fi.muni.pa165.mushroomhunter.api.dto.VisitDto;
 import cz.fi.muni.pa165.mushroomhunter.api.service.VisitService;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class VisitRest {
     }
     
     @RequestMapping(method = RequestMethod.POST)
-    public List<Long> createVisit(@RequestBody VisitDto visit) {
+    public List<Long> createVisit(@RequestBody @Valid VisitDto visit) {
         if(visit.getFoundMushrooms() != null) {
             logger.info("obsahuje mapu");
         } else {
@@ -52,7 +53,7 @@ public class VisitRest {
     }
     
     @RequestMapping(method = RequestMethod.PUT)
-    public VisitDto updateVisit(@RequestBody VisitDto visit) {
+    public VisitDto updateVisit(@RequestBody @Valid VisitDto visit) {
         return visitService.updateVisit(visit);
     }
     

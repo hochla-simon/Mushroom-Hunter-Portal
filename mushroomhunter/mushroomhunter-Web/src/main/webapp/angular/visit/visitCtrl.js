@@ -4,7 +4,12 @@ var visitControllers = angular.module('visitControllers', []);
 //  VISIT LIST CONTROLLER
 //
 visitControllers.controller('VisitListCtrl', ['$scope', '$window', '$log', 'VisitService', function ($scope, $window, $log, VisitService) {
-
+        
+        //Table will be ordered by visit id by default
+        $scope.orderByField = 'id';
+        //Table will be ordered ascending by default
+        $scope.reverseSort = false;
+        
         $scope.visits = VisitService("").query();
 
         $scope.refreshVisits = function () {
@@ -41,6 +46,28 @@ visitControllers.controller('VisitListCtrl', ['$scope', '$window', '$log', 'Visi
                     });
             $scope.visits.splice(visit, 1);
             $scope.$apply();
+        };
+        
+        //Sort table by field(column) or switch asc/desc ordering
+        $scope.sortByField = function (field) {
+            //Switch between asc/desc ordering after click on column according which the table is already sorted.
+            if ($scope.orderByField == field) {
+                $scope.reverseSort = !$scope.reverseSort;
+            }
+            //Set column according which the table will be sorted
+            $scope.orderByField = field;
+        };
+
+        //Set apropriatry icon to indicate ordering
+        $scope.getOrderIcon = function (field) {
+            if ($scope.orderByField == field) {
+                if ($scope.reverseSort) {
+                    return 'glyphicon glyphicon-sort-by-attributes-alt';
+                }
+                else {
+                    return 'glyphicon glyphicon-sort-by-attributes';
+                }
+            }
         };
     }]);
 

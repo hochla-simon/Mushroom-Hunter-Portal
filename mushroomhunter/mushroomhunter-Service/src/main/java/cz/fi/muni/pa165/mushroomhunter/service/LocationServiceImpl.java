@@ -5,7 +5,6 @@ import cz.fi.muni.pa165.mushroomhunter.converter.LocationConverter;
 import cz.fi.muni.pa165.mushroomhunter.converter.MushroomConverter;
 import cz.fi.muni.pa165.mushroomhunter.dao.LocationDao;
 import cz.fi.muni.pa165.mushroomhunter.api.dto.LocationDto;
-import cz.fi.muni.pa165.mushroomhunter.api.dto.MushroomDto;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
