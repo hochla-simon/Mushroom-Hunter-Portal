@@ -169,5 +169,6 @@
         <module>mushroomhunter-Service</module>
         <module>mushroomhunter-Web</module>
         <module>mushroomhunter-Api</module>
+        <module>mushroomhunter-RestClient</module>
     </modules>
 </project>

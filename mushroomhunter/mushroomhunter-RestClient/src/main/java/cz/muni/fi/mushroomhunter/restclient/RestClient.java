@@ -24,6 +24,14 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
@@ -31,16 +39,32 @@ import java.util.Locale;
  */
 public class RestClient extends javax.swing.JFrame {
 
+    private AllLocationSwingWorker allLocationSwingWorker;
+    private AllMushroomsSwingWorker allMushroomsSwingWorker;
+    private LocationCreateSwingWorker locationCreateSwingWorker;
+    private LocationDeleteSwingWorker locationDeleteSwingWorker;
+    private LocationUpdateSwingWorker locationUpdateSwingWorker;
+    private MushroomCreateSwingWorker mushroomCreateSwingWorker;
+    private MushroomDeleteSwingWorker mushroomDeleteSwingWorker;
+    private MushroomUpdateSwingWorker mushroomUpdateSwingWorker;
+    public static final String SERVER_URL = "http://localhost:8080/";
     /**
      * Creates new form mainFrame
      */
     public RestClient() {
         initComponents();
+        
+        allLocationSwingWorker = new AllLocationSwingWorker(this);
+        allMushroomsSwingWorker = new AllMushroomsSwingWorker(this);
+//        locationCreateSwingWorker = new LocationCreateSwingWorker(this);
+//        locationDeleteSwingWorker = new LocationDeleteSwingWorker(this);
+//        locationUpdateSwingWorker = new LocationUpdateSwingWorker(this);
+//        mushroomCreateSwingWorker = new MushroomCreateSwingWorker(this);
+//        mushroomDeleteSwingWorker = new MushroomDeleteSwingWorker(this);
+//        mushroomUpdateSwingWorker = new MushroomUpdateSwingWorker(this);
+        
+        allLocationSwingWorker.execute();
 
-        allLocationsSwingWorker = new AllLocationsSwingWorker();
-        allLocationsSwingWorker.execute();
-
-        allMushroomsSwingWorker = new AllMushroomsSwingWorker();
         allMushroomsSwingWorker.execute();
     }
 
@@ -167,23 +191,20 @@ public class RestClient extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addComponent(jLabel5)
                             .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(comboBoxMushroomType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(comboBoxMushroomStartOfOccurence, javax.swing.GroupLayout.Alignment.TRAILING, 0, 176, Short.MAX_VALUE)
-                                .addComponent(comboBoxMushroomEndOfOccurence, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(comboBoxMushroomEndOfOccurence, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(bMushroomUpdate)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(bMushroomDelete))
-                            .addComponent(tfMushroomName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(340, 340, 340))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lMessageMushrooms, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
+                            .addComponent(comboBoxMushroomStartOfOccurence, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboBoxMushroomType, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfMushroomName, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 746, Short.MAX_VALUE)
+                    .addComponent(lMessageMushrooms, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,11 +226,10 @@ public class RestClient extends javax.swing.JFrame {
                     .addComponent(jLabel8)
                     .addComponent(comboBoxMushroomEndOfOccurence, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bMushroomUpdate)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(bMushroomCreate)
-                        .addComponent(bMushroomDelete)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bMushroomCreate)
+                    .addComponent(bMushroomDelete)
+                    .addComponent(bMushroomUpdate))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lMessageMushrooms, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -286,7 +306,7 @@ public class RestClient extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 746, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
@@ -305,7 +325,7 @@ public class RestClient extends javax.swing.JFrame {
                                 .addComponent(bLocationUpdate)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(bLocationDelete)))
-                        .addGap(0, 366, Short.MAX_VALUE))
+                        .addGap(0, 411, Short.MAX_VALUE))
                     .addComponent(lMessageLocations, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -371,7 +391,7 @@ public class RestClient extends javax.swing.JFrame {
             lMessageLocations.setText("Location cannot be longer than 20 characters.");
             return;
         }
-        locationCreateSwingWorker = new LocationCreateSwingWorker();
+        locationCreateSwingWorker = new LocationCreateSwingWorker(this);
         locationCreateSwingWorker.execute();
     }//GEN-LAST:event_bLocationCreateActionPerformed
 
@@ -402,7 +422,7 @@ public class RestClient extends javax.swing.JFrame {
                 lMessageLocations.setText("Please select single location.");
             }
         } else {
-            locationUpdateSwingWorker = new LocationUpdateSwingWorker();
+            locationUpdateSwingWorker = new LocationUpdateSwingWorker(this);
             locationUpdateSwingWorker.execute();
         }
     }//GEN-LAST:event_bLocationUpdateActionPerformed
@@ -418,7 +438,7 @@ public class RestClient extends javax.swing.JFrame {
                 lMessageLocations.setText("Please select single location.");
             }
         } else {
-            locationDeleteSwingWorker = new LocationDeleteSwingWorker();
+            locationDeleteSwingWorker = new LocationDeleteSwingWorker(this);
             locationDeleteSwingWorker.execute();
         }
     }//GEN-LAST:event_bLocationDeleteActionPerformed
@@ -438,6 +458,7 @@ public class RestClient extends javax.swing.JFrame {
     }//GEN-LAST:event_tblLocationMouseClicked
 
     private void tfMushroomNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfMushroomNameActionPerformed
+
     }//GEN-LAST:event_tfMushroomNameActionPerformed
 
     private void bMushroomCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMushroomCreateActionPerformed
@@ -458,13 +479,13 @@ public class RestClient extends javax.swing.JFrame {
             lMessageMushrooms.setText("Mushroom end of occurence cannot be empty.");
             return;
         }
-        mushroomCreateSwingWorker = new MushroomCreateSwingWorker();
+        mushroomCreateSwingWorker = new MushroomCreateSwingWorker(this);
         mushroomCreateSwingWorker.execute();
     }//GEN-LAST:event_bMushroomCreateActionPerformed
 
     private void bMushroomUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMushroomUpdateActionPerformed
         lMessageMushrooms.setText("");
-        
+
         if (tfMushroomName.getText().trim().equals("")) {
             lMessageMushrooms.setText("Mushroom name cannot be empty.");
             return;
@@ -481,7 +502,7 @@ public class RestClient extends javax.swing.JFrame {
             lMessageMushrooms.setText("Mushroom end of occurence cannot be empty.");
             return;
         }
-        
+
         if (tblMushroom.getSelectedRow() == -1) {
             if (tblMushroom.getRowCount() == 0) {
                 lMessageMushrooms.setText("There are no mushrooms to be updated.");
@@ -489,7 +510,7 @@ public class RestClient extends javax.swing.JFrame {
                 lMessageMushrooms.setText("Please select single mushroom.");
             }
         } else {
-            mushroomUpdateSwingWorker = new MushroomUpdateSwingWorker();
+            mushroomUpdateSwingWorker = new MushroomUpdateSwingWorker(this);
             mushroomUpdateSwingWorker.execute();
         }
     }//GEN-LAST:event_bMushroomUpdateActionPerformed
@@ -505,7 +526,7 @@ public class RestClient extends javax.swing.JFrame {
                 lMessageMushrooms.setText("Please select single mushroom.");
             }
         } else {
-            mushroomDeleteSwingWorker = new MushroomDeleteSwingWorker();
+            mushroomDeleteSwingWorker = new MushroomDeleteSwingWorker(this);
             mushroomDeleteSwingWorker.execute();
         }
     }//GEN-LAST:event_bMushroomDeleteActionPerformed
@@ -558,384 +579,259 @@ public class RestClient extends javax.swing.JFrame {
         });
     }
 
+    public JButton getbLocationCreate() {
+        return bLocationCreate;
+    }
+
+    public void setbLocationCreate(JButton bLocationCreate) {
+        this.bLocationCreate = bLocationCreate;
+    }
+
+    public JButton getbLocationDelete() {
+        return bLocationDelete;
+    }
+
+    public void setbLocationDelete(JButton bLocationDelete) {
+        this.bLocationDelete = bLocationDelete;
+    }
+
+    public JButton getbLocationUpdate() {
+        return bLocationUpdate;
+    }
+
+    public void setbLocationUpdate(JButton bLocationUpdate) {
+        this.bLocationUpdate = bLocationUpdate;
+    }
+
+    public JButton getbMushroomCreate() {
+        return bMushroomCreate;
+    }
+
+    public void setbMushroomCreate(JButton bMushroomCreate) {
+        this.bMushroomCreate = bMushroomCreate;
+    }
+
+    public JButton getbMushroomDelete() {
+        return bMushroomDelete;
+    }
+
+    public void setbMushroomDelete(JButton bMushroomDelete) {
+        this.bMushroomDelete = bMushroomDelete;
+    }
+
+    public JButton getbMushroomUpdate() {
+        return bMushroomUpdate;
+    }
+
+    public void setbMushroomUpdate(JButton bMushroomUpdate) {
+        this.bMushroomUpdate = bMushroomUpdate;
+    }
+
+    public JComboBox getComboBoxMushroomEndOfOccurence() {
+        return comboBoxMushroomEndOfOccurence;
+    }
+
+    public void setComboBoxMushroomEndOfOccurence(JComboBox comboBoxMushroomEndOfOccurence) {
+        this.comboBoxMushroomEndOfOccurence = comboBoxMushroomEndOfOccurence;
+    }
+
+    public JComboBox getComboBoxMushroomStartOfOccurence() {
+        return comboBoxMushroomStartOfOccurence;
+    }
+
+    public void setComboBoxMushroomStartOfOccurence(JComboBox comboBoxMushroomStartOfOccurence) {
+        this.comboBoxMushroomStartOfOccurence = comboBoxMushroomStartOfOccurence;
+    }
+
+    public JComboBox getComboBoxMushroomType() {
+        return comboBoxMushroomType;
+    }
+
+    public void setComboBoxMushroomType(JComboBox comboBoxMushroomType) {
+        this.comboBoxMushroomType = comboBoxMushroomType;
+    }
+
+    public JLabel getjLabel1() {
+        return jLabel1;
+    }
+
+    public void setjLabel1(JLabel jLabel1) {
+        this.jLabel1 = jLabel1;
+    }
+
+    public JLabel getjLabel2() {
+        return jLabel2;
+    }
+
+    public void setjLabel2(JLabel jLabel2) {
+        this.jLabel2 = jLabel2;
+    }
+
+    public JLabel getjLabel3() {
+        return jLabel3;
+    }
+
+    public void setjLabel3(JLabel jLabel3) {
+        this.jLabel3 = jLabel3;
+    }
+
+    public JLabel getjLabel4() {
+        return jLabel4;
+    }
+
+    public void setjLabel4(JLabel jLabel4) {
+        this.jLabel4 = jLabel4;
+    }
+
+    public JLabel getjLabel5() {
+        return jLabel5;
+    }
+
+    public void setjLabel5(JLabel jLabel5) {
+        this.jLabel5 = jLabel5;
+    }
+
+    public JLabel getjLabel6() {
+        return jLabel6;
+    }
+
+    public void setjLabel6(JLabel jLabel6) {
+        this.jLabel6 = jLabel6;
+    }
+
+    public JLabel getjLabel8() {
+        return jLabel8;
+    }
+
+    public void setjLabel8(JLabel jLabel8) {
+        this.jLabel8 = jLabel8;
+    }
+
+    public JPanel getjPanel1() {
+        return jPanel1;
+    }
+
+    public void setjPanel1(JPanel jPanel1) {
+        this.jPanel1 = jPanel1;
+    }
+
+    public JPanel getjPanel2() {
+        return jPanel2;
+    }
+
+    public void setjPanel2(JPanel jPanel2) {
+        this.jPanel2 = jPanel2;
+    }
+
+    public JScrollPane getjScrollPane1() {
+        return jScrollPane1;
+    }
+
+    public void setjScrollPane1(JScrollPane jScrollPane1) {
+        this.jScrollPane1 = jScrollPane1;
+    }
+
+    public JScrollPane getjScrollPane3() {
+        return jScrollPane3;
+    }
+
+    public void setjScrollPane3(JScrollPane jScrollPane3) {
+        this.jScrollPane3 = jScrollPane3;
+    }
+
+    public JTabbedPane getjTabbedPane1() {
+        return jTabbedPane1;
+    }
+
+    public void setjTabbedPane1(JTabbedPane jTabbedPane1) {
+        this.jTabbedPane1 = jTabbedPane1;
+    }
+
+    public JLabel getlMessageLocations() {
+        return lMessageLocations;
+    }
+
+    public void setlMessageLocations(JLabel lMessageLocations) {
+        this.lMessageLocations = lMessageLocations;
+    }
+
+    public JLabel getlMessageMushrooms() {
+        return lMessageMushrooms;
+    }
+
+    public void setlMessageMushrooms(JLabel lMessageMushrooms) {
+        this.lMessageMushrooms = lMessageMushrooms;
+    }
+
+    public JTable getTblLocation() {
+        return tblLocation;
+    }
+
+    public void setTblLocation(JTable tblLocation) {
+        this.tblLocation = tblLocation;
+    }
+
+    public JTable getTblMushroom() {
+        return tblMushroom;
+    }
+
+    public void setTblMushroom(JTable tblMushroom) {
+        this.tblMushroom = tblMushroom;
+    }
+
+    public JTextField getTfLocationDescription() {
+        return tfLocationDescription;
+    }
+
+    public void setTfLocationDescription(JTextField tfLocationDescription) {
+        this.tfLocationDescription = tfLocationDescription;
+    }
+
+    public JTextField getTfLocationName() {
+        return tfLocationName;
+    }
+
+    public void setTfLocationName(JTextField tfLocationName) {
+        this.tfLocationName = tfLocationName;
+    }
+
+    public JTextField getTfLocationNearCity() {
+        return tfLocationNearCity;
+    }
+
+    public void setTfLocationNearCity(JTextField tfLocationNearCity) {
+        this.tfLocationNearCity = tfLocationNearCity;
+    }
+
+    public JTextField getTfMushroomName() {
+        return tfMushroomName;
+    }
+
+    public void setTfMushroomName(JTextField tfMushroomName) {
+        this.tfMushroomName = tfMushroomName;
+    }
+    
+    public static List<Long> getMushroomIDs() {
+        return mushroomIDs;
+    }
+
+    public static void setMushroomIDs(List<Long> mushroomIDs) {
+        RestClient.mushroomIDs = mushroomIDs;
+    }
+    public static List<Long> getLocationIDs() {
+        return locationIDs;
+    }
+
+    public static void setLocationIDs(List<Long> locationIDs) {
+        RestClient.locationIDs = locationIDs;
+    }
+    
     private static List<Long> locationIDs = new ArrayList<>();
-
-    private LocationCreateSwingWorker locationCreateSwingWorker;
-
-    private class LocationCreateSwingWorker extends SwingWorker<Void, Void> {
-
-        @Override
-        protected Void doInBackground() throws Exception {
-            LocationDto locationDto = new LocationDto();
-            locationDto.setName(tfLocationName.getText());
-            locationDto.setDescription(tfLocationDescription.getText());
-            locationDto.setNearCity(tfLocationNearCity.getText());
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            List<MediaType> mediaTypeList = new ArrayList<MediaType>();
-            mediaTypeList.add(MediaType.ALL);
-            headers.setAccept(mediaTypeList);
-
-            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-            String json = ow.writeValueAsString(locationDto);
-            HttpEntity request = new HttpEntity(json, headers);
-
-            RestTemplate restTemplate = new RestTemplate();
-            Long[] result = restTemplate.postForObject("http://localhost:8080/pa165/rest/location", request, Long[].class);
-
-            locationIDs.add(result[0]);
-            return null;
-        }
-
-        @Override
-        protected void done() {
-            try {
-                get();
-            } catch (Exception e) {
-                lMessageLocations.setText("ERROR: server is unavailable.");
-                return;
-            }
-            DefaultTableModel model = (DefaultTableModel) tblLocation.getModel();
-            model.addRow(new Object[]{tfLocationName.getText(), tfLocationDescription.getText(), tfLocationNearCity.getText()});
-        }
-    }
-
-    private LocationUpdateSwingWorker locationUpdateSwingWorker;
-
-    private class LocationUpdateSwingWorker extends SwingWorker<Integer, Void> {
-
-        @Override
-        protected Integer doInBackground() throws Exception {
-            DefaultTableModel model = (DefaultTableModel) tblLocation.getModel();
-            int selectedRow = tblLocation.getSelectedRow();
-
-            LocationDto locationDto = getLocationDetail(locationIDs.get(selectedRow));
-            locationDto.setName(tfLocationName.getText());
-            locationDto.setDescription(tfLocationDescription.getText());
-            locationDto.setNearCity(tfLocationNearCity.getText());
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            List<MediaType> mediaTypeList = new ArrayList<>();
-            mediaTypeList.add(MediaType.APPLICATION_JSON);
-            headers.setAccept(mediaTypeList);
-
-            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-            String json = ow.writeValueAsString(locationDto);
-            HttpEntity request = new HttpEntity(json, headers);
-
-            RestTemplate restTemplate = new RestTemplate();
-            restTemplate.exchange("http://localhost:8080/pa165/rest/location", HttpMethod.PUT, request, LocationDto.class);
-            return selectedRow;
-        }
-
-        @Override
-        protected void done() {
-            try {
-                get();
-            } catch (Exception e) {
-                lMessageLocations.setText("ERROR: server is unavailable.");
-                return;
-            }
-            DefaultTableModel model = (DefaultTableModel) tblLocation.getModel();
-            try {
-                model.setValueAt(tfLocationName.getText(), get(), 0);
-                model.setValueAt(tfLocationDescription.getText(), get(), 1);
-                model.setValueAt(tfLocationNearCity.getText(), get(), 2);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private LocationDeleteSwingWorker locationDeleteSwingWorker;
-
-    private class LocationDeleteSwingWorker extends SwingWorker<Integer, Void> {
-
-        protected Integer doInBackground() throws Exception {
-            int selectedRow = tblLocation.getSelectedRow();
-            RestTemplate restTemplate = new RestTemplate();
-            restTemplate.delete("http://localhost:8080/pa165/rest/location/" + locationIDs.get(selectedRow));
-            locationIDs.remove(selectedRow);
-            return selectedRow;
-        }
-
-        @Override
-        protected void done() {
-            try {
-                get();
-            } catch (Exception e) {
-                lMessageLocations.setText("ERROR: server is unavailable.");
-                return;
-            }
-            DefaultTableModel model = (DefaultTableModel) tblLocation.getModel();
-            try {
-                model.removeRow(get());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private AllLocationsSwingWorker allLocationsSwingWorker;
-
-    private class AllLocationsSwingWorker extends SwingWorker<List<LocationDto>, Void> {
-
-        @Override
-        protected List<LocationDto> doInBackground() throws Exception {
-            return getLocationList();
-        }
-
-        @Override
-        protected void done() {
-            try {
-                get();
-            } catch (Exception e) {
-                lMessageLocations.setText("ERROR: server is unavailable.");
-                return;
-            }
-            try {
-                List<LocationDto> list = get();
-                DefaultTableModel model = (DefaultTableModel) tblLocation.getModel();
-                model.setRowCount(0);
-                for (LocationDto list1 : list) {
-                    locationIDs.add(list1.getId());
-                    model.addRow(new Object[]{list1.getName(), list1.getDescription(), list1.getNearCity()});
-                }
-            } catch (ExecutionException ex) {
-
-            } catch (InterruptedException ex) {
-                throw new RuntimeException("Operation interrupted", ex);
-            }
-        }
-    }
-
-    private LocationDto getLocationDetail(Long locationId) throws RestClientException {
-        RestTemplate restTemplate = new RestTemplate();
-        LocationDto location = restTemplate.getForObject("http://localhost:8080/pa165/rest/location/" + locationId, LocationDto.class);
-        return location;
-    }
-
-    //Send GET to URL and get array of objects
-    private List<LocationDto> getLocationList() throws RestClientException {
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<LocationDto[]> responseEntity = restTemplate.getForEntity("http://localhost:8080/pa165/rest/location/", 
-                LocationDto[].class);
-        LocationDto[] locationDtoArray = responseEntity.getBody();
-        List<LocationDto> locationDtoList = new ArrayList<>();
-        locationDtoList.addAll(Arrays.asList(locationDtoArray));
-        return locationDtoList;
-    }
 
     private static List<Long> mushroomIDs = new ArrayList<>();
 
-    private MushroomCreateSwingWorker mushroomCreateSwingWorker;
-
-    private class MushroomCreateSwingWorker extends SwingWorker<Void, Void> {
-
-        @Override
-        protected Void doInBackground() throws Exception {
-            MushroomDto mushroomDto = new MushroomDto();
-            mushroomDto.setName(tfMushroomName.getText());
-            
-            mushroomDto.setType(cz.fi.muni.pa165.mushroomhunter.api.Type.valueOf(comboBoxMushroomType.getSelectedItem().toString()));
-
-            //to create date object only month is used, day and year are fixed values
-            String dateInString = comboBoxMushroomStartOfOccurence.getSelectedItem().toString() + " 1, 2000";
-
-            SimpleDateFormat formatter = new SimpleDateFormat("MMMM d, yyyy", new Locale("en_US"));
-
-            mushroomDto.setStartOfOccurence(formatter.parse(dateInString));
-
-            //to create date object only month is used, day and year are fixed values
-            dateInString = comboBoxMushroomEndOfOccurence.getSelectedItem().toString() + " 1, 2000";
-            mushroomDto.setEndOfOccurence(formatter.parse(dateInString));
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            List<MediaType> mediaTypeList = new ArrayList<>();
-            mediaTypeList.add(MediaType.ALL);
-            headers.setAccept(mediaTypeList);
-
-            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-            String json = ow.writeValueAsString(mushroomDto);
-            HttpEntity request = new HttpEntity(json, headers);
-
-            RestTemplate restTemplate = new RestTemplate();
-            Long[] result = restTemplate.postForObject("http://localhost:8080/pa165/rest/mushroom", request, Long[].class);
-
-            System.out.println("Id of the created mushroom: " + result[0]);
-            mushroomIDs.add(result[0]);
-            return null;
-        }
-
-        @Override
-        protected void done() {
-            try {
-                get();
-            } catch (Exception e) {
-                lMessageMushrooms.setText("ERROR: server is unavailable.");
-                return;
-            }
-            DefaultTableModel model = (DefaultTableModel) tblMushroom.getModel();
-            model.addRow(new Object[]{tfMushroomName.getText(), comboBoxMushroomType.getSelectedItem().toString(),
-                comboBoxMushroomStartOfOccurence.getSelectedItem().toString(), 
-                comboBoxMushroomEndOfOccurence.getSelectedItem().toString()});
-        }
-    }
-
-    private MushroomUpdateSwingWorker mushroomUpdateSwingWorker;
-
-    private class MushroomUpdateSwingWorker extends SwingWorker<Integer, Void> {
-
-        @Override
-        protected Integer doInBackground() throws Exception {
-            DefaultTableModel model = (DefaultTableModel) tblMushroom.getModel();
-            int selectedRow = tblMushroom.getSelectedRow();
-
-            MushroomDto mushroomDto = getMushroomDetail(mushroomIDs.get(selectedRow));
-            mushroomDto.setName(tfMushroomName.getText());
-
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MMMM-yyyy", new Locale("en_US"));
-
-            //to create date object only month is used, day and year are fixed values
-            String dateInString = "01-" + comboBoxMushroomStartOfOccurence.getSelectedItem().toString() + "-2000";
-            mushroomDto.setStartOfOccurence(formatter.parse(dateInString));
-
-            //to create date object only month is used, day and year are fixed values
-            dateInString = "01-" + comboBoxMushroomEndOfOccurence.getSelectedItem().toString() + "-2000";
-            mushroomDto.setEndOfOccurence(formatter.parse(dateInString));
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            List<MediaType> mediaTypeList = new ArrayList<MediaType>();
-            mediaTypeList.add(MediaType.APPLICATION_JSON);
-            headers.setAccept(mediaTypeList);
-
-            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-            String json = ow.writeValueAsString(mushroomDto);
-            HttpEntity request = new HttpEntity(json, headers);
-
-            RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<MushroomDto> newmushroom = 
-                    restTemplate.exchange("http://localhost:8080/pa165/rest/mushroom", HttpMethod.PUT, request, MushroomDto.class);
-            return selectedRow;
-        }
-
-        @Override
-        protected void done() {
-            try {
-                get();
-            } catch (Exception e) {
-                lMessageMushrooms.setText("ERROR: server is unavailable.");
-                return;
-            }
-            DefaultTableModel model = (DefaultTableModel) tblMushroom.getModel();
-            try {
-                model.setValueAt(tfMushroomName.getText(), get(), 0);
-                model.setValueAt(comboBoxMushroomType.getSelectedItem().toString(), get(), 1);
-                model.setValueAt(comboBoxMushroomStartOfOccurence.getSelectedItem().toString(), get(), 2);
-                model.setValueAt(comboBoxMushroomEndOfOccurence.getSelectedItem().toString(), get(), 3);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private MushroomDeleteSwingWorker mushroomDeleteSwingWorker;
-
-    private class MushroomDeleteSwingWorker extends SwingWorker<Integer, Void> {
-
-        protected Integer doInBackground() throws Exception {
-            int selectedRow = tblMushroom.getSelectedRow();
-            RestTemplate restTemplate = new RestTemplate();
-            restTemplate.delete("http://localhost:8080/pa165/rest/mushroom/" + mushroomIDs.get(selectedRow));
-            mushroomIDs.remove(selectedRow);
-            return selectedRow;
-        }
-
-        protected void done() {
-            try {
-                get();
-            } catch (Exception e) {
-                lMessageMushrooms.setText("ERROR: server is unavailable.");
-                return;
-            }
-            DefaultTableModel model = (DefaultTableModel) tblMushroom.getModel();
-            try {
-                model.removeRow(get());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private AllMushroomsSwingWorker allMushroomsSwingWorker;
-
-    private class AllMushroomsSwingWorker extends SwingWorker<List<MushroomDto>, Void> {
-
-        @Override
-        protected List<MushroomDto> doInBackground() throws Exception {
-            return getMushroomList();
-        }
-
-        @Override
-        protected void done() {
-            try {
-                get();
-            } catch (Exception e) {
-                lMessageMushrooms.setText("ERROR: server is unavailable.");
-                return;
-            }
-            try {
-                List<MushroomDto> list = get();
-                DefaultTableModel model = (DefaultTableModel) tblMushroom.getModel();
-                model.setRowCount(0);
-                for (int i = 0; i < list.size(); i++) {
-                    mushroomIDs.add(list.get(i).getId());
-
-                    SimpleDateFormat MMMMFormat = new SimpleDateFormat("MMMM", new Locale("en_US"));
-                    String startOfOccurence = MMMMFormat.format(list.get(i).getStartOfOccurence());
-                    String endOfOccurence = MMMMFormat.format(list.get(i).getEndOfOccurence());
-
-                    model.addRow(new Object[]{list.get(i).getName(), list.get(i).getType().toString(), 
-                        startOfOccurence, endOfOccurence});
-                }
-            } catch (ExecutionException ex) {
-
-            } catch (InterruptedException ex) {
-                throw new RuntimeException("Operation interrupted", ex);
-            }
-        }
-    }
-
-    private MushroomDto getMushroomDetail(Long mushroomId) throws RestClientException {
-        RestTemplate restTemplate = new RestTemplate();
-        MushroomDto mushroom = 
-                restTemplate.getForObject("http://localhost:8080/pa165/rest/mushroom/" + mushroomId, MushroomDto.class);
-        return mushroom;
-    }
-
-    //Send GET to URL and get array of objects
-    private List<MushroomDto> getMushroomList() throws RestClientException {
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<MushroomDto[]> responseEntity = 
-                restTemplate.getForEntity("http://localhost:8080/pa165/rest/mushroom/", MushroomDto[].class);
-        MushroomDto[] mushroomDtoArray = responseEntity.getBody();
-        List<MushroomDto> mushroomDtoList = new ArrayList<>();
-        mushroomDtoList.addAll(Arrays.asList(mushroomDtoArray));
-        return mushroomDtoList;
-    }
-
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bLocationCreate;
     private javax.swing.JButton bLocationDelete;
