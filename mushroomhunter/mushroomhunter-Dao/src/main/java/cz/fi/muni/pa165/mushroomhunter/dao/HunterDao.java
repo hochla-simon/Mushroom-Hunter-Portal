@@ -63,7 +63,7 @@ public interface HunterDao {
      * @param nick The nick of the searched hunter.
      * @return The found hunter
      */
-    public List<Hunter> findByNick(String nick);
+    public Hunter findByNick(String nick);
 
     /**
      * Finds all hunters in the database.

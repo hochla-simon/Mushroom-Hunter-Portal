@@ -62,10 +62,10 @@ public class HunterDaoImpl implements HunterDao {
     }
 
     @Override
-    public List<Hunter> findByNick(String nick) {
+    public Hunter findByNick(String nick) {
         final Query query = em.createQuery("from Hunter where nick = :nick");
         query.setParameter("nick", nick);
-        return query.getResultList();
+        return (Hunter) query.getSingleResult();
     }
     
     @Override

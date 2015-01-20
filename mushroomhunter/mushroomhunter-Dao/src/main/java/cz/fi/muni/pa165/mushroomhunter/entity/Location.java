@@ -5,6 +5,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * The Location entity.
@@ -13,7 +15,7 @@ import javax.persistence.Id;
  */
 @Entity
 public class Location {
-    
+
     /**
      * The ID of the Location.
      */
@@ -32,12 +34,19 @@ public class Location {
      */
     @Column(nullable = false)
     private String description;
-    
+
     /**
      * The city near the location.
      */
     @Column(nullable = false)
     private String nearCity;
+
+    /**
+     * Owner is a hunter who created this location. The user has permission to
+     * manipulate with his locations.
+     */
+    @Column(nullable = true)
+    private Long ownerId;
 
     /**
      * @return the id.
@@ -54,7 +63,7 @@ public class Location {
     }
 
     /**
-     * 
+     *
      * @return the name.
      */
     public String getName() {
@@ -69,7 +78,7 @@ public class Location {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     /**
      * @return the description.
      */
@@ -84,6 +93,35 @@ public class Location {
         this.description = description;
     }
 
+    /**
+     * @return the nearCity.
+     */
+    public String getNearCity() {
+        return nearCity;
+    }
+
+    /**
+     * @param nearCity the nearCity to be set.
+     */
+    public void setNearCity(String nearCity) {
+        this.nearCity = nearCity;
+    }
+
+    /**
+     * @return the owner of location.
+     */
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    /**
+     * @param owner is a hunter who created this location. The user has
+     * permission to manipulate with his locations.
+     */
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -91,6 +129,7 @@ public class Location {
         hash = 79 * hash + Objects.hashCode(this.name);
         hash = 79 * hash + Objects.hashCode(this.description);
         hash = 79 * hash + Objects.hashCode(this.nearCity);
+        hash = 79 * hash + Objects.hashCode(this.ownerId);
         return hash;
     }
 
@@ -115,21 +154,9 @@ public class Location {
         if (!Objects.equals(this.nearCity, other.nearCity)) {
             return false;
         }
+        if (!Objects.equals(this.ownerId, other.ownerId)) {
+            return false;
+        }
         return true;
     }
-
-    /**
-     * @return the nearCity.
-     */
-    public String getNearCity() {
-        return nearCity;
-    }
-
-    /**
-     * @param nearCity the nearCity to be set.
-     */
-    public void setNearCity(String nearCity) {
-        this.nearCity = nearCity;
-    }
-
 }

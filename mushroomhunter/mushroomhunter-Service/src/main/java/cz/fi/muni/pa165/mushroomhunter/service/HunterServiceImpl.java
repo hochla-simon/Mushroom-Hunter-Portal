@@ -62,5 +62,11 @@ public class HunterServiceImpl implements HunterService {
     public List<HunterDto> findAll() {
         return hunterConverter.hunterEntityToDtoList(hunterDao.findAll());
     }
+    
+    @Transactional
+    @Override
+    public HunterDto findByNick(String nick) {
+        return hunterConverter.hunterEntityToDto(hunterDao.findByNick(nick));
+    }
 
 }

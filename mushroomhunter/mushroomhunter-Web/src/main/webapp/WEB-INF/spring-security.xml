@@ -11,8 +11,7 @@
         <!-- grant access to authenticated users -->
         <intercept-url pattern="/index**" access="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')" />
         <intercept-url pattern="/angular/**" access="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')" />
-        <intercept-url pattern="/rest/**" access="hasRole('ROLE_ADMIN')" />
-        <intercept-url pattern="/rest/user**" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/rest/**" access="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')" />
         
         <!-- grant access to unsecured resources to unauthenticated users -->
 	<intercept-url pattern="/login*" access="permitAll" />
