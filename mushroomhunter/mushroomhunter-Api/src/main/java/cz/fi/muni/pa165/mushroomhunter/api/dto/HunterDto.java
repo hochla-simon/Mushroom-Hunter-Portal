@@ -5,6 +5,7 @@
 package cz.fi.muni.pa165.mushroomhunter.api.dto;
 
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
@@ -15,12 +16,12 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author Radim Cejka
  */
 public class HunterDto {
-    
+
     /**
      * The ID of the Hunter
      */
     private Long id;
-    
+
     /**
      * The hunter's nick.
      */
@@ -47,63 +48,70 @@ public class HunterDto {
      */
     @Length(max = 200)
     private String description;
-    
+
+    /**
+     * The hunter's password.
+     */
+//    @NotBlank
+//    @Length(min = 4, max = 20)
+    private String password;
+
     /**
      * @return the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param id the id to be set.
      */
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     /**
      * @return the id.
      */
     public String getNick() {
         return nick;
     }
-    
+
     /**
      * @param nick the nick to be set.
      */
     public void setNick(String nick) {
         this.nick = nick;
     }
-    
+
     /**
      * @return the id.
      */
     public String getFirstName() {
         return firstName;
     }
-    
+
     /**
      * @param firstName the firstName to be set.
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-    
+
     /**
      * @return the surname.
      */
     public String getSurname() {
         return surname;
     }
-    
+
     /**
      * @param surname the surname to be set.
      */
     public void setSurname(String surname) {
         this.surname = surname;
     }
-    
+
     /**
      * @return the description.
      */
@@ -116,6 +124,20 @@ public class HunterDto {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * @return the password.
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the password to be set.
+     */
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
@@ -155,7 +177,5 @@ public class HunterDto {
         }
         return true;
     }
-    
-    
-    
+
 }

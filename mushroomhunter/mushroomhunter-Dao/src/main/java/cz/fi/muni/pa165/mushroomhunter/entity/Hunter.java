@@ -7,23 +7,26 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * The Hunter Entity.
- * 
+ *
  * @author Šimon Hochla
  */
 @Entity
-public class Hunter implements Serializable{
+public class Hunter implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * The ID of the Hunter
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     /**
      * The hunter's nick.
      */
@@ -47,63 +50,77 @@ public class Hunter implements Serializable{
      */
     @Column(nullable = true)
     private String description;
-    
+
+    /**
+     * The hunter's account is enabled(accessible) if enabled=1, otherwise is disabled.
+     */
+    @Column(nullable = false, columnDefinition = "int default 1")
+    private int enabled = 1;
+
+    /**
+     * The hunter's password.
+     */
+//    @NotBlank
+//    @Length(min = 4, max = 20)
+    @Column(nullable = true)
+    private String password;
+
     /**
      * @return the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param id the id to be set.
      */
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     /**
      * @return the id.
      */
     public String getNick() {
         return nick;
     }
-    
+
     /**
      * @param nick the nick to be set.
      */
     public void setNick(String nick) {
         this.nick = nick;
     }
-    
+
     /**
      * @return the id.
      */
     public String getFirstName() {
         return firstName;
     }
-    
+
     /**
      * @param firstName the firstName to be set.
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-    
+
     /**
      * @return the surname.
      */
     public String getSurname() {
         return surname;
     }
-    
+
     /**
      * @param surname the surname to be set.
      */
     public void setSurname(String surname) {
         this.surname = surname;
     }
-    
+
     /**
      * @return the description.
      */
@@ -116,6 +133,20 @@ public class Hunter implements Serializable{
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * @return the password.
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the password to be set.
+     */
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
@@ -155,6 +186,5 @@ public class Hunter implements Serializable{
         }
         return true;
     }
-    
-    
+
 }
