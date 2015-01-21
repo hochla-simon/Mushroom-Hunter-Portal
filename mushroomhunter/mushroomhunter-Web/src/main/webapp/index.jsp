@@ -44,7 +44,7 @@
         <script src="angular/mushroom/mushroomCtrl.js"></script>
         <!--Set angular startup arguments -->
         <script>
-            app.value("userId", "1").value("isAdmin", "<sec:authorize access="hasRole('ROLE_ADMINS')">true</sec:authorize>");
+            app.value("userId", "${userId}").value("isAdmin", "<sec:authorize access="hasRole('ROLE_ADMIN')">true</sec:authorize>");
         </script>
 
         <!-- Fonts -->
@@ -98,6 +98,6 @@
         <p>p1</p>
     <sec:authentication property="principal.authorities"/>
     <p>p2</p>
-    <sec:authorize access="hasRole('ROLE_ADMINS')">true</sec:authorize>
+    <sec:authorize access="hasRole('ROLE_ADMIN')">true</sec:authorize>
 </body>
 </html>
