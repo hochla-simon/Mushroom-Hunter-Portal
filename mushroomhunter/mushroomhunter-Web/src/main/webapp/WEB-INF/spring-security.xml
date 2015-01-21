@@ -30,7 +30,7 @@
         <!-- login form -->
         <form-login 
             login-page="/rest/login" 
-            default-target-url="/rest/index" 
+            default-target-url="/" 
             authentication-failure-url="/rest/login?error" 
             username-parameter="username"
             password-parameter="password" />

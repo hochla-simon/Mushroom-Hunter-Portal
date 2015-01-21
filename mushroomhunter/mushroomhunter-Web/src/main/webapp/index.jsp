@@ -95,9 +95,5 @@
             <!-- /.container -->
         </nav>
         <div ng-view></div>
-        <p>p1</p>
-    <sec:authentication property="principal.authorities"/>
-    <p>p2</p>
-    <sec:authorize access="hasRole('ROLE_ADMIN')">true</sec:authorize>
-</body>
+    </body>
 </html>

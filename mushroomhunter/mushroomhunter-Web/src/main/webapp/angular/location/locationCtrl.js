@@ -70,7 +70,8 @@ locationControllers.controller('LocationDetailCtrl', ['$scope', '$routeParams', 
 
         $scope.userId = userId;
         $scope.isAdmin = isAdmin;
-        $log.error("User info: userId="+$scope.userId+", isAdmin="+$scope.isAdmin);
+
+        $log.info("User info: userId=" + $scope.userId + ", isAdmin=" + $scope.isAdmin);
 
         $scope.location = LocationService($routeParams.locationId).getLocationDetail(
                 function (data, status, headers, config) {
@@ -110,6 +111,14 @@ locationControllers.controller('LocationDetailCtrl', ['$scope', '$routeParams', 
                         $log.error("An error occurred on server! Location cannot be deleted.");
                     });
         };
+
+        $scope.hasPermissionToModifyEntity = function (location) {
+            if ($scope.isAdmin != "true" && location.ownerId != $scope.userId) {
+                return false;
+            } else {
+                return true;
+            }
+        };
     }]);
 
 //
@@ -118,7 +127,7 @@ locationControllers.controller('LocationDetailCtrl', ['$scope', '$routeParams', 
 locationControllers.controller('LocationCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'LocationService', function ($scope, $routeParams, $window, $log, LocationService) {
         $scope.errorMessages = {
             "fieldErrors": []
-        }
+        };
 
         $scope.location = {
             "id": null,
