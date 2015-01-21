@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@page session="true"%>
 <html ng-app="mushroomHunterApp">
     <head>
         <title>{{ 'APPNAME' | translate }}</title>
@@ -22,11 +25,11 @@
             if (lang.indexOf('_') !== -1)
                 lang = lang.split('_')[0];
 
-            if ( lang == "cs" ) {
-                    document.write('<script src="http://code.angularjs.org/1.0.8/i18n/angular-locale_cs-cz.js"><\/script>');
-                } else if (lang == "sk") {
-                    document.write('<script src="http://code.angularjs.org/1.0.8/i18n/angular-locale_sk-sk.js"><\/script>');
-                }
+            if (lang == "cs") {
+                document.write('<script src="http://code.angularjs.org/1.0.8/i18n/angular-locale_cs-cz.js"><\/script>');
+            } else if (lang == "sk") {
+                document.write('<script src="http://code.angularjs.org/1.0.8/i18n/angular-locale_sk-sk.js"><\/script>');
+            }
         </script>
         <!-- jQuery -->
         <script src="js/jquery.js"></script>
@@ -39,6 +42,10 @@
         <script src="angular/hunter/hunterCtrl.js"></script>
         <!--Mushroom JS -->
         <script src="angular/mushroom/mushroomCtrl.js"></script>
+        <!--Set angular startup arguments -->
+        <script>
+            app.value("userId", "1").value("isAdmin", "<sec:authorize access="hasRole('ROLE_ADMINS')">true</sec:authorize>");
+        </script>
 
         <!-- Fonts -->
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
@@ -73,7 +80,7 @@
                         <li>
                             <a href="/pa165/#/visit">{{ 'LVISIT' | translate }}</a>
                         </li>
-                        </ul>
+                    </ul>
                     <ul class="nav navbar-nav">
                         <li>
                             <a href="/pa165/#/hunter">{{ 'LHUNTER' | translate }}</a>
@@ -88,5 +95,9 @@
             <!-- /.container -->
         </nav>
         <div ng-view></div>
-    </body>
+        <p>p1</p>
+    <sec:authentication property="principal.authorities"/>
+    <p>p2</p>
+    <sec:authorize access="hasRole('ROLE_ADMINS')">true</sec:authorize>
+</body>
 </html>

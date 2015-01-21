@@ -38,7 +38,7 @@ locationControllers.controller('LocationListCtrl', ['$scope', '$window', '$log',
             $window.location.href = '/pa165/';
         };
 
-        
+
         //Sort table by field(column) or switch asc/desc ordering
         $scope.sortByField = function (field) {
             //Switch between asc/desc ordering after click on column according which the table is already sorted.
@@ -65,8 +65,12 @@ locationControllers.controller('LocationListCtrl', ['$scope', '$window', '$log',
 //
 //  LOCATION DETAIL CONTROLLER
 //
-locationControllers.controller('LocationDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'LocationService', function ($scope, $routeParams, $window, $log, LocationService) {
+locationControllers.controller('LocationDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'LocationService', 'userId', 'isAdmin', function ($scope, $routeParams, $window, $log, LocationService, userId, isAdmin) {
         $scope.errorMessages = {};
+
+        $scope.userId = userId;
+        $scope.isAdmin = isAdmin;
+        $log.error("User info: userId="+$scope.userId+", isAdmin="+$scope.isAdmin);
 
         $scope.location = LocationService($routeParams.locationId).getLocationDetail(
                 function (data, status, headers, config) {
