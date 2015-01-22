@@ -15,18 +15,23 @@
                         <tr style="background-color: #a68a88; font-weight: bold">
                             <td ng-click="sortByField('id')">
                                 ID
+                                <span  ng-class="getOrderIcon('id')"/>
                             </td>
                             <td ng-click="sortByField('nick')">
                                 {{ 'NICKNAME' | translate }}
+                                <span  ng-class="getOrderIcon('nick')"/>
                             </td>
                             <td ng-click="sortByField('firstName')">
                                 {{ 'FIRSTNAME' | translate }}
+                                <span  ng-class="getOrderIcon('firstName')"/>
                             </td>
                             <td ng-click="sortByField('surname')">
                                 {{ 'SURNAME' | translate }}
+                                <span  ng-class="getOrderIcon('surname')"/>
                             </td>
                             <td ng-click="sortByField('description')">
                                 {{ 'DESCRIPTION' | translate }}
+                                <span  ng-class="getOrderIcon('description')"/>
                             </td>
                             <td>
                                 {{ 'SHOWDETAIL' | translate }}

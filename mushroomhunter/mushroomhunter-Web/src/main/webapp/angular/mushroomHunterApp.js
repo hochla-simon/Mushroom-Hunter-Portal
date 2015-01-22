@@ -127,6 +127,9 @@ app.config(function($translateProvider) {
     CREATENEWHUNTER: 'Create new hunter',
     BACKTOHL: 'Back to hunter list',
     DELETEHUNTER: 'Delete hunter',
+    EDITHUNTER: 'Edit',
+    SAVEHUNTER: 'Save',
+    CANCELHUNTER: 'Cancel',
     
     MUSHDETAIL: 'Mushroom detail',
     NAME: 'Name',
@@ -222,6 +225,9 @@ app.config(function($translateProvider) {
     CREATENEWHUNTER: 'Vytvo\u0159it nov\u00e9ho houba\u0159e',
     BACKTOHL: 'Zpet na seznam houba\u0159\u016f',
     DELETEHUNTER: 'Smazat houba\u0159e',
+    EDITHUNTER: 'Upravit',
+    SAVEHUNTER: 'Ulo\u017eit',
+    CANCELHUNTER: 'Zru\u0161it',
     
     MUSHDETAIL: 'Detail houby',
     NAME: 'Jm\u00e9no',

@@ -13,7 +13,7 @@ hunterControllers.controller('HunterListCtrl', ['$scope', '$window', 'HunterServ
         $scope.refreshHunters = function () {
             HunterService("").query(
                     function (data, status, headers, config) {
-                        $scope.locations = data;
+                        $scope.hunters = data;
                         $log.info("List of hunter loaded.");
                     }, function (data, status, headers, config) {
                 $log.error("An error occurred on server! List of hunter cannot be loaded.");
@@ -65,8 +65,8 @@ hunterControllers.controller('HunterDetailCtrl', ['$scope', '$routeParams', '$wi
         $scope.hunter = HunterService($routeParams.hunterId).getHunterDetail(
                 function (data, status, headers, config) {
                     $log.info("Hunter detail loaded.");
-                    $scope.location = data;
-                    $scope.locationBackup = angular.copy($scope.location);
+                    $scope.hunter = data;
+                    $scope.hunterBackup = angular.copy($scope.hunter);
                 },
                 function (data, status, headers, config) {
                     $log.error("An error occurred on server! Detail of hunter cannot be loaded.");
