@@ -16,7 +16,7 @@ hunterControllers.controller('HunterListCtrl', ['$scope', '$window', 'HunterServ
                         $scope.hunters = data;
                         $log.info("List of hunter loaded.");
                     }, function (data, status, headers, config) {
-                $log.error("An error occurred on server! List of hunter cannot be loaded.");
+                $log.info("An error occurred on server! List of hunter cannot be loaded.");
             });
         };
 
@@ -59,9 +59,15 @@ hunterControllers.controller('HunterListCtrl', ['$scope', '$window', 'HunterServ
     }]);
 
 
-hunterControllers.controller('HunterDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'HunterService',
-    function ($scope, $routeParams, $window, $log, HunterService) {
+hunterControllers.controller('HunterDetailCtrl', ['$scope', '$routeParams', '$window', '$log',
+    'HunterService', 'userId', 'isAdmin',
+    function ($scope, $routeParams, $window, $log, HunterService, userId, isAdmin) {
         $scope.errorMessages = {};
+        
+        $scope.userId = userId;
+        $scope.isAdmin = isAdmin;
+        $log.error("User info: userId=" + $scope.userId + ", isAdmin=" + $scope.isAdmin);
+        
         $scope.hunter = HunterService($routeParams.hunterId).getHunterDetail(
                 function (data, status, headers, config) {
                     $log.info("Hunter detail loaded.");
@@ -100,12 +106,20 @@ hunterControllers.controller('HunterDetailCtrl', ['$scope', '$routeParams', '$wi
                         $log.error("An error occurred on server! Hunter cannot be deleted.");
                     });
         };
+        
+        $scope.hasPermissionToModifyEntity = function (hunter) {
+            if ($scope.isAdmin != "true" && hunter.id != $scope.userId) {
+                return false;
+            } else {
+                return true;
+            }
+        };
     }]);
 
 hunterControllers.controller('HunterCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'HunterService', function ($scope, $routeParams, $window, $log, HunterService) {
         $scope.errorMessages = {
             "fieldErrors": []
-        }
+        };
         
         $scope.hunter = {
             "id": null,

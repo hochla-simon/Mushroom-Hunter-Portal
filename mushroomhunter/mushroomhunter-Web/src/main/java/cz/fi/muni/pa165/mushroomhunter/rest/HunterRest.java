@@ -7,6 +7,7 @@ package cz.fi.muni.pa165.mushroomhunter.rest;
 
 import cz.fi.muni.pa165.mushroomhunter.api.dto.HunterDto;
 import cz.fi.muni.pa165.mushroomhunter.api.service.HunterService;
+import cz.fi.muni.pa165.mushroomhunter.api.service.SecurityService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
+import org.springframework.security.access.AccessDeniedException;
 /**
  *
  * @author Simon
@@ -25,6 +27,9 @@ import javax.validation.Valid;
 public class HunterRest {
     @Autowired
     HunterService hunterService;
+    
+    @Autowired
+    SecurityService securityService;
     
     @RequestMapping(method = RequestMethod.GET)
     public List<HunterDto> getHunterList() {
@@ -49,12 +54,20 @@ public class HunterRest {
 
     @RequestMapping(method = RequestMethod.PUT)
     public HunterDto updateHunter(@RequestBody @Valid HunterDto hunter) {
+        Long currentUserId = securityService.getCurrentlyLoggedUser().getId();
+        if (!securityService.hasPermissionToModifyEntity(hunter.getId())) {
+            throw new AccessDeniedException("Access denien: User " + currentUserId + " cannot update hunter " + hunter.getId());
+        }
         return hunterService.update(hunter);
     }
 
     @RequestMapping(value = "{hunterId}", method = RequestMethod.DELETE)
     public void deleteHunter(@PathVariable Long hunterId) {
 	HunterDto hunter = hunterService.find(hunterId);
+        Long currentUserId = securityService.getCurrentlyLoggedUser().getId();
+        if (!securityService.hasPermissionToModifyEntity(hunter.getId())) {
+            throw new AccessDeniedException("Access denien: User " + currentUserId + " cannot update hunter " + hunter.getId());
+        }
         hunterService.delete(hunter);
     }
 }
