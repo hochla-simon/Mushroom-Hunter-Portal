@@ -5,25 +5,9 @@
  */
 package cz.muni.fi.mushroomhunter.restclient;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import cz.fi.muni.pa165.mushroomhunter.api.dto.LocationDto;
-import cz.fi.muni.pa165.mushroomhunter.api.dto.MushroomDto;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -56,12 +40,6 @@ public class RestClient extends javax.swing.JFrame {
         
         allLocationSwingWorker = new AllLocationSwingWorker(this);
         allMushroomsSwingWorker = new AllMushroomsSwingWorker(this);
-//        locationCreateSwingWorker = new LocationCreateSwingWorker(this);
-//        locationDeleteSwingWorker = new LocationDeleteSwingWorker(this);
-//        locationUpdateSwingWorker = new LocationUpdateSwingWorker(this);
-//        mushroomCreateSwingWorker = new MushroomCreateSwingWorker(this);
-//        mushroomDeleteSwingWorker = new MushroomDeleteSwingWorker(this);
-//        mushroomUpdateSwingWorker = new MushroomUpdateSwingWorker(this);
         
         allLocationSwingWorker.execute();
 

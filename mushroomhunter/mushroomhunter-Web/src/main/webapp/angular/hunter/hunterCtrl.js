@@ -2,22 +2,53 @@ var hunterControllers = angular.module('hunterControllers', []);
 
 hunterControllers.controller('HunterListCtrl', ['$scope', '$window', 'HunterService', function ($scope, $window, HunterService) {
 
-        $scope.hunters = HunterService("").query();
+        //Table will be ordered by location nick by default
+        $scope.orderByField = 'nick';
+        //Table will be ordered ascending by default
+        $scope.reverseSort = false;
+        //Array of locations will be stored here
+        $scope.hunters = {};
 
+        //refresh hunter list
         $scope.refreshHunters = function () {
             HunterService("").query(
                     function (data, status, headers, config) {
-                        $scope.messages = data;
+                        $scope.locations = data;
                         $log.info("List of hunter loaded.");
                     }, function (data, status, headers, config) {
                 $log.error("An error occurred on server! List of hunter cannot be loaded.");
             });
         };
 
+        //Call refresh function after app start
+        $scope.refreshHunters();
+        
         $scope.showHunterDetail = function (hunterId) {
             $window.location.href = '/pa165/#/hunter/detail/' + hunterId;
         };
 
+        //Sort table by field(column) or switch asc/desc ordering
+        $scope.sortByField = function (field) {
+            //Switch between asc/desc ordering after click on column according which the table is already sorted.
+            if ($scope.orderByField == field) {
+                $scope.reverseSort = !$scope.reverseSort;
+            }
+            //Set column according which the table will be sorted
+            $scope.orderByField = field;
+        };
+
+        //Set apropriatry icon to indicate ordering
+        $scope.getOrderIcon = function (field) {
+            if ($scope.orderByField == field) {
+                if ($scope.reverseSort) {
+                    return 'glyphicon glyphicon-sort-by-attributes-alt';
+                }
+                else {
+                    return 'glyphicon glyphicon-sort-by-attributes';
+                }
+            }
+        };
+        
         $scope.goToCreateHunter = function () {
             $window.location.href = '/pa165/#/hunter/create';
         };
@@ -30,7 +61,7 @@ hunterControllers.controller('HunterListCtrl', ['$scope', '$window', 'HunterServ
 
 hunterControllers.controller('HunterDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'HunterService',
     function ($scope, $routeParams, $window, $log, HunterService) {
-        $scope.validationErrors = {};
+        $scope.errorMessages = {};
         $scope.hunter = HunterService($routeParams.hunterId).getHunterDetail(
                 function (data, status, headers, config) {
                     $log.info("Hunter detail loaded.");
@@ -50,11 +81,11 @@ hunterControllers.controller('HunterDetailCtrl', ['$scope', '$routeParams', '$wi
             HunterService("").update(hunter,
                     function (data, status, headers, config) {
                         $log.info("Hunter updated");
-                        $scope.validationErrors = {};
+                        $scope.errorMessages = {};
                     },
                     function (data, status, headers, config) {
                         $log.error("An error occurred on server! Hunter cannot be updated.");
-                        $scope.validationErrors = data.data;
+                        $scope.errorMessages = data.data;
                     });
         };
 
@@ -72,7 +103,7 @@ hunterControllers.controller('HunterDetailCtrl', ['$scope', '$routeParams', '$wi
     }]);
 
 hunterControllers.controller('HunterCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'HunterService', function ($scope, $routeParams, $window, $log, HunterService) {
-        $scope.validationErrors = {
+        $scope.errorMessages = {
             "fieldErrors": []
         }
         
@@ -93,12 +124,12 @@ hunterControllers.controller('HunterCreateCtrl', ['$scope', '$routeParams', '$wi
             HunterService("").create($scope.hunter,
                     function (data, status, headers, config) {
                         $log.info("Hunter created");
-                        $scope.validationErrors = {};
+                        $scope.errorMessages = {};
                         $scope.showHunterDetail(data);
                     },
                     function (data, status, headers, config) {
                         $log.error("An error occurred on server! Hunter cannot be created.");
-                        $scope.validationErrors = data.data;
+                        $scope.errorMessages = data.data;
                     });
         };
 
