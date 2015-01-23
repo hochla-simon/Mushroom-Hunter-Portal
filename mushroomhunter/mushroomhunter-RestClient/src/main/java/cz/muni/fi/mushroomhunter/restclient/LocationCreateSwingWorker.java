@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -23,7 +24,7 @@ import org.springframework.web.client.RestTemplate;
  */
 public class LocationCreateSwingWorker extends SwingWorker<Void, Void> {
 
-    RestClient restClient;
+    private final RestClient restClient;
 
     public LocationCreateSwingWorker(RestClient restClient) {
         this.restClient = restClient;
@@ -38,18 +39,26 @@ public class LocationCreateSwingWorker extends SwingWorker<Void, Void> {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        List<MediaType> mediaTypeList = new ArrayList<MediaType>();
+        List<MediaType> mediaTypeList = new ArrayList<>();
         mediaTypeList.add(MediaType.ALL);
         headers.setAccept(mediaTypeList);
 
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String json = ow.writeValueAsString(locationDto);
-        HttpEntity request = new HttpEntity(json, headers);
 
         RestTemplate restTemplate = new RestTemplate();
-        Long[] result = restTemplate.postForObject(restClient.SERVER_URL + "pa165/rest/location", request, Long[].class);
+        
+        String plainCreds = RestClient.USER_NAME + ":" + RestClient.PASSWORD;
+        byte[] plainCredsBytes = plainCreds.getBytes();
+        byte[] base64CredsBytes = Base64.encodeBase64(plainCredsBytes);
+        String base64Creds = new String(base64CredsBytes);
 
-        restClient.getLocationIDs().add(result[0]);
+        headers.add("Authorization", "Basic " + base64Creds);
+        HttpEntity request = new HttpEntity(json, headers);
+        
+        Long[] result = restTemplate.postForObject(RestClient.SERVER_URL + "pa165/rest/location", request, Long[].class);
+
+        RestClient.getLocationIDs().add(result[0]);
         return null;
     }
 

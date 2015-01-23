@@ -13,10 +13,12 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -25,7 +27,7 @@ import org.springframework.web.client.RestTemplate;
  */
 public class LocationUpdateSwingWorker extends SwingWorker<Integer, Void> {
 
-    private RestClient restClient;
+    private final RestClient restClient;
 
     public LocationUpdateSwingWorker(RestClient restClient) {
         this.restClient = restClient;
@@ -36,24 +38,38 @@ public class LocationUpdateSwingWorker extends SwingWorker<Integer, Void> {
         DefaultTableModel model = (DefaultTableModel) restClient.getTblLocation().getModel();
         int selectedRow = restClient.getTblLocation().getSelectedRow();
 
+        String plainCreds = RestClient.USER_NAME + ":" + RestClient.PASSWORD;
+        byte[] plainCredsBytes = plainCreds.getBytes();
+        byte[] base64CredsBytes = Base64.encodeBase64(plainCredsBytes);
+        String base64Creds = new String(base64CredsBytes);
+        
         RestTemplate restTemplate = new RestTemplate();
-        LocationDto locationDto = restTemplate.getForObject(restClient.SERVER_URL + "pa165/rest/location/" + restClient.getLocationIDs().get(selectedRow), LocationDto.class);
-
-        locationDto.setName(restClient.getTfLocationName().getText());
-        locationDto.setDescription(restClient.getTfLocationDescription().getText());
-        locationDto.setNearCity(restClient.getTfLocationNearCity().getText());
-
+        
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         List<MediaType> mediaTypeList = new ArrayList<>();
-        mediaTypeList.add(MediaType.APPLICATION_JSON);
+        mediaTypeList.add(MediaType.ALL);
         headers.setAccept(mediaTypeList);
+        
+        headers.add("Authorization", "Basic " + base64Creds);
+        
+        HttpEntity request = new HttpEntity<>(headers);
+        
+        ResponseEntity<LocationDto> responseEntity = restTemplate.exchange(
+                RestClient.SERVER_URL + "pa165/rest/location/" + RestClient.getLocationIDs().get(
+                        selectedRow), HttpMethod.GET, request, LocationDto.class);
 
+        LocationDto locationDto = responseEntity.getBody();
+        
+        locationDto.setName(restClient.getTfLocationName().getText());
+        locationDto.setDescription(restClient.getTfLocationDescription().getText());
+        locationDto.setNearCity(restClient.getTfLocationNearCity().getText());
+        
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String json = ow.writeValueAsString(locationDto);
-        HttpEntity request = new HttpEntity(json, headers);
+        request = new HttpEntity(json, headers);
 
-        restTemplate.exchange(restClient.SERVER_URL + "pa165/rest/location", HttpMethod.PUT, request, LocationDto.class);
+        restTemplate.exchange(RestClient.SERVER_URL + "pa165/rest/location", HttpMethod.PUT, request, LocationDto.class);
         return selectedRow;
     }
 

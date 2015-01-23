@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Locale;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -25,7 +26,7 @@ import org.springframework.web.client.RestTemplate;
  */
 public class MushroomCreateSwingWorker extends SwingWorker<Void, Void> {
 
-    private RestClient restClient;
+    private final RestClient restClient;
 
     public MushroomCreateSwingWorker(RestClient restClient) {
         this.restClient = restClient;
@@ -57,13 +58,21 @@ public class MushroomCreateSwingWorker extends SwingWorker<Void, Void> {
 
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String json = ow.writeValueAsString(mushroomDto);
+        
+        String plainCreds = RestClient.USER_NAME + ":" + RestClient.PASSWORD;
+        byte[] plainCredsBytes = plainCreds.getBytes();
+        byte[] base64CredsBytes = Base64.encodeBase64(plainCredsBytes);
+        String base64Creds = new String(base64CredsBytes);
+
+        headers.add("Authorization", "Basic " + base64Creds);
+        
         HttpEntity request = new HttpEntity(json, headers);
 
         RestTemplate restTemplate = new RestTemplate();
-        Long[] result = restTemplate.postForObject(restClient.SERVER_URL + "pa165/rest/mushroom", request, Long[].class);
+        Long[] result = restTemplate.postForObject(RestClient.SERVER_URL + "pa165/rest/mushroom", request, Long[].class);
 
         System.out.println("Id of the created mushroom: " + result[0]);
-        restClient.getMushroomIDs().add(result[0]);
+        RestClient.getMushroomIDs().add(result[0]);
         return null;
     }
 

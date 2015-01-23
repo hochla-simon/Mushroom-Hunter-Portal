@@ -31,7 +31,22 @@ public class RestClient extends javax.swing.JFrame {
     private MushroomCreateSwingWorker mushroomCreateSwingWorker;
     private MushroomDeleteSwingWorker mushroomDeleteSwingWorker;
     private MushroomUpdateSwingWorker mushroomUpdateSwingWorker;
+    
+    /**
+     * URL of the server running the rest service
+     */
     public static final String SERVER_URL = "http://localhost:8080/";
+    
+    /**
+     * Username for the user who should be present in the database, has administrator privileges
+     */
+    public static final String USER_NAME = "rest";
+    
+    /**
+     * Password for the user who should be present in the database, has administrator privileges
+     */
+    public static final String PASSWORD = "rest";
+    
     /**
      * Creates new form mainFrame
      */
@@ -41,8 +56,10 @@ public class RestClient extends javax.swing.JFrame {
         allLocationSwingWorker = new AllLocationSwingWorker(this);
         allMushroomsSwingWorker = new AllMushroomsSwingWorker(this);
         
+        //show all locations after starting the client 
         allLocationSwingWorker.execute();
-
+        
+        //show all mushrooms after starting the client
         allMushroomsSwingWorker.execute();
     }
 

@@ -14,6 +14,11 @@ import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
+
+import org.apache.commons.codec.binary.Base64;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,7 +28,7 @@ import org.springframework.web.client.RestTemplate;
  */
 public class AllMushroomsSwingWorker extends SwingWorker<List<MushroomDto>, Void> {
 
-    private RestClient restClient;
+    private final RestClient restClient;
 
     public AllMushroomsSwingWorker(RestClient restClient) {
         this.restClient = restClient;
@@ -31,9 +36,18 @@ public class AllMushroomsSwingWorker extends SwingWorker<List<MushroomDto>, Void
 
     @Override
     protected List<MushroomDto> doInBackground() throws Exception {
+        String plainCreds = RestClient.USER_NAME + ":" + RestClient.PASSWORD;
+        byte[] plainCredsBytes = plainCreds.getBytes();
+        byte[] base64CredsBytes = Base64.encodeBase64(plainCredsBytes);
+        String base64Creds = new String(base64CredsBytes);
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Basic " + base64Creds);
+        
+        HttpEntity<String> request = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<MushroomDto[]> responseEntity
-                = restTemplate.getForEntity(restClient.SERVER_URL + "pa165/rest/mushroom/", MushroomDto[].class);
+        ResponseEntity<MushroomDto[]> responseEntity = restTemplate.exchange(
+                RestClient.SERVER_URL + "pa165/rest/mushroom/", HttpMethod.GET, request, MushroomDto[].class);
         MushroomDto[] mushroomDtoArray = responseEntity.getBody();
         List<MushroomDto> mushroomDtoList = new ArrayList<>();
         mushroomDtoList.addAll(Arrays.asList(mushroomDtoArray));

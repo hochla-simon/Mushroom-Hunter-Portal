@@ -15,6 +15,7 @@ import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -28,7 +29,7 @@ import org.springframework.web.client.RestTemplate;
  */
 public class MushroomUpdateSwingWorker extends SwingWorker<Integer, Void> {
 
-    private RestClient restClient;
+    private final RestClient restClient;
 
     public MushroomUpdateSwingWorker(RestClient restClient) {
         this.restClient = restClient;
@@ -38,10 +39,29 @@ public class MushroomUpdateSwingWorker extends SwingWorker<Integer, Void> {
     protected Integer doInBackground() throws Exception {
         DefaultTableModel model = (DefaultTableModel) restClient.getTblMushroom().getModel();
         int selectedRow = restClient.getTblMushroom().getSelectedRow();
+        
         RestTemplate restTemplate = new RestTemplate();
-        MushroomDto mushroomDto
-                = restTemplate.getForObject(restClient.SERVER_URL + "pa165/rest/mushroom/" + restClient.getMushroomIDs().get(selectedRow), MushroomDto.class);
+        
+        String plainCreds = RestClient.USER_NAME + ":" + RestClient.PASSWORD;
+        byte[] plainCredsBytes = plainCreds.getBytes();
+        byte[] base64CredsBytes = Base64.encodeBase64(plainCredsBytes);
+        String base64Creds = new String(base64CredsBytes);
 
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        List<MediaType> mediaTypeList = new ArrayList<>();
+        mediaTypeList.add(MediaType.ALL);
+        headers.setAccept(mediaTypeList);
+
+        headers.add("Authorization", "Basic " + base64Creds);
+        
+        HttpEntity request = new HttpEntity<>(headers);
+        
+        ResponseEntity<MushroomDto> responseEntity
+                = restTemplate.exchange(RestClient.SERVER_URL + "pa165/rest/mushroom/" + RestClient.getMushroomIDs().get(selectedRow), HttpMethod.GET, request, MushroomDto.class);
+
+        MushroomDto mushroomDto = responseEntity.getBody();
+        
         mushroomDto.setName(restClient.getTfMushroomName().getText());
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MMMM-yyyy", new Locale("en_US"));
@@ -53,19 +73,12 @@ public class MushroomUpdateSwingWorker extends SwingWorker<Integer, Void> {
         //to create date object only month is used, day and year are fixed values
         dateInString = "01-" + restClient.getComboBoxMushroomEndOfOccurence().getSelectedItem().toString() + "-2000";
         mushroomDto.setEndOfOccurence(formatter.parse(dateInString));
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        List<MediaType> mediaTypeList = new ArrayList<MediaType>();
-        mediaTypeList.add(MediaType.APPLICATION_JSON);
-        headers.setAccept(mediaTypeList);
-
+        
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String json = ow.writeValueAsString(mushroomDto);
-        HttpEntity request = new HttpEntity(json, headers);
+        request = new HttpEntity(json, headers);
 
-        ResponseEntity<MushroomDto> newmushroom
-                = restTemplate.exchange(restClient.SERVER_URL + "pa165/rest/mushroom", HttpMethod.PUT, request, MushroomDto.class);
+        restTemplate.exchange(RestClient.SERVER_URL + "pa165/rest/mushroom", HttpMethod.PUT, request, MushroomDto.class);
         return selectedRow;
     }
 

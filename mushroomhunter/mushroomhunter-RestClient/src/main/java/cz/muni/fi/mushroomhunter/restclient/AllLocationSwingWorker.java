@@ -12,6 +12,10 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
+import org.apache.commons.codec.binary.Base64;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,7 +25,7 @@ import org.springframework.web.client.RestTemplate;
  */
 public class AllLocationSwingWorker extends SwingWorker<List<LocationDto>, Void> {
 
-    private RestClient restClient;
+    private final RestClient restClient;
 
     public AllLocationSwingWorker(RestClient restClient) {
         this.restClient = restClient;
@@ -29,9 +33,18 @@ public class AllLocationSwingWorker extends SwingWorker<List<LocationDto>, Void>
 
     @Override
     protected List<LocationDto> doInBackground() throws Exception {
+        String plainCreds = RestClient.USER_NAME + ":" + RestClient.PASSWORD;
+        byte[] plainCredsBytes = plainCreds.getBytes();
+        byte[] base64CredsBytes = Base64.encodeBase64(plainCredsBytes);
+        String base64Creds = new String(base64CredsBytes);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Basic " + base64Creds);
+
+        HttpEntity<String> request = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<LocationDto[]> responseEntity = restTemplate.getForEntity(restClient.SERVER_URL + "pa165/rest/location/",
-                LocationDto[].class);
+        ResponseEntity<LocationDto[]> responseEntity = restTemplate.exchange(
+                RestClient.SERVER_URL + "pa165/rest/location/", HttpMethod.GET, request, LocationDto[].class);
         LocationDto[] locationDtoArray = responseEntity.getBody();
         List<LocationDto> locationDtoList = new ArrayList<>();
         locationDtoList.addAll(Arrays.asList(locationDtoArray));
