@@ -88,6 +88,9 @@
                         <li>
                             <a href="/pa165/#/contact">{{ 'CONTACT' | translate }}</a>
                         </li>
+                        <li>
+                            <a href="j_spring_security_logout">{{ 'LOGOUT' | translate }}</a>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
