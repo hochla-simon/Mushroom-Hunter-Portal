@@ -33,7 +33,8 @@
       <groupId>cz.fi.muni.pa165.mushroomhunter.api</groupId>
       <artifactId>mushroomhunter-Api</artifactId>
       <version>1.0-SNAPSHOT</version>
-    </dependency>
+            <type>jar</type>
+        </dependency>
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-servlet-api</artifactId>

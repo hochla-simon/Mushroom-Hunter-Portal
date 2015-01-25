@@ -1,48 +1,66 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.fi.muni.pa165.mushroomhunter.api.dto;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.validation.constraints.NotNull;
+import javax.persistence.Column;
 
 /**
  *
  * @author Lukáš Valach
  */
 public class VisitDto {
-    
+
     /**
      * The ID of the visit.
      */
     private Long id;
-    
+
     /**
      * The hunter who made the visit.
      */
     @NotNull
     private HunterDto hunter;
-    
+
     /**
      * The date when the visit was made.
      */
     private Date date;
-    
+
     /**
      * The location where the visit was made.
      */
     @NotNull
     private LocationDto location;
-    
+
     /**
-     * The HashMap containing the ID's of mushrooms and their number of occurences
-     * at the visit.
+     * Owner is a hunter who created this visit. The user has permission to
+     * manipulate with his visits.
      */
-    private Map<Long,Integer> foundMushrooms = new HashMap<Long,Integer>();
+    @Column(nullable = true)
+    private Long ownerId;
+
+    /**
+     * @return the owner of visit.
+     */
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    /**
+     * @param ownerId is a hunter who created this visit. The user has
+     * permission to manipulate with his visits.
+     */
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    /**
+     * The HashMap containing the ID's of mushrooms and their number of
+     * occurences at the visit.
+     */
+    private Map<Long, Integer> foundMushrooms = new HashMap<Long, Integer>();
 
     public Long getId() {
         return id;
@@ -83,7 +101,5 @@ public class VisitDto {
     public void setFoundMushrooms(Map<Long, Integer> foundMushrooms) {
         this.foundMushrooms = foundMushrooms;
     }
-    
+
 }
-
-

@@ -56,7 +56,7 @@ public class HunterRest {
     public HunterDto updateHunter(@RequestBody @Valid HunterDto hunter) {
         Long currentUserId = securityService.getCurrentlyLoggedUser().getId();
         if (!securityService.hasPermissionToModifyEntity(hunter.getId())) {
-            throw new AccessDeniedException("Access denien: User " + currentUserId + " cannot update hunter " + hunter.getId());
+            throw new AccessDeniedException("Access denied: User " + currentUserId + " cannot update hunter " + hunter.getId());
         }
         return hunterService.update(hunter);
     }
@@ -66,7 +66,7 @@ public class HunterRest {
 	HunterDto hunter = hunterService.find(hunterId);
         Long currentUserId = securityService.getCurrentlyLoggedUser().getId();
         if (!securityService.hasPermissionToModifyEntity(hunter.getId())) {
-            throw new AccessDeniedException("Access denien: User " + currentUserId + " cannot update hunter " + hunter.getId());
+            throw new AccessDeniedException("Access denied: User " + currentUserId + " cannot delete hunter " + hunter.getId());
         }
         hunterService.delete(hunter);
     }

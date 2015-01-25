@@ -69,7 +69,7 @@ public class LocationRest {
     public LocationDto updateLocation(@RequestBody @Valid LocationDto location) {
         Long currentUserId = securityService.getCurrentlyLoggedUser().getId();
         if (!securityService.hasPermissionToModifyEntity(location.getOwnerId())){
-            throw new AccessDeniedException("Access denien: User "+currentUserId+" cannot update location "+location.getId());
+            throw new AccessDeniedException("Access denied: User "+currentUserId+" cannot update location "+location.getId());
         }
         return locationService.update(location);
     }
@@ -79,7 +79,7 @@ public class LocationRest {
         LocationDto location = locationService.find(locationId);
         Long currentUserId = securityService.getCurrentlyLoggedUser().getId();
         if (!securityService.hasPermissionToModifyEntity(location.getOwnerId())){
-            throw new AccessDeniedException("Access denien: User "+currentUserId+" cannot update location "+location.getId());
+            throw new AccessDeniedException("Access denied: User "+currentUserId+" cannot delete location "+location.getId());
         }
         locationService.delete(location);
     }

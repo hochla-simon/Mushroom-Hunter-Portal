@@ -21,57 +21,65 @@ import javax.persistence.TemporalType;
 
 /**
  * The Visit Entity.
- * 
+ *
  * @author Roman Smékal
  */
 @Entity
-public class Visit implements Serializable  {
+public class Visit implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
+    /**
+     * Owner is a hunter who created this location. The user has permission to
+     * manipulate with his locations.
+     */
+    @Column(nullable = true)
+    private Long ownerId;
+
     /**
      * The ID of the visit.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     /**
      * The hunter who made the visit.
      */
     @ManyToOne
     @JoinColumn(name = "HUNTER_ID")
     private Hunter hunter;
-    
+
     /**
      * The date when the visit was made.
      */
     @Temporal(TemporalType.DATE)
     private Date date;
-    
+
     /**
      * The location where the visit was made.
      */
     @ManyToOne
     @JoinColumn(name = "LOCATION_ID")
     private Location location;
-    
+
     /**
-     * The HashMap containing the ID's of mushrooms and their number of occurences
-     * at the visit.
+     * The HashMap containing the ID's of mushrooms and their number of
+     * occurences at the visit.
      */
     @ElementCollection
-    @MapKeyColumn(name="mushroom_id")
-    @Column(name="quantity")
-    @CollectionTable(name="occurence", joinColumns=@JoinColumn(name="visit_id"))
-    private Map<Long,Integer> foundMushrooms = new HashMap<Long,Integer>();
-    
+    @MapKeyColumn(name = "mushroom_id")
+    @Column(name = "quantity")
+    @CollectionTable(name = "occurence", joinColumns = @JoinColumn(name = "visit_id"))
+    private Map<Long, Integer> foundMushrooms = new HashMap<Long, Integer>();
+
     /**
      * @return the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param id the id to be set.
      */
@@ -124,15 +132,30 @@ public class Visit implements Serializable  {
     /**
      * @return the foundMushrooms.
      */
-    public Map<Long,Integer> getFoundMushrooms() {
+    public Map<Long, Integer> getFoundMushrooms() {
         return foundMushrooms;
     }
 
     /**
      * @param foundMushrooms the foundMushrooms to be set.
      */
-    public void setFoundMushrooms(Map<Long,Integer> foundMushrooms) {
+    public void setFoundMushrooms(Map<Long, Integer> foundMushrooms) {
         this.foundMushrooms = foundMushrooms;
+    }
+
+    /**
+     * @return the owner of location.
+     */
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    /**
+     * @param ownerId is a hunter who created this location. The user has
+     * permission to manipulate with his locations.
+     */
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
     }
 
     @Override
@@ -143,6 +166,7 @@ public class Visit implements Serializable  {
         hash = 79 * hash + Objects.hashCode(this.date);
         hash = 79 * hash + Objects.hashCode(this.location);
         hash = 79 * hash + Objects.hashCode(this.foundMushrooms);
+        hash = 79 * hash + Objects.hashCode(this.ownerId);
         return hash;
     }
 
@@ -172,14 +196,14 @@ public class Visit implements Serializable  {
         }
         return true;
     }
-    
+
     /**
      * @return the String describing the Visit.
      */
     @Override
     public String toString() {
-            return "Visit [id=" + id + ", hunter=" + hunter.getNick()
-                            + ", location=" + location.getName()
-                            + ", date: " + date.toString() + "]";
+        return "Visit [id=" + id + ", hunter=" + hunter.getNick()
+                + ", location=" + location.getName()
+                + ", date: " + date.toString() + "]";
     }
 }
