@@ -39,7 +39,7 @@
                             {{ 'NAME' | translate }}
                         </td>
                         <td>
-                            {{mushroom.name}}
+                            <span editable-text="mushroom.name" onbeforesave="" onaftersave="">{{mushroom.name|| 'SETMUSHNAME' | translate }}</span> 
                         </td>
                     </tr>
                     <tr>
@@ -47,15 +47,20 @@
                             {{ 'TYPE' | translate }}
                         </td>
                         <td>
-                                  {{ mushroom.type | translate }}
-                  </td>
+                            <select name="mushType" class="form-control"
+                                    ng-model="mushroom.type"
+                                    ng-options="type.Key as type.Value for type in mushroomTypes"
+                                    required 
+                                    ></select>
+
+                        </td>
                     </tr>
                     <tr>
                         <td>
                             {{ 'STARTOFO' | translate }}
                         </td>
                         <td>
-                            {{mushroom.startOfOccurence| date:'MMMM'}}
+                            <datepicker ng-model="mushroom.startOfOccurence" show-weeks="false" class="well well-sm" min-mode="month" max-mode="month" datepicker-mode="'month'" init-date="2000-01-01"></datepicker>
    
                         </td>
                     </tr>
@@ -64,15 +69,21 @@
                             {{ 'ENDOFO' | translate }}
                         </td>
                         <td>
-                            {{mushroom.endOfOccurence| date:'MMMM'}}
+                            <datepicker ng-model="mushroom.endOfOccurence"  show-weeks="false" class="well well-sm" min-mode="month" max-mode="month" datepicker-mode="'month'" init-date="2000-01-01"></datepicker>
    
                         </td>
                     </tr>
                 </table>
                 <center>
-                    <button type="button" class="btn btn-primary" ng-click="editMushroomDetail(mushroom.id)" ng-show="hasPermissionToModifyEntity()">
-                            {{ 'EDIT' | translate }}
-                        </button>
+                        <!-- buttons to submit / cancel form -->
+                        <span>
+                            <button type="submit" class="btn btn-primary" ng-click="saveEditedMushroom(mushroom)" ng-show="hasPermissionToModifyEntity()">
+                                {{ 'SAVE' | translate }}
+                            </button>
+                            <button type="button" class="btn btn-danger" ng-click="showMushroomDetail(mushroom.id)">
+                                {{ 'CANCEL' | translate }}
+                            </button>
+                        </span>
                         <button type="button" class="btn btn-danger" ng-click="deleteMushroom(mushroom)" ng-show="hasPermissionToModifyEntity()">
                             {{ 'DELETEMUSH' | translate }}
                         </button>

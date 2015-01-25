@@ -32,9 +32,14 @@ mushroomControllers.directive('dateFix', function() {
 //
 //  MUSHROOM LIST CONTROLLER
 //
-mushroomControllers.controller('MushroomListCtrl', ['$scope', '$window', '$log', 'MushroomService', function ($scope, $window, $log, MushroomService) {
+mushroomControllers.controller('MushroomListCtrl', ['$scope', '$window', '$log', 'MushroomService', 'userId', 'isAdmin', function ($scope, $window, $log, MushroomService, userId, isAdmin) {
 
     $scope.mushrooms = MushroomService("").query();
+    
+     $scope.userId = userId;
+    $scope.isAdmin = isAdmin;
+    
+    $log.info("User info: userId=" + $scope.userId + ", isAdmin=" + $scope.isAdmin);
 
         $scope.refreshLocations = function () {
             MushroomService("").query(
@@ -57,12 +62,42 @@ mushroomControllers.controller('MushroomListCtrl', ['$scope', '$window', '$log',
         $scope.goToHomePage = function () {
             $window.location.href = '/pa165/';
         };
+        
+        //Sort table by field(column) or switch asc/desc ordering
+        $scope.sortByField = function (field) {
+            //Switch between asc/desc ordering after click on column according which the table is already sorted.
+            if ($scope.orderByField == field) {
+                $scope.reverseSort = !$scope.reverseSort;
+            }
+            //Set column according which the table will be sorted
+            $scope.orderByField = field;
+        };
+
+        //Set apropriatry icon to indicate ordering
+        $scope.getOrderIcon = function (field) {
+            if ($scope.orderByField == field) {
+                if ($scope.reverseSort) {
+                    return 'glyphicon glyphicon-sort-by-attributes-alt';
+                }
+                else {
+                    return 'glyphicon glyphicon-sort-by-attributes';
+                }
+            }
+        };
+        
+        $scope.hasPermissionToModifyEntity = function () {
+            if ($scope.isAdmin != "true") {
+                return false;
+            } else {
+                return true;
+            }
+        };
     }]);
 
 //
 //  MUSHROOM DETAIL CONTROLLER
 //
-mushroomControllers.controller('MushroomDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'MushroomService','$translate', function ($scope, $routeParams, $window, $log, MushroomService, $translate) {
+mushroomControllers.controller('MushroomDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'MushroomService', 'userId', 'isAdmin','$translate', function ($scope, $routeParams, $window, $log, MushroomService, userId, isAdmin, $translate) {
         $translate(['EDIBLE', 'INEDIBLE', 'POISONOUS']).then(function (translations) {
 
     $scope.mushroomTypes = [
@@ -70,7 +105,14 @@ mushroomControllers.controller('MushroomDetailCtrl', ['$scope', '$routeParams', 
         {Key: 'INEDIBLE', Value: translations.INEDIBLE},
         {Key: 'POISONOUS', Value: translations.POISONOUS}
     ];
+    
     $scope.validationErrors = {};
+    
+    $scope.userId = userId;
+    $scope.isAdmin = isAdmin;
+    
+    $log.info("User info: userId=" + $scope.userId + ", isAdmin=" + $scope.isAdmin);
+
     
         $scope.mushroom = MushroomService($routeParams.mushroomId).getMushroomDetail(
                 function (data, status, headers, config) {
@@ -88,10 +130,37 @@ mushroomControllers.controller('MushroomDetailCtrl', ['$scope', '$routeParams', 
         $scope.updateMushroom(mushroom);
    
 };
+
+        $scope.refresh = function ()
+        {
+          $scope.mushroom = MushroomService($routeParams.mushroomId).getMushroomDetail(
+                function (data, status, headers, config) {
+                    $log.info("Mushroom detail loaded.");
+                     $scope.location = data;
+                    $scope.locationBackup = angular.copy($scope.location);
+                },
+                function (data, status, headers, config) {
+                    $log.error("An error occurred on server! Detail of mushroom cannot be loaded.");
+                });  
+        };
     
         $scope.goToMushroomList = function () {
             $window.location.href = '/pa165/#/mushroom';
         };
+        
+        $scope.showMushroomDetail = function (mushroomId) {
+            $window.location.href = '/pa165/#/mushroom/detail/' + mushroomId;
+            };
+            
+        $scope.editMushroomDetail = function (mushroomId) {
+            $window.location.href = '/pa165/#/mushroom/edit/' + mushroomId;
+            };
+            
+        $scope.saveEditedMushroom = function (mushroom) {
+            $scope.updateMushroom(mushroom);
+            $scope.refresh();
+            $scope.showMushroomDetail(mushroom.id);
+            };
 
         $scope.updateMushroom = function (mushroom) {
             $log.info("Saving mushroom with ID: " + mushroom.id);
@@ -118,6 +187,14 @@ mushroomControllers.controller('MushroomDetailCtrl', ['$scope', '$routeParams', 
                     });
         };
        });
+       
+       $scope.hasPermissionToModifyEntity = function () {
+            if ($scope.isAdmin != "true") {
+                return false;
+            } else {
+                return true;
+            }
+        };
     }]);
 
 //
@@ -138,7 +215,7 @@ mushroomControllers.controller('MushroomCreateCtrl', ['$scope', '$routeParams', 
         $scope.goToMushroomList = function () {
             $window.location.href = '/pa165/#/mushroom';
         };
-
+        
         $scope.createMushroom = function () {
             $log.info("Creating mushroom with name: " + $scope.mushroom.name);
             MushroomService("").create($scope.mushroom,
@@ -155,8 +232,8 @@ mushroomControllers.controller('MushroomCreateCtrl', ['$scope', '$routeParams', 
         
         $scope.showMushroomDetail = function (mushroomId) {
             $window.location.href = '/pa165/#/mushroom/detail/' + mushroomId;
-            
-            
+            };
+                  
              $scope.today = function () {
                 $scope.mushroom.startOfOccurence = new Date();
             };
@@ -171,13 +248,6 @@ mushroomControllers.controller('MushroomCreateCtrl', ['$scope', '$routeParams', 
             };
             $scope.toggleMin();
 
-            $scope.open = function ($event) {
-                alert("kliknut popup");
-                $event.stopPropagation();
-
-                $scope.opened = true;
-            };
-
             $scope.dateOptions = {
                 formatYear: 'yy',
                 startingDay: 1
@@ -186,10 +256,7 @@ mushroomControllers.controller('MushroomCreateCtrl', ['$scope', '$routeParams', 
             $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
             $scope.format = $scope.formats[0];
 
-            datepickerPopupConfig.currentText = translations.TODAY;
-            datepickerPopupConfig.clearText = translations.CLEAR;
-            datepickerPopupConfig.closeText = translations.CLOSE;
-        };
+         
     }]);
 //
 //  MUSHROOM SERVICES

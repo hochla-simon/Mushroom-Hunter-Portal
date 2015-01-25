@@ -76,6 +76,10 @@ app.config(['$routeProvider',
                     templateUrl: 'angular/mushroom/mushroomDetail.html',
                     controller: 'MushroomDetailCtrl'
                 }).
+                when('/mushroom/edit/:mushroomId', {
+                    templateUrl: 'angular/mushroom/mushroomDetailEdit.html',
+                    controller: 'MushroomDetailCtrl'
+                }).
                         when('/index2.jsp', {
                     templateUrl: 'index2.jsp',
                     controller: 'CreateVisitCtrl'
@@ -115,9 +119,9 @@ app.config(function($translateProvider) {
     CREATELOC: 'Create location',
     BACKTOLL: 'Back to location list',
     DELETELOC: 'Delete location',
-    EDITLOC: 'Edit',
-    SAVELOC: 'Save',
-    CANCELLOC: 'Cancel',
+    EDIT: 'Edit',
+    SAVE: 'Save',
+    CANCEL: 'Cancel',
     
     HUNTERDETAIL: 'Hunter detail',
     FIRSTNAME: 'First name',
@@ -214,9 +218,9 @@ app.config(function($translateProvider) {
     CREATELOC: 'Vyvo\u0159it m\u00edsto',
     BACKTOLL: 'Zp\u011bt na seznam m\u00edst',
     DELETELOC: 'Smazat m\u00edsto',
-    EDITLOC: 'Upravit',
-    SAVELOC: 'Ulo\u017eit',
-    CANCELLOC: 'Zru\u0161it',
+    EDIT: 'Upravit',
+    SAVE: 'Ulo\u017eit',
+    CANCEL: 'Zru\u0161it',
     
     HUNTERDETAIL: 'Detail houba\u0159e',
     FIRSTNAME: 'K\u0159estn\u00ed jm\u00e9no',

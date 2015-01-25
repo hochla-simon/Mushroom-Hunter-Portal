@@ -62,15 +62,15 @@
                     </table>
                     <center>
                         <button type="button" class="btn btn-primary" ng-click="editableForm.$show()" ng-show="!editableForm.$visible && hasPermissionToModifyEntity(location)">
-                            {{ 'EDITLOC' | translate }}
+                            {{ 'EDIT' | translate }}
                         </button>
                         <!-- buttons to submit / cancel form -->
                         <span ng-show="editableForm.$visible">
                             <button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting">
-                                {{ 'SAVELOC' | translate }}
+                                {{ 'SAVE' | translate }}
                             </button>
                             <button type="button" class="btn btn-danger" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()">
-                                {{ 'CANCELLOC' | translate }}
+                                {{ 'CANCEL' | translate }}
                             </button>
                         </span>
                         <button type="button" class="btn btn-danger" ng-click="deleteLocation(location)" ng-show="!editableForm.$visible && hasPermissionToModifyEntity(location)">
