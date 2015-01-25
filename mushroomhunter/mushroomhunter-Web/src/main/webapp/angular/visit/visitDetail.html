@@ -82,7 +82,7 @@
                 </table>
                 <br />
                 <center>
-                    <button type="button" class="btn btn-danger" ng-click="deleteVisit(visit)">
+                    <button ng-hide="!showDeleteBtn" type="button" class="btn btn-danger" ng-click="deleteVisit(visit)">
                         {{ 'DELETEVISIT' | translate }}
                     </button>
                     <button type="button" class="btn btn-info" ng-click="goToVisitList()">

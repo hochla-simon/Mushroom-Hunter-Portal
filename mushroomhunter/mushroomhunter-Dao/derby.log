@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Sun Jan 25 17:54:25 CET 2015:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-014b-2204-0aaf-0000060d6658 
+Sun Jan 25 18:28:14 CET 2015:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-014b-2222-ff88-0000060c7118 
 on database directory memory:D:\Java\Projekt18\Mushroom-Hunter-Portal\mushroomhunter\mushroomhunter-Dao\testDB with class loader sun.misc.Launcher$AppClassLoader@6bc7c054 
 Loaded from file:/C:/Users/roman_000/.m2/repository/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar
 java.vendor=Oracle Corporation

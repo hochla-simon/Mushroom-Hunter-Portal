@@ -35,7 +35,7 @@ public class RestClient extends javax.swing.JFrame {
     /**
      * URL of the server running the rest service
      */
-    public static final String SERVER_URL = "http://localhost:8080/";
+    public static final String SERVER_URL = "http://localhost:1527/pa165";
     
     /**
      * Username for the user who should be present in the database, has administrator privileges

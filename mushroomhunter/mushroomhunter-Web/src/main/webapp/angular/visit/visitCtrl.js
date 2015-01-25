@@ -4,12 +4,12 @@ var visitControllers = angular.module('visitControllers', []);
 //  VISIT LIST CONTROLLER
 //
 visitControllers.controller('VisitListCtrl', ['$scope', '$window', '$log', 'VisitService', function ($scope, $window, $log, VisitService) {
-        
+
         //Table will be ordered by visit id by default
         $scope.orderByField = 'id';
         //Table will be ordered ascending by default
         $scope.reverseSort = false;
-        
+
         $scope.visits = VisitService("").query();
 
         $scope.refreshVisits = function () {
@@ -47,7 +47,7 @@ visitControllers.controller('VisitListCtrl', ['$scope', '$window', '$log', 'Visi
             $scope.visits.splice(visit, 1);
             $scope.$apply();
         };
-        
+
         //Sort table by field(column) or switch asc/desc ordering
         $scope.sortByField = function (field) {
             //Switch between asc/desc ordering after click on column according which the table is already sorted.
@@ -76,7 +76,7 @@ visitControllers.controller('VisitListCtrl', ['$scope', '$window', '$log', 'Visi
 //
 //  CREATE NEW VISIT CONTROLLER
 //
-visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', 'LocationService', 'MushroomService', 'HunterService', 'datepickerPopupConfig', '$translate', function ($scope, $routeParams, $window, $log, VisitService, LocationService, MushroomService, HunterService, datepickerPopupConfig, $translate) {
+visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', 'LocationService', 'MushroomService', 'HunterService', 'datepickerPopupConfig', '$translate', 'userId', 'isAdmin', function ($scope, $routeParams, $window, $log, VisitService, LocationService, MushroomService, HunterService, datepickerPopupConfig, $translate, userId, isAdmin) {
         $translate(['TODAY', 'CLEAR', 'CLOSE']).then(function (translations) {
             $scope.visit = {
                 "id": null,
@@ -92,6 +92,13 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
 
             $scope.mushrooms = MushroomService("").query();
 
+            $scope.validationErrors = {};
+
+            $scope.userId = userId;
+            $scope.isAdmin = isAdmin;
+
+            $log.info("User info: userId=" + $scope.userId + ", isAdmin=" + $scope.isAdmin);
+
             $scope.goToCreateLocation = function () {
                 $window.location.href = '/pa165/#/location/create';
             };
@@ -105,8 +112,12 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
             $scope.createVisit = function () {
                 $log.info("Creating new visit");
                 $scope.visit.location = $scope.location;
-                $scope.visit.hunter = $scope.hunter;
 
+                if (!isAdmin) {
+                    $scope.visit.hunter = HunterService("").getHunterDetail(userId);
+                } else {
+                    $scope.visit.hunter = $scope.hunter;
+                }
 
                 $scope.visit.foundMushrooms = arr;
 
@@ -204,16 +215,19 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
 //
 //  VISIT DETAIL CONTROLLER
 //
-visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', 'MushroomService', 'datepickerPopupConfig', '$translate', function ($scope, $routeParams, $window, $log, VisitService, MushroomService, datepickerPopupConfig, $translate) {
+visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', 'MushroomService', 'datepickerPopupConfig', '$translate', 'userId', 'isAdmin', function ($scope, $routeParams, $window, $log, VisitService, MushroomService, datepickerPopupConfig, $translate, userId, isAdmin) {
         $translate(['TODAY', 'CLEAR', 'CLOSE']).then(function (translations) {
-            
+
             //$scope.mushrooms = MushroomService("").query();
-            
+
             //$scope.getMushroomById = function (mushroomId) {
             //    $scope.mushroom = MushroomService(4).getMushroomDetail();
             //    return $scope.mushroom;
             //};
-            
+
+            $scope.userId = userId;
+            $scope.isAdmin = isAdmin;
+
             $scope.visit = VisitService($routeParams.visitId).getVisitDetail(
                     function (data, status, headers, config) {
                         $log.info("Visit detail loaded.");
@@ -221,6 +235,13 @@ visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$wind
                     function (data, status, headers, config) {
                         $log.error("An error occurred on server! Detail of visit cannot be loaded.");
                     });
+
+            if (visit.hunter.id == userId || isAdmin) {
+                $scope.showDeleteBtn = true;
+            } else {
+                $scope.showDeleteBtn = false;
+            }
+
 
             $scope.goToVisitList = function () {
                 $window.location.href = '/pa165/#/visit';
@@ -252,8 +273,8 @@ visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$wind
                             $log.error("An error occurred on server! Visit cannot be deleted.");
                         });
             };
-            
-            
+
+
             $scope.showLocationDetail = function (locationId) {
                 $window.location.href = '/pa165/#/location/detail/' + locationId;
             };
