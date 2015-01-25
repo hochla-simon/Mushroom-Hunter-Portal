@@ -49,8 +49,7 @@ public class HunterServiceImplTest {
         hunterDto.setSurname("Voprsalek");
         hunterDto.setDescription("Short description.");
         hunterDto.setNick("Frantisek");
-        
-      
+        hunterDto.setRole("ROLE_USER");
     }
    
 

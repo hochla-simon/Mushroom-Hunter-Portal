@@ -66,6 +66,15 @@
                             <span editable-text="hunter.password">{{hunter.password || 'SETPASSWORD' | translate }}</span>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            {{ 'ISADMIN' | translate }}
+                        </td>
+                        <td>
+                            <input type="checkbox" ng-model="hunter.role"
+                                   ng-true-value="'ROLE_ADMIN'" ng-false-value="'ROLE_USER'">
+                        </td>
+                    </tr>
                 </table>
                 <center>
                     <button type="button" class="btn btn-success" ng-click="createHunter()">

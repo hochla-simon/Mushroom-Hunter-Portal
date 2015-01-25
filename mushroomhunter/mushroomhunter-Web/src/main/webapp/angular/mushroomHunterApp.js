@@ -135,6 +135,7 @@ app.config(function($translateProvider) {
     SAVEHUNTER: 'Save',
     CANCELHUNTER: 'Cancel',
     PASSWORD: 'Password',
+    ISADMIN: 'Admin',
     
     MUSHDETAIL: 'Mushroom detail',
     NAME: 'Name',
@@ -180,6 +181,7 @@ app.config(function($translateProvider) {
     SETHUNTERNICK: 'Set hunter nick',
     SETLOCATIONNAME: 'Set location name',
     SETDESCRIPTION: 'Set description',
+    SETROLE: 'Set role',
     SETNEARCITY: 'Set near city',
     CHOOSETYPE: '-- choose type --',
     
@@ -229,6 +231,7 @@ app.config(function($translateProvider) {
     SURNAME: 'P\u0159\u00edjmen\u00ed',
     NICKNAME: 'P\u0159ezd\u00edvka',
     PASSWORD: 'Heslo',
+    ISADMIN: 'Admin',
     CREATEHUNTER: 'Vytvo\u0159it houba\u0159e',
     CREATENEWHUNTER: 'Vytvo\u0159it nov\u00e9ho houba\u0159e',
     BACKTOHL: 'Zpet na seznam houba\u0159\u016f',
@@ -281,6 +284,7 @@ app.config(function($translateProvider) {
     SETHUNTERNICK: 'Zadejte p\u0159ezd\u00edvku houba\u0159e',
     SETLOCATIONNAME: 'Zadejte jm\u00e9no m\u00edsta',
     SETDESCRIPTION: 'Zadejte popis',
+    SETROLE: 'Zadejte roli',
     SETNEARCITY: 'Zadejte nejbli\u017e\u0161\u00ed m\u011bsto',
     CHOOSETYPE: '-- vyberte typ --',
     
