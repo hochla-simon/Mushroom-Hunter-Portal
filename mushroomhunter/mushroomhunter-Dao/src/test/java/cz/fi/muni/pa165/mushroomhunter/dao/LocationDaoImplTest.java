@@ -9,19 +9,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.servlet.annotation.MultipartConfig;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -99,7 +91,6 @@ public class LocationDaoImplTest
      */
     private void compareLocation(Location oldLocation, Location newLocation)
     {
-        assertEquals(oldLocation.getId(), newLocation.getId());
         assertEquals(oldLocation.getName(), newLocation.getName());
         assertEquals(oldLocation.getDescription(), newLocation.getDescription());
         assertEquals(oldLocation.getNearCity(), newLocation.getNearCity());
@@ -370,8 +361,8 @@ public class LocationDaoImplTest
         List<Location> findLocations = locDimpl.findByOccurence(true);
         assertEquals(2, findLocations.size());
         if (findLocations.size() > 0){
-            compareLocation(location, findLocations.get(0));
-            compareLocation(location2, findLocations.get(1));
+            compareLocation(location, findLocations.get(1));
+            compareLocation(location2, findLocations.get(0));
         }
     }
 
