@@ -38,7 +38,7 @@
                             </td>
                         </tr>
                     </thead>
-                    <tr ng-repeat="mushroom in mushrooms  | orderBy:orderByField:reverseSort | filter:searchText">
+                    <tr ng-repeat="mushroom in mushrooms  | orderBy:orderByField:reverseSort | filter:searchText | filter:searchBy()">
                         <td>
                             {{mushroom.id}}
                         </td>
@@ -59,7 +59,11 @@
                         </td>
                     </tr>
                 </table>
+                
                 <div align="center">
+                    <input type="checkbox" ng-model="search['EDIBLE']"  /> {{ 'EDIBLE' | translate }} &nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="checkbox" ng-model="search['INEDIBLE']" ng-checked="true" /> {{ 'INEDIBLE' | translate }} &nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="checkbox" ng-model="search['POISONOUS']" ng-checked="true" /> {{ 'POISONOUS' | translate }}
                     <input style="width:1000px" ng-model="searchText" class="form-control" id="exampleInputEmail1" placeholder="{{ 'FILTERMUSH' | translate }}">
                 </div>
                 <br />

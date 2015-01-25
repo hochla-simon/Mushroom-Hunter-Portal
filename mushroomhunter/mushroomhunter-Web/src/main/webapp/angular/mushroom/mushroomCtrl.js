@@ -35,6 +35,7 @@ mushroomControllers.directive('dateFix', function() {
 mushroomControllers.controller('MushroomListCtrl', ['$scope', '$window', '$log', 'MushroomService', 'userId', 'isAdmin', function ($scope, $window, $log, MushroomService, userId, isAdmin) {
 
     $scope.mushrooms = MushroomService("").query();
+    $scope.search = {'EDIBLE':true,'INEDIBLE':true,'POISONOUS':true};
     
      $scope.userId = userId;
     $scope.isAdmin = isAdmin;
@@ -92,6 +93,14 @@ mushroomControllers.controller('MushroomListCtrl', ['$scope', '$window', '$log',
                 return true;
             }
         };
+        
+        $scope.searchBy = function () {
+    return function (mushroom) {
+      if ( $scope.search[mushroom.type] === true ) {
+        return true;
+      }
+    }
+  };
     }]);
 
 //
