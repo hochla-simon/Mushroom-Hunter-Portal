@@ -134,6 +134,7 @@ app.config(function($translateProvider) {
     EDITHUNTER: 'Edit',
     SAVEHUNTER: 'Save',
     CANCELHUNTER: 'Cancel',
+    PASSWORD: 'Password',
     
     MUSHDETAIL: 'Mushroom detail',
     NAME: 'Name',
@@ -182,6 +183,7 @@ app.config(function($translateProvider) {
     SETNEARCITY: 'Set near city',
     CHOOSETYPE: '-- choose type --',
     
+    SETPASSWORD: 'Set password',
     FILTERMUSH: 'Filter mushrooms',
     FILTERHUNTER: 'Filter hunters',
     FILTERLOCATION: 'Filter locations',
@@ -226,6 +228,7 @@ app.config(function($translateProvider) {
     FIRSTNAME: 'K\u0159estn\u00ed jm\u00e9no',
     SURNAME: 'P\u0159\u00edjmen\u00ed',
     NICKNAME: 'P\u0159ezd\u00edvka',
+    PASSWORD: 'Heslo',
     CREATEHUNTER: 'Vytvo\u0159it houba\u0159e',
     CREATENEWHUNTER: 'Vytvo\u0159it nov\u00e9ho houba\u0159e',
     BACKTOHL: 'Zpet na seznam houba\u0159\u016f',
@@ -281,6 +284,7 @@ app.config(function($translateProvider) {
     SETNEARCITY: 'Zadejte nejbli\u017e\u0161\u00ed m\u011bsto',
     CHOOSETYPE: '-- vyberte typ --',
     
+    SETPASSWORD: 'Zadejte heslo',
     FILTERMUSH: 'Filtr hub',
     FILTERHUNTER: 'Filtr houba\u0159\u016f',
     FILTERLOCATION: 'Filtr m\u00edst',

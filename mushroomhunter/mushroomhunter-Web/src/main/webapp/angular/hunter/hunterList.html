@@ -62,9 +62,9 @@
                 <div align="center">
                     <input style="width:1000px" ng-model="searchText" class="form-control" id="exampleInputEmail1" placeholder="{{ 'FILTERHUNTER' | translate }}">
                 </div>
-                <br />
+                <br/>
                 <center>
-                    <button type="button" class="btn btn-info" ng-click="goToCreateHunter()">
+                    <button type="button" class="btn btn-info" ng-click="goToCreateHunter()" ng-show="isAdminFunc()">
                         {{ 'CREATENEWHUNTER' | translate }}
                     </button>
                     <button type="button" class="btn btn-info" ng-click="refreshHunters()">

@@ -1,7 +1,8 @@
 var hunterControllers = angular.module('hunterControllers', []);
 
-hunterControllers.controller('HunterListCtrl', ['$scope', '$window', 'HunterService', function ($scope, $window, HunterService) {
+hunterControllers.controller('HunterListCtrl', ['$scope', '$window', 'HunterService', 'isAdmin', function ($scope, $window, HunterService, isAdmin) {
 
+        $scope.isAdmin = isAdmin;
         //Table will be ordered by location nick by default
         $scope.orderByField = 'nick';
         //Table will be ordered ascending by default
@@ -56,6 +57,14 @@ hunterControllers.controller('HunterListCtrl', ['$scope', '$window', 'HunterServ
         $scope.goToHomePage = function () {
             $window.location.href = '/pa165/';
         };
+        
+        $scope.isAdminFunc = function () {
+            if ($scope.isAdmin === "true") {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }]);
 
 
@@ -65,7 +74,7 @@ hunterControllers.controller('HunterDetailCtrl', ['$scope', '$routeParams', '$wi
         $scope.errorMessages = {};
         
         $scope.userId = userId;
-        $scope.isAdmin = isAdmin;
+        $scope.isAdmin= isAdmin;
         $log.error("User info: userId=" + $scope.userId + ", isAdmin=" + $scope.isAdmin);
         
         $scope.hunter = HunterService($routeParams.hunterId).getHunterDetail(

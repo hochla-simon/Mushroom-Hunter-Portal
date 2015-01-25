@@ -24,7 +24,7 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  *
- * @author Simon
+ * @author Simon Hochla
  */
 public class AllMushroomsSwingWorker extends SwingWorker<List<MushroomDto>, Void> {
 

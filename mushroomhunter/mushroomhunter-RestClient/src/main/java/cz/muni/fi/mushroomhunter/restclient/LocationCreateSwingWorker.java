@@ -20,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  *
- * @author Simon
+ * @author Simon Hochla
  */
 public class LocationCreateSwingWorker extends SwingWorker<Void, Void> {
 

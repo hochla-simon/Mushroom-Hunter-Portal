@@ -58,6 +58,14 @@
                             <span editable-text="hunter.description" onbeforesave="">{{hunter.description || 'SETDESCRIPTION' | translate }}</span> 
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            {{ 'PASSWORD' | translate }}
+                        </td>
+                        <td>
+                            <span editable-text="hunter.password">{{hunter.password || 'SETPASSWORD' | translate }}</span>
+                        </td>
+                    </tr>
                 </table>
                 <center>
                     <button type="button" class="btn btn-success" ng-click="createHunter()">

@@ -48,6 +48,8 @@ public class HunterRest {
     @RequestMapping(method = RequestMethod.POST)
     public List<Long> createHunter(@RequestBody @Valid HunterDto hunter) {
   	List<Long> resultList = new ArrayList<>();
+        String hashedPassword = HashCode.getHashPassword(hunter.getPassword());
+        hunter.setPassword(hashedPassword);
         resultList.add(hunterService.save(hunter));
         return resultList;
     }
@@ -58,6 +60,8 @@ public class HunterRest {
         if (!securityService.hasPermissionToModifyEntity(hunter.getId())) {
             throw new AccessDeniedException("Access denied: User " + currentUserId + " cannot update hunter " + hunter.getId());
         }
+        String hashedPassword = HashCode.getHashPassword(hunter.getPassword());
+        hunter.setPassword(hashedPassword);
         return hunterService.update(hunter);
     }
 

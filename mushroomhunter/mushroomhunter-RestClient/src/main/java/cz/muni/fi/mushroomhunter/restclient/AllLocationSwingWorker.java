@@ -21,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  *
- * @author Simon
+ * @author Simon Hochla
  */
 public class AllLocationSwingWorker extends SwingWorker<List<LocationDto>, Void> {
 
