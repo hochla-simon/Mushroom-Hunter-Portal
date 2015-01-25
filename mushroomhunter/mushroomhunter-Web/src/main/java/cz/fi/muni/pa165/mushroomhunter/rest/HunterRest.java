@@ -33,6 +33,7 @@ public class HunterRest {
     
     @RequestMapping(method = RequestMethod.GET)
     public List<HunterDto> getHunterList() {
+        System.out.println("22222ABRAKADABRA");
 	List<HunterDto> hunterList = hunterService.findAll();
         if (hunterList == null) {
             hunterList = new ArrayList<>();
@@ -42,6 +43,7 @@ public class HunterRest {
     
     @RequestMapping(value = "{hunterId}", method = RequestMethod.GET)
     public HunterDto getHunterDetail(@PathVariable Long hunterId) {
+        System.out.println("ABRAKADABRA");
         return hunterService.find(hunterId);
     }
     

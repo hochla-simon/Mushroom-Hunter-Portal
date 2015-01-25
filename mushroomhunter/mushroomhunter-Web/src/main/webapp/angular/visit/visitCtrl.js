@@ -3,7 +3,7 @@ var visitControllers = angular.module('visitControllers', []);
 //
 //  VISIT LIST CONTROLLER
 //
-visitControllers.controller('VisitListCtrl', ['$scope', '$window', '$log', 'VisitService', function ($scope, $window, $log, VisitService) {
+visitControllers.controller('VisitListCtrl', ['$scope', '$window', '$log', 'VisitService', 'userId', 'isAdmin', function ($scope, $window, $log, VisitService, userId, isAdmin) {
 
         //Table will be ordered by visit id by default
         $scope.orderByField = 'id';
@@ -11,6 +11,9 @@ visitControllers.controller('VisitListCtrl', ['$scope', '$window', '$log', 'Visi
         $scope.reverseSort = false;
 
         $scope.visits = VisitService("").query();
+
+        $scope.userId = userId;
+        $scope.isAdmin = isAdmin;
 
         $scope.refreshVisits = function () {
             VisitService("").query(
@@ -92,6 +95,15 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
 
             $scope.mushrooms = MushroomService("").query();
 
+            $scope.hunter = HunterService(userId).getHunterDetail(
+                    function (data, status, headers, config) {
+                        $log.info("Hunter detail loaded.");
+                        $scope.currentUser = data;
+                    },
+                    function (data, status, headers, config) {
+                        $log.error("An error occurred on server! Detail of current user cannot be loaded.");
+                    });
+
             $scope.validationErrors = {};
 
             $scope.userId = userId;
@@ -101,6 +113,10 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
 
             $scope.goToCreateLocation = function () {
                 $window.location.href = '/pa165/#/location/create';
+            };
+
+            $scope.goToCreateHunter = function () {
+                $window.location.href = '/pa165/#/hunter/create';
             };
 
             $scope.goToVisitList = function () {
@@ -114,7 +130,7 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
                 $scope.visit.location = $scope.location;
 
                 if (!isAdmin) {
-                    $scope.visit.hunter = HunterService("").getHunterDetail(userId);
+                    $scope.visit.hunter = $scope.currentUser;
                 } else {
                     $scope.visit.hunter = $scope.hunter;
                 }

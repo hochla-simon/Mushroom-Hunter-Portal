@@ -32,7 +32,7 @@
                             <td>
                                 Detail
                             </td>
-                            <td>
+                            <td ng-hide="!isAdmin">
                                 {{ 'DELETE' | translate }}
                             </td>
                         </tr>
@@ -53,7 +53,7 @@
                         <td>
                             <a href="" ng-click="showVisitDetail(visit.id)">Detail</a>
                         </td>
-                        <td>
+                        <td ng-hide="!isAdmin">
                             <a href="" ng-click="deleteVisit(visit)">{{ 'DELETE' | translate }}</a>
                         </td>
                     </tr>
