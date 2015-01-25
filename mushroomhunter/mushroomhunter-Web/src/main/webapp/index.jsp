@@ -44,7 +44,7 @@
         <script src="angular/mushroom/mushroomCtrl.js"></script>
         <!--Set angular startup arguments -->
         <script>
-            app.value("userId", "${userId}").value("isAdmin", "<sec:authorize access="hasRole('ROLE_ADMIN')">true</sec:authorize>");
+            app.value("userId", "${userId}").value("isAdmin", "<sec:authorize access="hasRole('ROLE_ADMIN')">true</sec:authorize>").value("userName", "${userName}");
         </script>
 
         <!-- Fonts -->
@@ -89,7 +89,7 @@
                             <a href="/pa165/#/contact">{{ 'CONTACT' | translate }}</a>
                         </li>
                         <li>
-                            <a href="j_spring_security_logout">{{ 'LOGOUT' | translate }}</a>
+                            <a href="j_spring_security_logout">{{ 'LOGOUT' | translate }} (${userName})</a>
                         </li>
                     </ul>
                 </div>

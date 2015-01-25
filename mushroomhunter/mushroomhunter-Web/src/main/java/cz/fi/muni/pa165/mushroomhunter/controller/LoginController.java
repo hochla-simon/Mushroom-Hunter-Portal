@@ -23,6 +23,7 @@ public class LoginController {
 
         ModelAndView model = new ModelAndView();
         model.addObject("userId",this.securityService.getCurrentlyLoggedUser().getId());
+        model.addObject("userName",this.securityService.getCurrentlyLoggedUser().getNick());
         model.setViewName("index");
 
         return model;
