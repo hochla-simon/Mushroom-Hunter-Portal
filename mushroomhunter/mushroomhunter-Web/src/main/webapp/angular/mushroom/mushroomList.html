@@ -38,7 +38,7 @@
                             </td>
                         </tr>
                     </thead>
-                    <tr ng-repeat="mushroom in mushrooms  | orderBy:orderByField:reverseSort | filter:searchText">
+                    <tr ng-repeat="mushroom in mushrooms | orderBy:orderByField:reverseSort | filter:searchText">
                         <td>
                             {{mushroom.id}}
                         </td>
@@ -47,6 +47,7 @@
                         </td>
                         <td>
                             {{ mushroom.type | translate }}
+                            {{ mushroom.type }}
                         </td>
                         <td>
                             {{mushroom.startOfOccurence| date:'MMMM'}}
@@ -61,10 +62,10 @@
                 </table>
                 <div align="center">
                     <input style="width:1000px" ng-model="searchText" class="form-control" id="exampleInputEmail1" placeholder="{{ 'FILTERMUSH' | translate }}">
-                </div>
                 <br />
+                
                 <center>
-                    <button type="button" class="btn btn-info" ng-click="goToCreateMushroom()">
+                    <button type="button" class="btn btn-info" ng-click="goToCreateMushroom()" ng-show="hasPermissionToModifyEntity()">
                         {{ 'CREATENEWMUSH' | translate }}
                     </button>
                     <button type="button" class="btn btn-info" ng-click="refreshMushrooms()">
