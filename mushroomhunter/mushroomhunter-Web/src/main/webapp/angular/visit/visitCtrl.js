@@ -231,7 +231,7 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
 //
 //  VISIT DETAIL CONTROLLER
 //
-visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', 'MushroomService', 'datepickerPopupConfig', '$translate', 'userId', 'isAdmin', function ($scope, $routeParams, $window, $log, VisitService, MushroomService, datepickerPopupConfig, $translate, userId, isAdmin) {
+visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', 'MushroomService', 'LocationService', 'HunterService', 'datepickerPopupConfig', '$translate', 'userId', 'isAdmin', function ($scope, $routeParams, $window, $log, VisitService, MushroomService, LocationService, HunterService, datepickerPopupConfig, $translate, userId, isAdmin) {
         $translate(['TODAY', 'CLEAR', 'CLOSE']).then(function (translations) {
 
             //$scope.mushrooms = MushroomService("").query();
@@ -243,7 +243,11 @@ visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$wind
 
             $scope.userId = userId;
             $scope.isAdmin = isAdmin;
+            
+            $scope.hunters = HunterService("").query();
 
+            $scope.locations = LocationService("").query();
+            
             $scope.visit = VisitService($routeParams.visitId).getVisitDetail(
                     function (data, status, headers, config) {
                         $log.info("Visit detail loaded.");
@@ -252,19 +256,32 @@ visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$wind
                         $log.error("An error occurred on server! Detail of visit cannot be loaded.");
                     });
 
-            if (visit.hunter.id == userId || isAdmin) {
+            if (isAdmin) {
                 $scope.showDeleteBtn = true;
+                $scope.open = function ($event) {
+                    $event.preventDefault();
+                    $event.stopPropagation();
+                    $scope.opened = true;
+                };
             } else {
                 $scope.showDeleteBtn = false;
+                $scope.open = function ($event) {
+                    $event.preventDefault();
+                    $event.stopPropagation();
+                    $scope.opened = false;
+                };
             }
-
-
+            
             $scope.goToVisitList = function () {
                 $window.location.href = '/pa165/#/visit';
             };
 
             $scope.updateVisit = function (visit) {
-                $log.info("Saving visit with ID: " + visit.id);
+                visit = $scope.visit;
+                $scope.visit.hunter = $scope.hunter;
+                $scope.visit.location = $scope.location;
+                
+                $log.info("Updating visit with ID: " + visit.id);
                 VisitService("").update(visit,
                         function (data, status, headers, config) {
                             $log.info("Visit updated");
@@ -310,11 +327,7 @@ visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$wind
                 //$scope.minDate = $scope.minDate ? null : new Date();
             };
             $scope.toggleMin();
-            $scope.open = function ($event) {
-                $event.preventDefault();
-                $event.stopPropagation();
-                $scope.opened = true;
-            };
+
             $scope.dateOptions = {
                 formatYear: 'yy',
                 startingDay: 1

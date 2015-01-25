@@ -34,7 +34,7 @@
                             {{ 'LOC' | translate }}
                         </td>
                         <td>
-                            <a href="" ng-click="showLocationDetail(visit.location.id)">{{visit.location.name}}</a> 
+                            <a href="" ng-click="showLocationDetail(visit.location.id)">{{visit.location.name}}</a><span ng-hide="!showDeleteBtn">, změnit na: <select ng-model="location" ng-options="location.id + location.name for location in locations track by location.name" ></select></span>
                         </td>
                     </tr>
                     <tr>
@@ -42,7 +42,7 @@
                             {{ 'HUNTER' | translate }}
                         </td>
                         <td>
-                            <a href="" ng-click="showHunterDetail(visit.hunter.id)">{{visit.hunter.nick}}</a> 
+                            <a href="" ng-click="showHunterDetail(visit.hunter.id)">{{visit.hunter.nick}}</a><span ng-hide="!showDeleteBtn">, změnit na: <select ng-model="hunter" ng-options="hunter.id + hunter.nick for hunter in hunters track by hunter.nick" ></select></span>
                         </td>
                     </tr>
                     <tr>
@@ -51,7 +51,7 @@
                         </td>
                         <td>
                             <p class="input-group">
-                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="visit.date" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="visit.date" ng-disabled="!showDeleteBtn" is-open="opened" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                 </span>
@@ -82,6 +82,9 @@
                 </table>
                 <br />
                 <center>
+                    <button ng-hide="!showDeleteBtn" type="button" class="btn btn-primary" ng-click="updateVisit()">
+                        {{ 'EDIT' | translate }}
+                    </button>
                     <button ng-hide="!showDeleteBtn" type="button" class="btn btn-danger" ng-click="deleteVisit(visit)">
                         {{ 'DELETEVISIT' | translate }}
                     </button>

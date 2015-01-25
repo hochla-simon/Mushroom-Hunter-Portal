@@ -62,6 +62,7 @@ public class VisitRest {
         if (!securityService.hasPermissionToModifyEntity(visit.getOwnerId())) {
             throw new AccessDeniedException("Access denied: User " + currentUserId + " cannot update visit " + visit.getId());
         }
+        System.out.println("Pred");
         return visitService.updateVisit(visit);
     }
 
