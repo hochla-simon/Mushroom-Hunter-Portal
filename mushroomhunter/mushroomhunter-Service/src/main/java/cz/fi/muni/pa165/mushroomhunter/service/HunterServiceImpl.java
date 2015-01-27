@@ -28,7 +28,7 @@ public class HunterServiceImpl implements HunterService {
     private HunterRoleDao hunterRoleDao;
     @Autowired
     private HunterConverter hunterConverter;
-    
+
     @Transactional
     @Override
     public long save(HunterDto hunterDto) {
@@ -44,7 +44,7 @@ public class HunterServiceImpl implements HunterService {
         return id;
 
     }
-    
+
     @Transactional
     @Override
     public HunterDto update(HunterDto hunterDto) {
@@ -57,7 +57,7 @@ public class HunterServiceImpl implements HunterService {
         hunterRoleDao.update(hunterRole);
         return hunterConverter.hunterEntityToDto(hunterDao.update(hunter));
     }
-    
+
     @Transactional
     @Override
     public void delete(HunterDto hunterDto) {
@@ -69,7 +69,7 @@ public class HunterServiceImpl implements HunterService {
         hunterRoleDao.delete(hunterRole);
         hunterDao.delete(hunter);
     }
-    
+
     @Transactional
     @Override
     public HunterDto find(long id) {
@@ -79,14 +79,13 @@ public class HunterServiceImpl implements HunterService {
         hunterDto.setRole(hunterRole.getRole());
         return hunterDto;
     }
-    
-    
+
     @Transactional
     @Override
     public List<HunterDto> findAll() {
         List<Hunter> hunterList = hunterDao.findAll();
         List<HunterDto> resultList = new ArrayList();
-        for (Hunter hunter: hunterList) {
+        for (Hunter hunter : hunterList) {
             HunterDto hunterDto = hunterConverter.hunterEntityToDto(hunter);
             HunterRole hunterRole = hunterRoleDao.findByHunter(hunter);
             hunterDto.setRole(hunterRole.getRole());
@@ -94,7 +93,7 @@ public class HunterServiceImpl implements HunterService {
         }
         return resultList;
     }
-    
+
     @Transactional
     @Override
     public HunterDto findByNick(String nick) {
