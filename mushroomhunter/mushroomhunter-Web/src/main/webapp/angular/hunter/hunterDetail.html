@@ -80,7 +80,8 @@
                                 {{ 'ISADMIN' | translate }}
                             </td>
                             <td>
-                                <span editable-text="hunter.role">{{hunter.role || 'SETROLE' | translate }}</span>
+                               <input type="checkbox" ng-model="hunter.role"
+                                   ng-true-value="'ROLE_ADMIN'" ng-false-value="'ROLE_USER'">
                             </td>
                         </tr>
                     </table>

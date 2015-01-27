@@ -48,6 +48,7 @@ public class HunterServiceImplTest {
         hunterDto.setFirstName("Franta");
         hunterDto.setSurname("Voprsalek");
         hunterDto.setDescription("Short description.");
+        hunterDto.setPassword("password");
         hunterDto.setNick("Frantisek");
         hunterDto.setRole("ROLE_USER");
     }

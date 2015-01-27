@@ -39,8 +39,9 @@ public class HunterServiceImpl implements HunterService {
         Hunter hunter = hunterConverter.hunterDtoToEntity(hunterDto);
         hunterRole.setHunter(hunter);
         hunterRole.setRole(hunterDto.getRole());
+        Long id = hunterDao.save(hunter);
         hunterRoleDao.save(hunterRole);
-        return hunterDao.save(hunter);
+        return id;
 
     }
     
@@ -50,9 +51,8 @@ public class HunterServiceImpl implements HunterService {
         if (hunterDto == null) {
             throw new NullPointerException();
         }
-        HunterRole hunterRole = new HunterRole();
         Hunter hunter = hunterConverter.hunterDtoToEntity(hunterDto);
-        hunterRole.setHunter(hunter);
+        HunterRole hunterRole = hunterRoleDao.findByHunter(hunter);
         hunterRole.setRole(hunterDto.getRole());
         hunterRoleDao.update(hunterRole);
         return hunterConverter.hunterEntityToDto(hunterDao.update(hunter));
@@ -98,7 +98,7 @@ public class HunterServiceImpl implements HunterService {
     @Transactional
     @Override
     public HunterDto findByNick(String nick) {
-         Hunter hunter = hunterDao.findByNick(nick);
+        Hunter hunter = hunterDao.findByNick(nick);
         HunterRole hunterRole = hunterRoleDao.findByHunter(hunter);
         HunterDto hunterDto = hunterConverter.hunterEntityToDto(hunter);
         hunterDto.setRole(hunterRole.getRole());
