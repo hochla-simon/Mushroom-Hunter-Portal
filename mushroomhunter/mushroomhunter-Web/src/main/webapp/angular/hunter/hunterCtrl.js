@@ -135,7 +135,8 @@ hunterControllers.controller('HunterCreateCtrl', ['$scope', '$routeParams', '$wi
             "firstName": "",
             "Surname": "",
             "description": "",
-            "nick": ""
+            "nick": "",
+            "role": "ROLE_USER"
         };
 
         $scope.goToHunterList = function () {
