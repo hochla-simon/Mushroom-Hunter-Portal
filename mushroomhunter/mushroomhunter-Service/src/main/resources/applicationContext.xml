@@ -37,4 +37,5 @@
     <bean id="locationDao" class="cz.fi.muni.pa165.mushroomhunter.dao.LocationDaoImpl"></bean>
     <bean id="mushroomDao" class="cz.fi.muni.pa165.mushroomhunter.dao.MushroomDaoImpl"></bean>
     <bean id="visitDao" class="cz.fi.muni.pa165.mushroomhunter.dao.VisitDaoImpl"></bean>
+    <bean id="hunterRoleDao" class="cz.fi.muni.pa165.mushroomhunter.dao.HunterRoleDaoImpl"></bean>
 </beans>

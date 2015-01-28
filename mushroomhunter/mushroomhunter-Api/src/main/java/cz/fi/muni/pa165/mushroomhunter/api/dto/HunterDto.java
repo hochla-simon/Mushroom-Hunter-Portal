@@ -55,7 +55,9 @@ public class HunterDto {
 //    @NotBlank
 //    @Length(min = 4, max = 20)
     private String password;
-
+    
+    private String role;
+    
     /**
      * @return the id.
      */
@@ -140,14 +142,24 @@ public class HunterDto {
         this.password = password;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
+        int hash = 7;
         hash = 23 * hash + Objects.hashCode(this.id);
         hash = 23 * hash + Objects.hashCode(this.nick);
         hash = 23 * hash + Objects.hashCode(this.firstName);
         hash = 23 * hash + Objects.hashCode(this.surname);
         hash = 23 * hash + Objects.hashCode(this.description);
+        hash = 23 * hash + Objects.hashCode(this.password);
+        hash = 23 * hash + Objects.hashCode(this.role);
         return hash;
     }
 
@@ -175,7 +187,14 @@ public class HunterDto {
         if (!Objects.equals(this.description, other.description)) {
             return false;
         }
+        if (!Objects.equals(this.password, other.password)) {
+            return false;
+        }
+        if (!Objects.equals(this.role, other.role)) {
+            return false;
+        }
         return true;
     }
+ 
 
 }

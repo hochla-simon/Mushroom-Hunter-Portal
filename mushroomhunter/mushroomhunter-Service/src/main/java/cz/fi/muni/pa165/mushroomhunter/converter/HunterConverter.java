@@ -4,8 +4,6 @@ import cz.fi.muni.pa165.mushroomhunter.api.dto.HunterDto;
 import cz.fi.muni.pa165.mushroomhunter.entity.Hunter;
 import java.util.ArrayList;
 import java.util.List;
-import org.dozer.Mapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,9 +13,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class HunterConverter {
 
-    @Autowired
-    private Mapper mapper;
-
     /**
      * Convert Hunter DTO to Hunter entity.
      *
@@ -25,7 +20,14 @@ public class HunterConverter {
      * @return Hunter entity
      */
     public Hunter hunterDtoToEntity(HunterDto hunterDto) {
-        return mapper.map(hunterDto, Hunter.class);
+        Hunter hunter = new Hunter();
+        hunter.setDescription(hunterDto.getDescription());
+        hunter.setFirstName(hunterDto.getFirstName());
+        hunter.setId(hunterDto.getId());
+        hunter.setNick(hunterDto.getNick());
+        hunter.setPassword(hunterDto.getPassword());
+        hunter.setSurname(hunterDto.getSurname());
+        return hunter;
     }
 
     /**
@@ -35,7 +37,14 @@ public class HunterConverter {
      * @return Hunter Dto
      */
     public HunterDto hunterEntityToDto(Hunter hunter) {
-        return mapper.map(hunter, HunterDto.class);
+        HunterDto hunterDto = new HunterDto();
+        hunterDto.setDescription(hunter.getDescription());
+        hunterDto.setFirstName(hunter.getFirstName());
+        hunterDto.setId(hunter.getId());
+        hunterDto.setPassword(hunter.getPassword());
+        hunterDto.setSurname(hunter.getSurname());
+        hunterDto.setNick(hunter.getNick());
+        return hunterDto;
     }
 
     /**
