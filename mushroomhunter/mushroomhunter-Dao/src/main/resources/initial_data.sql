@@ -3,5 +3,5 @@
  insert into Hunter (description, firstName, nick, password, surname) values ('testAdminRest', 'AdminFirstNameRest', 'rest', '$2a$10$vGCMsn3yrGt3Z5noJmBs4uSv9c.IfVxI3iq4vIOSqlAdd6h.a6eXC', 'AdminSurnameRest');
  insert into HunterRole (hunter_id, role) values (19,'ROLE_ADMIN');
  insert into HunterRole (hunter_id, role) values (20,'ROLE_USER');
-insert into HunterRole (hunter_id, role) values (23,'ROLE_ADMIN');
--- insert into HunterRole (hunter_id, role) values (17,'ROLE_ADMIN');
+ insert into HunterRole (hunter_id, role) values (23,'ROLE_ADMIN');
+ insert into HunterRole (hunter_id, role) values (17,'ROLE_ADMIN');
