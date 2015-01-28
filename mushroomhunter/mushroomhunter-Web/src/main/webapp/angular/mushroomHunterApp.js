@@ -191,7 +191,8 @@ app.config(function($translateProvider) {
     FILTERHUNTER: 'Filter hunters',
     FILTERLOCATION: 'Filter locations',
     FILTERVISIT: 'Filter visits',
-    LOGOUT: 'Logout'
+    LOGOUT: 'Logout',
+    CHANGETO: 'change to'
     
   })
   .translations('cs', {
@@ -295,7 +296,8 @@ app.config(function($translateProvider) {
     FILTERHUNTER: 'Filtr houba\u0159\u016f',
     FILTERLOCATION: 'Filtr m\u00edst',
     FILTERVISIT: 'Filtr n\u00e1v\u0161t\u011bv',
-    LOGOUT: 'Odhl\u00e1sit se'
+    LOGOUT: 'Odhl\u00e1sit se',
+    CHANGETO: 'zm\u011bnit na'
     
     
     

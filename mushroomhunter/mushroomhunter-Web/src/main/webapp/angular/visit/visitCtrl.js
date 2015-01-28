@@ -288,8 +288,18 @@ visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$wind
             */
              $scope.hasPermissionToModifyEntity = function (visit) {
             if ($scope.isAdmin != "true" && visit.hunter.id != $scope.userId) {
+                $scope.open = function ($event) {
+                    $event.preventDefault();
+                    $event.stopPropagation();
+                    $scope.opened = true;
+                };
                 return false;
             } else {
+                $scope.open = function ($event) {
+                    $event.preventDefault();
+                    $event.stopPropagation();
+                    $scope.opened = true;
+                };
                 return true;
             }
         };

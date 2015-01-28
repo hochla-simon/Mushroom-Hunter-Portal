@@ -39,7 +39,7 @@
                             {{ 'FOUNDMUSHROOM' | translate }}
                         </td>
                         <td>
-                            {{ 'MUSHROOM' | translate }}: <select ng-model="mushroom" ng-options="mushroom.id + mushroom.name for mushroom in mushrooms track by mushroom.name"></select> {{ 'AMOUNT' | translate }}: <input value="" type="number" placeholder="Počet" ng-model="mushroomsAmount">
+                            {{ 'MUSHROOM' | translate }}: <select ng-model="mushroom" ng-options="mushroom.name for mushroom in mushrooms track by mushroom.name"></select> {{ 'AMOUNT' | translate }}: <input value="" type="number" placeholder="Počet" ng-model="mushroomsAmount">
                             <button type="button" class="btn btn-success" ng-click="addMushroomItem()">
                                 {{ 'ADDTOLIST' | translate }}
                             </button>
@@ -50,7 +50,7 @@
                             {{ 'LOC' | translate }}
                         </td>
                         <td>
-                            <select ng-model="location" ng-options="location.id + location.name for location in locations track by location.name" ></select>
+                            <select ng-model="location" ng-options="location.name for location in locations track by location.name" ></select>
                             {{ 'OR' | translate }}
                             <button type="button" class="btn btn-info" ng-click="goToCreateLocation()">
                                 {{ 'CREATENEWLOC' | translate }}
@@ -62,7 +62,7 @@
                             {{ 'HUNTER' | translate }}
                         </td>
                         <td>
-                            <select ng-model="hunter" ng-options="hunter.id + hunter.nick for hunter in hunters track by hunter.nick" ></select>
+                            <select ng-model="hunter" ng-options="hunter.nick for hunter in hunters track by hunter.nick" ></select>
                             {{ 'OR' | translate }} 
                             <button type="button" class="btn btn-info" ng-click="goToCreateHunter()">
                                 {{ 'CREATENEWHUNTER' | translate }}
