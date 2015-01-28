@@ -42,7 +42,7 @@
                             {{ 'HUNTER' | translate }}
                         </td>
                         <td>
-                            <a href="" ng-click="showHunterDetail(visit.hunter.id)">{{visit.hunter.nick}}</a><span ng-hide="!hasPermissionToModifyEntity(visit)">, změnit na: <select ng-model="hunter" ng-options="hunter.id + hunter.nick for hunter in hunters track by hunter.nick" ></select></span>
+                            <a href="" ng-click="showHunterDetail(visit.hunter.id)">{{visit.hunter.nick}}</a><span ng-hide="!isAdmin">, změnit na: <select ng-model="hunter" ng-options="hunter.id + hunter.nick for hunter in hunters track by hunter.nick" ></select></span>
                         </td>
                     </tr>
                     <tr>
