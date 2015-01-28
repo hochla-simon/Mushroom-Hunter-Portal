@@ -361,8 +361,8 @@ public class LocationDaoImplTest
         List<Location> findLocations = locDimpl.findByOccurence(true);
         assertEquals(2, findLocations.size());
         if (findLocations.size() > 0){
-            compareLocation(location, findLocations.get(1));
-            compareLocation(location2, findLocations.get(0));
+            compareLocation(location, findLocations.get(0));
+            compareLocation(location2, findLocations.get(1));
         }
     }
 

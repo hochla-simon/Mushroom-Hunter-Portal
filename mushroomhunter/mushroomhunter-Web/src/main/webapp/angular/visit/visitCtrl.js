@@ -14,6 +14,14 @@ visitControllers.controller('VisitListCtrl', ['$scope', '$window', '$log', 'Visi
 
         $scope.userId = userId;
         $scope.isAdmin = isAdmin;
+        
+        $scope.hasPermissionToModifyEntity = function (visit) {
+            if ($scope.isAdmin != "true" && visit.hunter.id != $scope.userId) {
+                return false;
+            } else {
+                return true;
+            }
+        };
 
         $scope.refreshVisits = function () {
             VisitService("").query(
@@ -237,10 +245,10 @@ visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$wind
             //$scope.mushrooms = MushroomService("").query();
 
             //$scope.getMushroomById = function (mushroomId) {
-            //    $scope.mushroom = MushroomService(4).getMushroomDetail();
-            //    return $scope.mushroom;
+            //    mushroom = MushroomService(mushroomId).getMushroomDetail();
+            //    return mushroom;
             //};
-
+          
             $scope.userId = userId;
             $scope.isAdmin = isAdmin;
             
@@ -255,22 +263,28 @@ visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$wind
                     function (data, status, headers, config) {
                         $log.error("An error occurred on server! Detail of visit cannot be loaded.");
                     });
-
+/*
             if (isAdmin) {
-                $scope.showDeleteBtn = true;
                 $scope.open = function ($event) {
                     $event.preventDefault();
                     $event.stopPropagation();
                     $scope.opened = true;
                 };
             } else {
-                $scope.showDeleteBtn = false;
                 $scope.open = function ($event) {
                     $event.preventDefault();
                     $event.stopPropagation();
                     $scope.opened = false;
                 };
             }
+            */
+             $scope.hasPermissionToModifyEntity = function (visit) {
+            if ($scope.isAdmin != "true" && visit.hunter.id != $scope.userId) {
+                return false;
+            } else {
+                return true;
+            }
+        };
             
             $scope.goToVisitList = function () {
                 $window.location.href = '/pa165/#/visit';
