@@ -170,6 +170,7 @@ app.config(function($translateProvider) {
     FOUNDMUSHROOM: 'Found mushroom',
     ADDTOLIST: 'Add to the list',
     VISITFILTER: 'Filter visits',
+    MUSHROOMNOTDB: "mushroom is not in database",
     
     CLEAR: 'Clear',
     TODAY: 'Today',
@@ -273,6 +274,7 @@ app.config(function($translateProvider) {
     FOUNDMUSHROOM: 'Nalezen\u00e1 houba',
     ADDTOLIST: 'P\u0159idat do seznamu',
     VISITFILTER: 'Filtr n\u00e1v\u0161t\u011bv',
+    MUSHROOMNOTDB: "houba ji\u017e nen\u00ed v datab\u00e1zi",
     
     CLEAR: 'Vymazat',
     TODAY: 'Dnes',

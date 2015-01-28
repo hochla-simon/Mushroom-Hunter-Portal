@@ -240,14 +240,22 @@ visitControllers.controller('VisitCreateCtrl', ['$scope', '$routeParams', '$wind
 //  VISIT DETAIL CONTROLLER
 //
 visitControllers.controller('VisitDetailCtrl', ['$scope', '$routeParams', '$window', '$log', 'VisitService', 'MushroomService', 'LocationService', 'HunterService', 'datepickerPopupConfig', '$translate', 'userId', 'isAdmin', function ($scope, $routeParams, $window, $log, VisitService, MushroomService, LocationService, HunterService, datepickerPopupConfig, $translate, userId, isAdmin) {
-        $translate(['TODAY', 'CLEAR', 'CLOSE']).then(function (translations) {
+        $translate(['TODAY', 'CLEAR', 'CLOSE', 'MUSHROOMNOTDB']).then(function (translations) {
 
-            //$scope.mushrooms = MushroomService("").query();
+            $scope.mushrooms = MushroomService("").query();
+            
+            $scope.getMushroomName = function (mushroomId)
+            {
+            var mush = translations.MUSHROOMNOTDB;
+            angular.forEach($scope.mushrooms,function(value,index){
+                if (value.id == mushroomId)
+                   {
+                       mush = (value.name);
+                   }
+            });
+            return mush;
+            };
 
-            //$scope.getMushroomById = function (mushroomId) {
-            //    mushroom = MushroomService(mushroomId).getMushroomDetail();
-            //    return mushroom;
-            //};
           
             $scope.userId = userId;
             $scope.isAdmin = isAdmin;

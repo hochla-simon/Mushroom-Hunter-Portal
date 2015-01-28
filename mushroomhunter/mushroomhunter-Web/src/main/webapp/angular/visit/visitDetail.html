@@ -74,7 +74,7 @@
                         </tr>
                     </thead>
                     <tr ng-repeat='(key, value) in visit.foundMushrooms'>
-                        <td>{{key}}</td>
+                        <td>ID{{key}} {{getMushroomName(key)}}</td>
                         <td>
                             {{value}}
                         </td>
